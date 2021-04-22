@@ -1,0 +1,94 @@
+<section class="max-w-screen-sm px-4 sm:px-0 mx-auto py-12 lg:py-24 space-y-12">
+    <div class="text-center space-y-4">
+        {% if section.settings.section_title != blank %}
+        <h2 class="heading-sm clr-general-headings" for="Email">{{ section.settings.section_title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+        <p class="body-md clr-general-text">{{ section.settings.subheading | escape }}</p>
+        {% endif %}
+    </div>
+  
+    <div>
+      {% if settings.mailchimp_link != blank %}
+      
+      <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form" target="_blank">
+        {% if settings.display_first_name %}
+        <input type="text" value="" class="firstName" name="FNAME" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}">
+      {% endif %}
+      {% if settings.display_last_name %}
+        <input type="text" value="" name="LNAME" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}">
+      {% endif %}
+      <div class="flex items-center space-x-2">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input class="input clr-form-background clr-form-text clr-form-border border-input" type="email" name="EMAIL"
+        value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+        placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" 
+        autocorrect="off"
+        autocapitalize="off">
+        <input class="btn-lg btn-primary" type="submit" value=" {{ 'general.newsletter_form.submit' | t }}"  id="Subscribe">
+    </div>
+    </form>
+    {% else %}  
+      {% form 'customer' %}
+        {% if form.errors %}
+        <div class="text-red-600 rounded-md w-full py-1 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+          <span aria-hidden="true" class="text-lg icon icon-alert-circle"></span>
+        {{ form.errors | default_errors }}
+        </div>
+        {% endif %}
+        {% if form.posted_successfully? %}
+            <p class="text-center text-green-700">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+        <div class="flex items-center space-x-2">
+            <div class="w-full">
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input class="input clr-form-background clr-form-text clr-form-border border-input" type="email"
+                name="contact[email]"
+                id="Email"
+                value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+                placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                autocorrect="off"
+                autocapitalize="off">
+            </div>
+            <button class="btn-lg btn-primary" type="submit" name="commit" id="Subscribe">
+              <span>{{ 'general.newsletter_form.submit' | t }}</span>
+            </button>
+        </div>
+        {% endif %}
+        {% endform %}
+        {% endif %}
+    </div>
+</section> 
+
+<style>
+    .border-input { border: 1px solid {{ settings.clr_form_border }}; }
+</style>
+
+
+{% schema %} 
+    {
+      "name": "Newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "label": "Heading",
+          "default": "Subscribe to our newsletter"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "A short sentence describing what someone will receive by subscribing"
+        },
+        {
+          "type": "paragraph",
+          "content": "Any customers who sign up will have an account created for them in Shopify. [View customers](/admin/customers?query=&accepts_marketing=1)"
+        }
+      ],
+      "presets": [{
+        "name": "Newsletter",
+        "category": "Promotional"
+      }]
+    }
+  {% endschema %}

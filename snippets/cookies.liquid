@@ -1,0 +1,18 @@
+<div class="w-full fixed bottom-0 clr-cookie-background cookie hidden" style="z-index: 9995;">
+    <div class="max-width mx-auto block md:flex md:space-x-4 space-y-4 md:space-y-0 items-center py-4 px-6 justify-between">
+      <div>
+        <p class="heading-sm clr-cookie-heading mb-2">{{ settings.cookie_heading }}</p>
+        <p class="body-sm clr-cookie-text">{{ settings.cookie_text }}<span class="ml-1"><a class="underline" target="_blank" href="{{ settings.cookie_policy_url }}">{{ settings.cookie_link_text }}</a></span></p>
+      </div>
+      <div class="flex space-x-2">
+        <a class="btn-sm btn-secondary closeCookie" href="#">Close</a>
+        <a class="btn-sm btn-primary acceptCookie" href="#">Accept</a>
+      </div>
+    </div>
+</div>
+
+<style>
+  .clr-cookie-background { background-color: {{ settings.cookie_background_color }}; }
+  .clr-cookie-heading { color: {{ settings.cookie_heading_color }}; }
+  .clr-cookie-text { color: {{ settings.cookie_text_color }}; }
+</style>

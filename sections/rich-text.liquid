@@ -1,0 +1,106 @@
+<section class="max-width mx-auto clr-richtext-background {% if section.settings.richtext_height == 'small' %} py-12 lg:py-16 {% elsif section.settings.richtext_height == 'large' %} py-16 lg:py-32 {% endif %}">
+    <div class="mx-auto">
+      <div class="max-w-screen-sm mx-auto text-center">
+        <h2 class="heading-lg clr-richtext-heading mb-4">{{ section.settings.richtext_heading }}</h2>
+        <p class="body-md clr-richtext-text mb-6">{{ section.settings.richtext_text }}</p>
+        {% if section.settings.richtext_button_text != blank %}
+            <div class="flex justify-center">
+                <a href="{{ section.settings.richtext_link_url }}" class="btn-lg {% if section.settings.richtext_button_style == 'primary' %} btn-primary {% elsif section.settings.richtext_button_style == 'secondary' %} btn-secondary {% endif %}">{{ section.settings.richtext_button_text }}</a>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+</section>
+
+<style>
+    #shopify-section-{{ section.id }} .clr-richtext-heading { color: {{ section.settings.richtext_heading_color }}; }
+    #shopify-section-{{ section.id }} .clr-richtex-text { color: {{ section.settings.richtext_text_color }}; }
+    #shopify-section-{{ section.id }} .clr-richtext-background { background-color: {{ section.settings.richtext_background_color }}; }
+</style>
+
+{% schema %}
+{
+    "name": "Rich text",
+    "settings": [
+        {
+            "type": "text",
+            "id": "richtext_heading",
+            "label": "Heading",
+            "default": "It's default Heading for this section"
+        },
+        {
+            "type": "text",
+            "id": "richtext_text",
+            "label": "Text",
+            "default": "Lorem ipsum dolor asimet"
+        },
+        {
+            "type": "text",
+            "id": "richtext_button_text",
+            "label": "Button text",
+            "default": "Learn more"
+        },
+        {
+            "type": "select",
+            "id": "richtext_button_style",
+            "label": "Button style",
+            "default": "secondary",
+            "options": [
+                {
+                    "value": "primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Secondary"
+                }
+            ]
+        },
+        {
+            "type": "url",
+            "id": "richtext_link_url",
+            "label": "URL"
+        },
+        {
+            "type": "select",
+            "id": "richtext_height", 
+            "label": "Height",
+            "options": [
+                {
+                    "value": "small",
+                    "label": "Small"
+                },
+                {
+                    "value": "large",
+                    "label": "Large"
+                }
+            ]
+        },
+        {
+            "type": "color",
+            "id": "richtext_heading_color",
+            "label": "Heading color",
+            "default": "#222222"
+        },
+        {
+            "type": "color",
+            "id": "richtext_text_color",
+            "label": "Text color",
+            "default": "#222222"
+        },
+        {
+            "type": "color",
+            "id": "richtext_background_color",
+            "label": "Background color",
+            "default": "#FFFFFF"
+        }
+
+    ],
+    "presets": [
+      {
+        "category": "Text",
+        "name": "Rich text"
+      }
+    ]
+}
+{% endschema %}

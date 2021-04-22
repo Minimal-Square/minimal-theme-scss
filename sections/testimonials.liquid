@@ -1,0 +1,160 @@
+<section class="max-width mx-auto py-12 lg:py-24 space-y-12">
+  <div class="text-center mb-6 lg:mb-8">
+    <h2 class="heading-sm clr-general-headings mb-4">{{ section.settings.testimonials_heading }}</h2>
+    <p class="body-md clr-general-text">{{ section.settings.testimonials_subheading }}</p>
+  </div>
+  <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+    {% for block in section.blocks %}
+      <div class="carousel-cell shadow mr-4 p-8">
+        <div class="flex flex-col items-center">
+          {% unless section.settings.testimonials_avatar_off == false %}
+          <img class="h-16 w-16
+          {% if section.settings.image_crop == 'circle' %}
+          rounded-full
+          {% elsif section.settings.image_crop == 'original' %}
+          rounded-none
+          {% elsif section.settings.image_crop == 'rounded_rectangle' %}
+          rounded-lg
+          {% endif %} object-cover mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
+          {% endunless %}
+          {% if block.settings.star_reviews == '4_out_of_5' %}
+            <div class="mb-4 clr-product-review-star">
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+            </div>
+          {% elsif block.settings.star_reviews == '5_out_of_5' %}
+            <div class="mb-4 clr-product-review-star">
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+              <span class="icon icon-star"></span>
+            </div>
+          {% endif %}
+        </div>
+        <div class="text-center sm:px-0">
+          <p class="body-md clr-general-text italic mb-4">{{ block.settings.testimonials_paragraph }}</p>
+          <p class="body-sm clr-general-light-text">{{ block.settings.testimonials_name }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+  
+<style>
+
+#shopify-section-{{ section.id }} .carousel-cell { width: calc(100% / 3 - 12px); }
+#shopify-section-{{ section.id }} .shadow { box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.06); border: 1px solid #eee; border-radius: 4px; }
+#shopify-section-{{ section.id }} .flickity-viewport {margin-bottom: 16px; }
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) { #shopify-section-{{ section.id }} .carousel-cell { width: 100%; } }
+
+</style>
+
+<script>
+
+var options = {
+  groupCells: false,
+};
+
+// enable prev/next buttons at 768px
+if ( matchMedia('screen and (min-width: 768px)').matches ) {
+  options.groupCells = true;
+  options.groupCells = 3;
+}
+
+$('.main-carousel').flickity( options );
+
+
+</script>
+
+{% schema %}
+    {
+      "name": "Testimonials",
+      "max_blocks": 6,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Testimonials content"
+        },
+        {
+            "type": "text",
+            "id": "testimonials_heading",
+            "label": "Heading",
+            "default": "What customers are saying"
+        },
+        {
+            "type": "text",
+            "id": "testimonials_subheading",
+            "label": "Subheading",
+            "default": "Fresh announcement for Premium Shopify Theme with link."
+        },
+        {
+          "type": "checkbox",
+          "id": "testimonials_avatar_off",
+          "label": "Avatar Off/On"
+        },
+        {
+            "type": "select",
+            "id": "image_crop",
+            "options": [
+            { "value": "original", "label": "Original"},
+            { "value": "circle", "label": "Circle"},
+            { "value": "rounded_rectangle", "label": "Rounded rectangle"}
+            ],
+            "label": "Image crop"
+        }
+      ],
+      "blocks": [
+        {
+          "name": "testimonial",
+          "type": "testimonials_block",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "testimonials_avatar",
+              "label": "Avatar"
+            },
+            {
+                "type": "textarea",
+                "id": "testimonials_paragraph",
+                "label": "Paragraph",
+                "default": "This bronzer has completely changed my makeup game. It highlights in all the right places and I am here for it!"
+            },
+            {
+                "type": "select",
+                "id": "star_reviews",
+                "label": "Star rating",
+                "options": [
+                  { 
+                    "value": "4_out_of_5",
+                    "label": "4 out of 5"
+                  },
+                  { 
+                    "value": "4.5_out_of_5",
+                    "label": "4.5 out of 5"
+                  },
+                  { 
+                    "value": "5_out_of_5",
+                    "label": "5 out of 5"
+                  }
+                ]
+            },
+            {
+              "type": "textarea",
+              "id": "testimonials_name",
+              "label": "Name",
+              "default": "John Doe"
+            }
+          ]
+        }
+      ],
+      "presets": [
+          {
+              "category": "Testimonials",
+              "name": "Testimonials"
+          }
+      ]
+    }
+{% endschema %}

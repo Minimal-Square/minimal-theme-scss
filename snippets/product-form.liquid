@@ -1,0 +1,279 @@
+<div class="mb-8 sm:mt-8">
+  <h5 class="body-md clr-general-text mb-4">{{ product.vendor }}</h5>
+  <h2 class="heading-md font-bold mb-2">{{ product.title }}</h2>
+    <div class="flex space-x-3 items-center mb-2">
+      <h4 class="body-lg clr-general-links" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
+      <h4 class="body-lg clr-general-text line-through" id="price">{{ product.compare_at_price_min | money }}</h4>
+    </div>
+  </div>
+
+  <form method="post" action="/cart/add" id="product_form" data-cart-submit>
+    <!-- Variants -->
+    {% if product.variants.size > 1 %}
+
+      {% if product.options[0] %}
+        <div class="product_variant_container">
+          {% if product.options[0] == 'Color' %}
+            <div class="mb-4">
+              <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ product.options[0] }}</h5></div>
+              <div class="flex space-x-2">
+                {% assign used = '' %}
+                {% for variant in product.variants %}
+                {% unless used contains variant.option1 %}
+                <div class="flex items-center justify-center">
+                  <input class="absolute z-0 appearance-none options" type="radio" name="color" value="{{ variant.option1 }}" data-id="{{ variant.id }}" id="color-{{ variant.id }}" onclick="updateProductInformation()">
+                  <label for="color-{{ variant.id }}" class="option w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" style="z-index: 5;"></label>
+                  {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                </div>
+                {% endunless %}
+              {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            {% assign used = '' %}
+            <label for="select_one"><h3 class="font_medium">{{ product.options[0] }}</h3></label>
+            <div class="trago_select_container">
+              <select id='select_one' onchange="updateProductInformation()">
+                {% for variant in product.variants %}
+                  {% unless used contains variant.option1 %}
+                    <option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+                    {% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
+                  {% endunless %}
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="product_variant_container">
+        {% if product.options[1] == 'Size' %}
+            <div class="mb-4">
+              <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ product.options[1] }}</h5></div>
+              <div class="flex space-x-2">
+                {% assign used = '' %}
+                {% for variant in product.variants %}
+                {% unless used contains variant.option2 %}
+                <div class="flex justify-center align-middle items-center text-center relative">
+                  <input class="absolute z-0 options" type="radio" name="size" value="{{ variant.option2 }}" data-id="{{ variant.id }}" id="size-{{ variant.id }}" onclick="updateProductInformation()">
+                  <label for="size-{{ variant.id }}" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" style="z-index: 5;">{{ variant.option2 }}</label>
+                  
+                  {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                </div>
+                {% endunless %}
+              {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            {% assign used = '' %}
+            <label for="select_two"><h3 class="font_medium">{{ product.options[1] }}</h3></label>
+            <div class="trago_select_container">
+              <select id='select_two' onchange="updateProductInformation()">
+                {% for variant in product.variants %}
+                  {% unless used contains variant.option2%}
+                    <option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
+                    {% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
+                  {% endunless %}
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+      </div>
+
+      {% if product.options[2] %}
+      <div class="product_variant_container">
+        {% if product.options[2] == 'Material' %}
+            <div class="mb-4">
+              <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ product.options[2] }}</h5></div>
+              <div class="flex space-x-2">
+                {% assign used = '' %}
+                {% for variant in product.variants %}
+                {% unless used contains variant.option3 %}
+                <div class="flex justify-center align-middle items-center text-center relative">
+                  <input class="absolute z-0 options" type="radio" name="material" value="{{ variant.option3 }}" data-id="{{ variant.id }}" id="material-{{ variant.id }}" onclick="updateProductInformation()">
+                  <label for="material-{{ variant.id }}" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" style="z-index: 5;">{{ variant.option3 }}</label>
+                  
+                  {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                </div>
+                {% endunless %}
+              {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            {% assign used = '' %}
+            <label for="select_three"><h3 class="font_medium">{{ product.options[2] }}</h3></label>
+            <div class="trago_select_container">
+              <select id='select_three' onchange="updateProductInformation()">
+                {% for variant in product.variants %}
+                  {% unless used contains variant.option3%}
+                    <option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
+                    {% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
+                  {% endunless %}
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+      </div>
+      {% endif %}
+    {% endif %}
+
+    <!-- Quantity -->
+    <div class="product_variant_container mb-8">
+      <label for="quantity"><h3 class="body-sm uppercase mb-2 clr-general-text">Quantity</h3></label>
+      <div class="quantity_input_container">
+        <button class="bg-white h-12 w-12 rounded-md" onclick="decrement();addCartUpdate();">
+          <span aria-hidden="true" class="icon icon-minus heading-sm"></span>
+        </button>
+        <input class="h-10 w-8 text-center appearance-none outline" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate()" value="1" />
+        <button class="bg-white h-12 w-12 rounded-md" onclick="increment();addCartUpdate();">
+          <span aria-hidden="true" class="icon icon-plus heading-sm"></span>
+        </button>
+      </div>
+    </div> 
+
+    <!-- Price -->
+    <!-- <h2 class="text_blue font_medium product_price" id="product_price">{{ product.selected_or_first_available_variant.price | money }}</h2> -->
+    <!-- Add To Cart -->
+    <input type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" class="btn-lg btn-primary w-full py-4 addtocart cursor-pointer" value="Add To Cart">
+    <!-- Ajax Message -->
+    <p class="ajax_message"></p>
+  </form>
+  <div class="mt-8">
+    <p class="body-md clr-general-text">{{ product.description }}</p>
+</div>
+  
+<script>
+  function decrement() {
+    $('#quantity').val( function(i, oldval) {
+      if (oldval > 1){
+        return --oldval;
+      } else {
+        return oldval;
+      }
+        
+    });
+  }
+  function increment() {
+    $('#quantity').val( function(i, oldval) {
+        return ++oldval;
+    });
+  } 
+
+  function addCartUpdate() {
+    var quantity = document.getElementById('quantity').value;
+    document.getElementById('add_to_cart').setAttribute("data-cart-quantity", quantity);
+  }
+
+  // Function to get the value of the checked radio button in the form.
+  function getRadioVal(form, name) {
+      var val;
+      var radios = form.elements[name];
+      for (var i=0, len=radios.length; i<len; i++) {
+          if ( radios[i].checked ) {
+              val = radios[i].value; 
+              break;
+          }
+      }
+      return val;
+  }
+
+  {% unless product.has_only_default_variant %}
+    $(function(){
+      if (!$("input:radio[name='color']").is(":checked") && !$("input:radio[name='size']").is(":checked"){% if product.options[2] %} && !$("input:radio[name='material']").is(":checked"){% endif %}) {
+        $("input[name='add']").prop( "disabled", true );
+      }
+      else {
+        $("input[name='add']").prop( "disabled", false );
+      }
+
+      $('.options').on('click', function(){
+        if (!$("input:radio[name='color']").is(":checked") || !$("input:radio[name='size']").is(":checked") {% if product.options[2] %} || !$("input:radio[name='material']").is(":checked"){% endif %}) {
+        $("input[name='add']").prop( "disabled", true );
+      }
+      else {
+        $("input[name='add']").prop( "disabled", false );
+      }
+
+      });
+      
+    });
+  {% endunless %}
+  
+
+  // Function runs every time a variant radio button or select dropdown changes.
+  function updateProductInformation() {
+    // Save the option select values
+    {% if product.options[0] %}
+      {% if product.options[0] == 'Color' %}
+        var opt1 = getRadioVal( document.getElementById('product_form'), 'color' );
+      {% else %}
+        var opt1 = document.getElementById('select_one').value;
+      {% endif %}
+    {% endif %}
+
+    {% if product.options[1] %}
+      {% if product.options[1] == 'Size' %}
+        var opt2 = getRadioVal( document.getElementById('product_form'), 'size' );
+      {% else %}
+        var opt2 = document.getElementById('select_two').value;
+      {% endif %}
+    {% endif %}
+
+    {% if product.options[2] %}
+      {% if product.options[2] == 'Material' %}
+        var opt3 = getRadioVal( document.getElementById('product_form'), 'material' );
+      {% else %}
+        var opt3 = document.getElementById('select_three').value;
+      {% endif %}
+    {% endif %}
+    // Capture the quantity and save it as a liquid variable
+    var quantity = document.getElementById('quantity').value;
+    // document.getElementById('add_to_cart').setAttribute("data-cart-quantity", quantity);
+    {% capture quantity %}quantity{% endcapture %}
+    var id = '';
+    var available;
+    // Loop through all of the variants to check if the option values match any of the variant combinations
+    {% for v in product.variants %}
+      if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
+        // Save the ID for the specific variant combination.
+        var id = {{ v.id }};
+        var available = {{ v.available }};
+        // Save the price given the quantity the user has selected. Once multiplied then format the price using the js api.
+        var fullPrice = {{ quantity }} * {{ v.price }};
+        var price = Shopify.formatMoney({{v.price}}, "{{ shop.money_format }}");
+        var formattedPrice = Shopify.formatMoney(fullPrice, "{{ shop.money_format }}" );
+      }
+    {% endfor %}
+    // URL Query String
+    // console.log(window.location.search);
+    // If variant has an id then set the cart to the selected variant and change the price field.
+    if(id!='') {
+      document.getElementById('add_to_cart').setAttribute('data-cart-add', id);
+      // document.getElementById('product_price').innerHTML = formattedPrice;
+      document.getElementById('price').innerHTML = price;
+      $(function(){
+        $("input[name='add']").prop( "disabled", false );
+      });
+      if(available == false){
+        document.getElementById('add_to_cart').setAttribute('value', 'Sold Out');
+        $(function(){
+          $("input[name='add']").prop( "disabled", true );
+        });
+      } else if (available == true) {
+        document.getElementById('add_to_cart').setAttribute('value', 'Add To Cart');
+        $(function(){
+          $("input[name='add']").prop( "disabled", false );
+        });
+      }
+      
+    } else {
+      document.getElementById('add_to_cart').setAttribute('data-variant-id', id);
+      document.getElementById('add_to_cart').setAttribute('value', 'Add To Cart');
+      // document.getElementById('product_price').innerHTML = 'Unavailable';
+      document.getElementById('price').innerHTML = 'Unavailable';
+      $(function(){
+        $("input[name='add']").prop( "disabled", true );
+      });
+    }
+  }
+</script>

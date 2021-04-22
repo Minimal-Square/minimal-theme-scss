@@ -1,0 +1,30 @@
+
+<div class="px-4 md:px-0 max-w-lg mx-auto py-12 sm:py-16 space-y-12"> 
+  <h1 class="text-center heading-lg clr-heading-headings">{{ page.title }}</h1>
+  <p class="body-md clr-general-text">{{page_description}}</p>
+  {% form 'contact' %}
+    {% if form.posted_successfully? %} 
+    <div class="text-green-600 rounded-md text-sm w-full py-2 px-4 bg-green-100 flex items-center mb-2" role="status">
+      <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-check-circle mr-2"></span>
+        {{'contact.form.post_success' | t }}
+  </div>
+{%- endif -%}
+    {% if form.errors %}
+    <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+    <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+{{ form.errors | default_errors }}
+    </div>
+    {% endif %}
+    <div class="grid grid-cols-2 gap-2">
+      <label class="hidden" for="ContactFormName">name</label>
+      <input class="input appearance-none" placeholder="{{ 'contact.form.name' | t }}" type="text" id="ContactFormName" name="contact[name]">
+      <label class="hidden" for="ContactFormEmail">email</label>
+      <input class="input appearance-none" placeholder="{{ 'contact.form.email' | t }}" type="email" id="ContactFormEmail" name="contact[email]">
+    <label class="hidden" for="ContactFormPhone">phone</label>
+    <input class="col-span-2 input appearance-none" placeholder="{{ 'contact.form.phone' | t }}" type="tel" id="ContactFormPhone" name="contact[phone]">
+    <label class="hidden" for="ContactFormMessage">message</label>
+    <textarea class="col-span-2 textarea" placeholder="{{ 'contact.form.message' | t }}" rows="7" id="ContactFormMessage" name="contact[body]"></textarea>
+    <input class="col-span-2 appearance-none btn-lg btn-primary w-full mb-4" type="submit" value="{{ 'contact.form.send' | t }}">
+  </div>
+  {% endform %}
+</div>

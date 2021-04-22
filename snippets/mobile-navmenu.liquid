@@ -1,0 +1,61 @@
+<style>
+#slide ul li {
+  cursor: pointer;
+}
+</style>
+
+<div id="slides" class="hidden">
+    <div class="px-4">
+      <ul class="py-4">
+        {% for link in linklists[section.settings.header_main_menu].links %}
+            <li class="">
+              <div class="flex items-center justify-between py-2">
+                <a href="{{ link.url }}">{{ link.title }}</a>
+                {% if link.links != blank %}
+                    {% if linklists[section.settings.header_main_menu].levels > 1 %}
+                <span aria-hidden="true" class="text-2xl icon icon-chevron-down cursor-pointer navDropdown chevronNav"></span>
+                    {% endif %}
+                {% endif %}
+              </div>
+
+            {% for child_link in link.links %}
+              <div class="navDropItem hidden">
+                <a href="{{ child_link.url }}" class="font-semibold">{{ child_link.title }}</a>
+                {% if child_link.links != blank %}
+                <ul class="grandchild space-y-2">
+                  {% for grandchild_link in child_link.links %}
+                  <li>
+                    <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            </li>
+            
+        {% endfor %}
+      </ul>
+
+      <div class="border-b"></div>
+
+      <div class="space-y-3 py-5 text-sm">
+
+        <a href="" class="flex items-center justify-between">
+          <p>My account</p>  
+        </a>
+
+        <a href="" class="flex items-center justify-between">
+          <p>USD</p>
+        </a>
+    
+        <a href="" class="flex items-center justify-between">
+          <p>Search</p>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>

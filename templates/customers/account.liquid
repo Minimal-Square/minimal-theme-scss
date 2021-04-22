@@ -1,0 +1,73 @@
+<div class="max-w-6xl mx-auto px-4 2xl:px-0">
+  <div class="py-12 sm:py-16 flex justify-between items-center">
+    <h1 class="heading-lg clr-general-headings">{{ 'customer.account.title' | t }}</h1>
+    <div>
+      <a class="flex space-x-2 text-red-500" href="/account/logout">
+        <p class="body-md text-red-500">Logout</p>
+        <span aria-hidden="true" class="text-2xl icon icon-log-out"></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16">
+    <div class="sm:col-span-2">
+      <h2 class="mb-2 heading-sm clr-general-headings">{{ 'customer.orders.title' | t }}</h2>
+      {% paginate customer.orders by 20 %}
+        {% if customer.orders.size != 0 %}
+          <div class="border rounded-md px-4 text-sm"><!-- Start of Order history box -->
+            <div class="hidden lg:grid lg:grid-cols-5 font-semibold border-b py-4">
+              <p class="body-sm clr-general-headings">{{ 'customer.orders.order_number' | t }}</p>
+              <p class="body-sm clr-general-headings">{{ 'customer.orders.date' | t }}</p>
+              <p class="body-sm clr-general-headings">{{ 'customer.orders.payment_status' | t }}</p>
+              <p class="body-sm clr-general-headings">{{ 'customer.orders.fulfillment_status' | t }}</p>
+              <p class="lg:text-right body-sm clr-general-headings">{{ 'customer.orders.total' | t }}</p>
+            </div>
+            <div class="divide-y">
+              {% for order in customer.orders %}
+                <div class="grid grid-cols-2 lg:grid-cols-1 lg:my-0">
+                  <div class="lg:hidden font-semibold py-4">
+                    <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.orders.order_number' | t }}</p>
+                    <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.orders.date' | t }}</p>
+                    <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.orders.payment_status' | t }}</p>
+                    <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.orders.fulfillment_status' | t }}</p>
+                    <p class="lg:text-right lg:hidden body-sm clr-general-headings">{{ 'customer.orders.total' | t }}</p>
+                  </div>
+                  <div class="lg:grid lg:grid-cols-5 text-right py-4 lg:text-left">
+                    <p class="body-sm clr-general-links">{{ order.name | link_to: order.customer_url }}</p>
+                    <p class="body-sm clr-general-text">{{ order.created_at | date: format: 'month_day_year' }}</p>
+                    <p class="body-sm clr-general-text">{{ order.financial_status_label }}</p>
+                    <p class="lg:text-left body-sm clr-general-text">{{ order.fulfillment_status_label }}</p>
+                    <p class="lg:text-right body-sm clr-general-text">{{ order.total_price | money }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div><!-- End of Order history box -->
+        {% else %}
+          <p class="text-center body-md clr-general-text p-12">{{ 'customer.orders.none' | t }}</p>
+        {% endif %}
+
+        {% if paginate.pages > 1 %}
+        <div class="mt-5">
+          {% include 'pagination' %}       
+        </div>   
+        {% endif %}
+
+      {% endpaginate %}        
+
+    </div>
+    <div class="order-first sm:order-none">
+      <h2 class="mb-2 heading-sm clr-general-headings">{{ 'customer.account.details' | t }}</h2>
+      <div class="border rounded-md p-4 text-sm">
+       {% if customer.addresses_count > 0 %}
+        <div class="mb-2 body-sm clr-general-text ">
+          {{ customer.default_address | format_address }}
+        </div>
+        {% endif %}
+        <div >
+          <a class="body-sm clr-general-links underline" href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

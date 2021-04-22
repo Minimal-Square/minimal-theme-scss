@@ -1,0 +1,37 @@
+<!-- /templates/customers/register.liquid -->
+<div class="px-4 md:px-0 max-w-md mx-auto py-32">
+
+    <div class="text-center mb-12">
+        <h1 class="heading-md clr-general-headings">{{ 'customer.register.title' | t }}</h1>
+    </div>
+    
+    {% form 'create_customer' %}
+        {% if form.errors %}
+                    <div class="text-red-600  text-sm rounded-md w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+                        <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+                    
+        {{ form.errors | default_errors }}
+                    </div>
+        {% endif %}
+    <div class="gap-2 grid grid-cols-1 sm:grid-cols-2 mb-2">
+
+        <label class="hidden" for="first_name">{{ 'customer.register.first_name' | t }}</label>
+        <input placeholder="{{ 'customer.register.first_name' | t }}" class="input appearance-none" type="text" value="" name="customer[first_name]" size="30" />
+
+        <label class="hidden" for="last_name">{{ 'customer.register.last_name' | t }}</label>
+        <input placeholder="{{ 'customer.register.last_name' | t }}" class="input appearance-none" type="text" value="" name="customer[last_name]" size="30" />
+
+        <label class="hidden" for="email">{{ 'customer.register.email' | t }}</label>
+        <input placeholder="{{ 'customer.register.email' | t }}" class="input appearance-none" type="email" value="" name="customer[email]" size="30" />
+
+        <label class="hidden" for="password">{{ 'customer.register.password' | t }}</label>
+        <input placeholder="{{ 'customer.register.password' | t }}" class="input appearance-none" type="password" value="" name="customer[password]" size="30" />
+ 
+        <input class="sm:col-span-2 mt-2 cursor-pointer appearance-none btn-lg btn-primary" type="submit" value="{{ 'customer.register.submit' | t }}" />
+    </div>
+    {% endform %}
+    <div>
+        <p class="body-md clr-general-text">{{ 'customer.register.already_a_member' | t }}<a class="body-md clr-general-links" href="/account/login"> {{ 'customer.register.sign_in' | t }}</a> </p>
+    </div>
+    
+</div>

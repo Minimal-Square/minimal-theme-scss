@@ -1,0 +1,114 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+
+<!-- Gallery & Product Form -->
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope>
+  <div class="max-width mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 mt-4">
+      <div class="lg:col-span-3">
+        <div class="flex mb-4">
+          {% include 'breadcrumbs' %}
+        </div>
+        <div></div>
+          <div class="main-carousel carousel mb-5" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+              {% for media in product.media %}
+                <div class="carousel-cell aspect-w-1 aspect-h-1 w-full" >
+                  <img class="object-cover lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
+                </div>
+              {% endfor %}
+          </div>
+          <div class="nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
+              {% for media in product.media %}
+                <div class="carousel-cell carousel-width w-20 h-20 sm:w-24 sm:h-24">
+                    <img class="object-cover h-full w-full" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
+                </div>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div class="lg:col-span-2"> 
+        {% include 'product-form' %}
+        {% if section.settings.product_tabs_type == 'product' %}
+        <div class="mt-8">
+          {% include 'product-tabs' %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="mt-8 sm:mt-16">
+      {% if section.settings.product_tabs_type == 'section' %}
+        {% include 'product-tabs' %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% include 'sticky-add-to-cart' %}
+
+<style>
+  #shopify-section-{{ section.id }} .carousel-width {
+    margin: 3px 12px 3px 3px;
+    transition: all 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .nav-carousel .is-selected {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+  } 
+</style>
+
+
+{% schema %}
+{
+  "name": "Product tabs",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "product_tabs_type",
+      "label": "Type",
+      "default": "product",
+      "options": [
+        {
+          "value": "product",
+          "label": "Product"
+        },
+        {
+          "value": "section",
+          "label": "Section"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Product tab",
+      "type": "product_tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_tab_heading",
+          "label": "Heading",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "product_tab_excerpt", 
+          "label": "Excerpt",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+          "type": "textarea",
+          "id": "product_tab_text",
+          "label": "Text",
+          "default": "Lorem ipsum dolor asimet..."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,490 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Themekit template theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https://github.com/Shopify/themekit",
+    "theme_support_url": "https://github.com/Shopify/themekit/issues"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "color",
+        "id": "clr_general_background",
+        "label": "Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "clr_general_headings",
+        "label": "Headings",
+        "default": "#222222"
+      },
+      {
+        "type": "color",
+        "id": "clr_general_text",
+        "label": "Text",
+        "default": "#4D4D4D"
+      },
+      {
+        "type": "color",
+        "id": "clr_general_light_text",
+        "label": "Light text",
+        "default": "#949494"
+      },
+      {
+        "type": "color",
+        "id": "clr_general_links",
+        "label": "Links",
+        "default": "#1E8570"
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "color",
+        "id": "clr_button_primary_background",
+        "label": "Primary button background",
+        "default": "#FFAB41"
+      },
+      {
+        "type": "color",
+        "id": "clr_button_primary_text",
+        "label": "Primary button text",
+        "default": "#1C390E"
+      },
+      {
+        "type": "color",
+        "id": "clr_button_secondary_background",
+        "label": "Secondary button background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "clr_button_secondary_text",
+        "label": "Secondary button text",
+        "default": "#1E8570"
+      },
+      {
+        "type": "color",
+        "id": "clr_button_secondary_border",
+        "label": "Secondary button border",
+        "default": "#DDDDDD"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "clr_header_background",
+        "label": "Background",
+        "default": "#30656B"
+      },
+      {
+        "type": "color",
+        "id": "clr_header_text",
+        "label": "Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Forms"
+      },
+      {
+        "type": "color",
+        "id": "clr_form_background",
+        "label": "Input background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "clr_form_text",
+        "label": "Input text",
+        "default": "#4D4D4D"
+      },
+      {
+        "type": "color",
+        "id": "clr_form_border",
+        "label": "Input border",
+        "default": "#DDDDDD"
+      },
+      {
+        "type": "header",
+        "content": "Product"
+      },
+      {
+        "type": "color",
+        "id": "clr_product_sale_accent",
+        "label": "Sale accent",
+        "default": "#DE0102"
+      },
+      {
+        "type": "color",
+        "id": "clr_product_review_star",
+        "label": "Review star",
+        "default": "#F6C346"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "clr_footer_background",
+        "label": "Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "color",
+        "id": "clr_footer_headings",
+        "label": "Headings",
+        "default": "#5C5C5C"
+      },
+      {
+        "type": "color",
+        "id": "clr_footer_text",
+        "label": "Paragraphs",
+        "default": "#5C5C5C"
+      },
+      {
+        "type": "header",
+        "content": "Footer",
+        "info": "Used on modals and mobile navigation overlays"
+      },
+      {
+        "type": "color",
+        "id": "clr_overlay",
+        "label": "Overlay",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "clr_overlay_opacity",
+        "label": "Opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 50,
+        "unit": "%" 
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "work_sans_n6"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "work_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "base_font_size",
+        "label": "Base font size",
+        "min": 14,
+        "max": 18,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "default": "cart_type_drawer",
+        "options": [
+          {
+            "value": "cart_type_drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "cart_type_page",
+            "label": "Page"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable notes",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_share_twitter",
+        "label": "Share on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "social_share_pinterest",
+        "label": "Share on Pinterest",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_facebook",
+        "label": "Facebook",
+        "info": "https://facebook.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_twitter",
+        "label": "Twitter",
+        "info": "https://twitter.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_pinterest",
+        "label": "Pinterest",
+        "info": "https://pinterest.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_instagram",
+        "label": "Instagram",
+        "info": "https://instagram.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_tumblr",
+        "label": "Tumblr",
+        "info": "https://shopify.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_snapchat",
+        "label": "Snapchat",
+        "info": "https://snapchat.com/add/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_youtube",
+        "label": "Youtube",
+        "info": "https://youtube.com/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_accounts_vimeo",
+        "label": "Vimeo",
+        "info": "https://vimeo.com/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "layout_max_width",
+        "label": "Max width",
+        "min": 1200,
+        "max": 1600,
+        "step": 100,
+        "default": 1500,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Cookie",
+    "settings": [
+      {
+        "type": "text",
+        "id": "cookie_heading",
+        "label": "Heading",
+        "default": "This is a cookie heading"
+      },
+      {
+        "type": "color",
+        "id": "cookie_heading_color",
+        "label": "Heading color",
+        "default": "#000000"
+      },
+      {
+        "type": "text",
+        "id": "cookie_text",
+        "label": "Text",
+        "default": "Proactively exploit resource-leveling intellectual capital through user friendly imperatives. Phosfluorescently actualize technically sound platforms with."
+      },
+      {
+        "type": "color",
+        "id": "cookie_text_color",
+        "label": "Text color",
+        "default": "#000000"
+      },
+      {
+        "type": "text",
+        "id": "cookie_link_text",
+        "label": "Link text",
+        "default": "Cookie policy"
+      },
+      {
+        "type": "color",
+        "id": "cookie_background_color",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "url",
+        "id": "cookie_policy_url",
+        "label": "Cookie policy URL"
+      }
+    ]
+  },
+  {
+    "name": "Reviews",
+    "settings":[
+    {
+      "type": "text",
+      "id":"app_key",
+      "label": "Yotpo app key",
+      "info": "[Find your 'App key' from this URL](https://support.yotpo.com/en/article/finding-your-yotpo-app-key-and-api-secret)"
+    },
+    {
+      "type": "checkbox",
+      "id": "yotpo_reviews",
+      "label": "Enable Yotpo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "yotpo_star_recommendations",
+      "label": "Enable Yotpo Star on recommendations[Product page]",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "yotpo_star",
+      "label": "Enable Yotpo Star on collection page",
+      "default": true
+   },
+   {
+      "type": "checkbox",
+      "id": "shopify_reviews",
+      "label": "Enable Shopify reviews",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "shopify_star_recommendations",
+      "label": "Enable Shopify Star on recommendations[Product page]",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "shopify_star",
+      "label": "Enable Shopify Star on collection page",
+      "default": false
+    }
+    ]
+  },
+  {
+    "name": "Popup",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "popup_image",
+        "label": "Image"
+      },
+      {
+          "type": "text",
+          "id": "popup_title",
+          "label": "Title",
+          "default": "Spring Sale"
+      },
+      {
+        "type": "text",
+        "id": "popup_subtitle",
+        "label": "Subtitle",
+        "default": "Shop our biggest sale of the year & recieve free shipping on orders of $50 or more!"
+      },
+      {
+        "type": "checkbox",
+        "id": "popup_enable",
+        "label": "Enable Popup",
+        "default": false
+     }
+
+    ]
+  },
+  {
+    "name": "Exit Popup",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "exit_popup_image",
+        "label": "Image"
+      },
+      {
+          "type": "text",
+          "id": "exit_popup_title",
+          "label": "Title",
+          "default": "Spring Sale"
+      },
+      {
+        "type": "text",
+        "id": "exit_popup_subtitle",
+        "label": "Subtitle",
+        "default": "Shop our biggest sale of the year & recieve free shipping on orders of $50 or more!"
+      },
+      {
+        "type": "checkbox",
+        "id": "exit_popup_enable",
+        "label": "Enable Exit Popup",
+        "default": false
+     }
+
+    ]
+  }
+]

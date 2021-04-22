@@ -1,0 +1,112 @@
+<div class="max-w-6xl mx-auto px-4 2xl:px-0">
+  <div class="py-12 sm:py-16 flex justify-between items-center">
+    <h1 class="heading-lg clr-general-headings">{{ 'customer.account.title' | t }}</h1>
+    <div>
+      <a class="flex space-x-2" href="/account">
+        <p class="body-md clr-general-links underline">{{ 'customer.account.return' | t }}</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-16">
+    <div class="sm:col-span-2">
+      <div class="mb-2">
+        <h3 class="heading-xs clr-general-headings">{{ 'customer.order.title' | t: name: order.name }}</h3>
+        <p class="body-sm clr-general-text">{{ 'customer.order.date' | t: date: order.created_at | date: "%B %d, %Y %I:%M%p" }}</p>
+      </div>
+      <div class="border rounded-md px-4 text-sm"><!-- Start of Order history box -->
+        <div class="hidden lg:grid lg:grid-cols-5 font-semibold border-b py-4">
+          <p class="body-sm clr-general-headings">{{ 'customer.order.product' | t }}</p>
+          <p class="body-sm clr-general-headings">{{ 'customer.order.sku' | t }}</p>
+          <p class="body-sm clr-general-headings">{{ 'customer.order.price' | t }}</p>
+          <p class="body-sm clr-general-headings">{{ 'customer.order.quantity' | t }}</p>
+          <p class="lg:text-right body-sm clr-general-headings">{{ 'customer.order.total' | t }}</p>
+        </div>
+        <div class="divide-y border-b">
+          <div class="grid grid-cols-2 lg:grid-cols-1 lg:my-0">
+            <div class="lg:hidden font-semibold py-4">
+              <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.order.product' | t }}</p>
+              <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.order.sku' | t }}</p>
+              <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.order.price' | t }}</p>
+              <p class="lg:hidden body-sm clr-general-headings">{{ 'customer.order.quantity' | t }}</p>
+              <p class="lg:text-right lg:hidden body-sm clr-general-headings">{{ 'customer.order.total' | t }}</p>
+            </div>
+            <div class="lg:grid lg:grid-cols-5 text-right py-4 lg:text-left">
+              {% for line_item in order.line_items %}
+              <p class="body-sm clr-general-links">{{ line_item.title | link_to: line_item.product.url }}</p>
+              <p class="body-sm clr-general-headings">{{ line_item.sku }}</p>
+              <p class="body-sm clr-general-text">{{ line_item.price | money }}</p>
+              <p class="lg:text-left body-sm clr-general-text">{{ line_item.quantity }}</p>
+              <p class="lg:text-right body-sm clr-general-text">{{ line_item.quantity | times: line_item.price | money }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1">
+          <div class="lg:divide-y py-4 lg:py-0">
+
+            <div class="flex justify-between lg:py-4">
+              <p class="body-sm clr-general-headings font-semibold">{{ 'customer.order.subtotal' | t }}</p>
+              <p class="body-sm clr-general-headings">{{ order.line_items_subtotal_price | money }}</p>
+            </div>
+
+            {% for discount in order.discounts %}
+            <div class="flex justify-between lg:py-4">
+              <p class="body-sm clr-general-headings font-semibold">{{ discount.code }} {{ 'customer.order.discount' | t }}</p>
+              <p class="body-sm clr-general-text">{{ discount.savings | money }}</p>
+            </div>
+            {% endfor %}
+
+            {% for shipping_method in order.shipping_methods %}
+            <div class="flex justify-between lg:py-4">
+              <p class="body-sm clr-general-headings font-semibold">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</p>
+              <p class="body-sm clr-general-text">{{ shipping_method.price | money }}</p>
+            </div>
+            {% endfor %}
+
+            {% for tax_line in order.tax_lines %}
+            <div class="flex justify-between lg:py-4">
+              <p class="body-sm clr-general-headings font-semibold">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</p>
+              <p class="body-sm clr-general-text">{{ tax_line.price | money }}</p>
+            </div>
+            {% endfor %}
+
+            <div class="flex justify-between lg:py-4">
+              <p class="body-sm clr-general-headings font-semibold">{{ 'customer.order.total' | t }}</p>
+              <p class="body-sm clr-general-text">{{ order.total_price | money }} {{ order.currency }}</p>
+            </div>
+          </div>
+        </div>
+        
+      </div><!-- End of Order history box -->
+    </div>
+
+    <div>
+      <div class="order-first sm:order-none mt-5">
+        <div class="mb-2">
+          <h3 class="heading-xs clr-general-headings">{{ 'customer.order.billing_address' | t }}</h3>
+        </div>
+        <div class="border rounded-md p-4 space-y-4 text-sm">
+          <div>
+            <p class="body-sm clr-general-headings mr-1"><span class="body-sm font-medium clr-general-headings mr-1">{{ 'customer.order.payment_status' | t }}:</span>{{ order.financial_status_label }}</p>
+          </div>
+          {{ order.billing_address | format_address }}
+        </div>
+      </div>
+      <div class="order-first sm:order-none mt-5">
+        <div class="mb-2">
+          <h3 class="heading-xs clr-general-headings">{{ 'customer.order.shipping_address' | t }}</h3>
+        </div>
+        <div class="border rounded-md p-4 space-y-4 text-sm">
+          <div>
+            <p class="body-sm clr-general-headings mr-1"><span class="body-sm font-medium clr-general-headings mr-1">{{ 'customer.order.fulfillment_status' | t }}:</span>{{ order.fulfillment_status_label }}</p>
+          </div>
+          {{ order.shipping_address | format_address }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div>
+</div>

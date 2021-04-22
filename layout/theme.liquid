@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ page_title }}</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png"/>
+  {%- endif -%}
+
+  {{ content_for_header }} <!-- Header hook for plugins -->
+  {{ "js.cookie.min.js" | asset_url | script_tag }}
+  
+  {{ 'jquery.modal.css' | asset_url | stylesheet_tag }}
+  {{ 'application.css' | asset_url | stylesheet_tag }}
+  {{ 'hamburger.css' | asset_url | stylesheet_tag }}
+  {{ 'custom.css' | asset_url | stylesheet_tag }}
+  {{ 'flickity.css' | asset_url | stylesheet_tag }}
+  {{ 'feather.css' | asset_url | stylesheet_tag }}
+  {{ 'shopify_common.js' | asset_url | script_tag }}
+  
+  
+
+</head>
+<body>
+  <div class="w-full bg-black bg-opacity-20 fixed h-screen hidden maskCartDrawer" style="z-index: 9996;"></div>
+  <div class="cart-drawer fixed h-screen hidden" style="right: -18rem; z-index: 9997;">
+      {% render 'cart-drawer' %}
+  </div>
+  {% section 'announcement' %}
+  <div class="border-b border-gray-100 relative z-10"  id="header">
+    {% section 'header' %}
+  </div>
+  <main role="main" class="{% if template == index %}content{% endif %}">
+    {{ content_for_layout }}
+  </main>
+  {% section 'footer' %}
+  {% render 'exit-popup' %}
+  {% render 'cookies' %}
+  
+  {{ 'jquery.js' | asset_url | script_tag }}
+  {{ 'jquery.modal.min.js' | asset_url | script_tag }}
+  {{ 'flickity.js' | asset_url | script_tag }} 
+  {{ 'jqueryform.js' | asset_url | script_tag }} 
+  {{ "fastclick.js" | asset_url | script_tag }}
+  {{ 'application.js' | asset_url | script_tag }}
+  <!-- {{ 'theme-sections.min.js' | asset_url | script_tag }} -->
+  <!-- Cart.js -->
+  {{ 'rivets-cart.min.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+
+  
+  <!-- Initialise Cart.js once the page has loaded -->
+  <script type="text/javascript">
+    $(function () {
+        CartJS.init({{ cart | json }}, {
+            "moneyFormat": "{{ shop.money_format }}",
+            "moneyWithCurrencyFormat": "{{ shop.money_with_currency_format }}"
+        });
+    });
+  </script>
+</body>
+</html>

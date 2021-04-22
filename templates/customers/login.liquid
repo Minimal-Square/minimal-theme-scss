@@ -1,0 +1,77 @@
+<!-- /templates/customers/login.liquid -->
+
+<div class="px-4 md:px-0 max-w-md mx-auto py-32 space-y-12" id="loginForm">
+    <h1 class="text-center heading-md clr-general-headings">{{ 'customer.login.title' | t }}</h1>
+<div> 
+    {%- form 'customer_login' -%}
+        {% if form.errors %}
+            <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+                <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+        {{ form.errors | default_errors }}
+            </div>
+        {% endif %}
+
+        <div class="space-y-2 mb-4"> 
+            <div>
+                <label class="hidden" for="customerEmail">Email Address</label>
+                <input class="input appearance-none w-full" placeholder="{{ 'customer.login.email' | t }}" type="email" name="customer[email]" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
+            </div>
+            <div>
+                <label class="hidden" for="customerPassword">Password</label>
+                <input class="input appearance-none w-full" type="password" placeholder="{{ 'customer.login.password' | t }}" name="customer[password]" id="customerPassword">
+            </div>
+        </div>
+
+        <input class="cursor-pointer appearance-none btn-lg btn-primary w-full mb-4" type="submit" value="Sign In" />
+
+        <p class="body-md clr-general-text">{{ 'customer.login.new_customer' | t }}<span class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</span></p>
+        <p class="body-md clr-general-links cursor-pointer" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</p>
+
+    {%- endform -%}
+</div>
+
+<!-- If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page. -->
+{%- if shop.checkout.guest_login -%}
+{%- form 'guest_login' -%}
+    <input type="submit" value="Continue as Guest" />
+{%- endform -%}
+{%- endif -%}
+</div>
+
+
+<!-- Use JavaScript to show/hide this form -->
+<div id="resetPass" class="px-4 md:px-0 max-w-md mx-auto py-32 space-y-12 hidden">
+  
+    <form id="resetPassForm" method="POST" action="/account/recover" accept-charset="UTF-8">
+        <div class="text-green-600 rounded-md text-sm w-full py-2 px-4 bg-green-100 items-center flex space-x-2 mb-2 invisible" style="opacity: 0;" id="status">
+            <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-check-circle"></span>
+            <p>{{ 'customer.recover_password.subtext' | t }}</p>
+        </div>
+       
+
+        <div id="recover">
+         
+            <h2 class="heading-sm clr-general-headings mb-1">{{ 'customer.recover_password.title' | t }}</h2>
+            <p class="mb-4 body-sm clr-general-text">{{ 'customer.recover_password.success' | t }}</p>
+    
+
+            {% if form.errors %}
+            <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+                <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+                {{ form.errors | default_errors }}
+            </div>
+        {% endif %}
+        <div class="mb-4">
+            <label class="hidden" for="customerEmail">Email Address</label>
+            <input placeholder="{{ 'customer.recover_password.email' | t }}" class="input appearance-none" type="email" name="email" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
+        </div>
+            <div class="flex space-x-4">
+                <input class="cursor-pointer appearance-none btn-lg btn-primary w-full" id="submit" type="submit" value="Submit">
+                <input class="cursor-pointer appearance-none btn-lg btn-secondary w-full" id="cancel" type="button" value="Cancel">
+            </div>
+        </div>
+
+    </form>
+
+        
+</div>

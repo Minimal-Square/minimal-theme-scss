@@ -1,0 +1,66 @@
+<div class="bg-white shadow-sm h-full w-72 p-4 overflow-auto" data-cart-view="data-cart-view">
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl">{{ 'cart.general.title' | t }}</h3>
+    <a href="" id="cartDrawerExit">
+      <span aria-hidden="true" class="text-3xl icon icon-x"></span>
+    </a>
+  </div>
+  <form action="{{ routes.cart_url }}" method="post">
+    <div>
+      <div class="flex space-x-4 border-b py-8" rv-each-item="cart.items">
+        <a rv-href="item.url">
+          <img class="w-16 h-16 object-cover rounded-md cursor-pointer" rv-src="item.image" alt="">
+        </a>
+        <div class="space-y-2">
+          <div class="space-y-1">
+            <a rv-href="item.url" class="text-sm" rv-text="item.product_title"></a>
+            <p class="text-xs text-gray-500" rv-text="item.selected_variant"></p>
+          </div>
+          <p class="text-sm" rv-html="item.price | money_with_currency Currency.currentCurrency"></p>
+          <div class="quantity flex  items-center">
+            <button class="bg-white py-1 px-2 rounded-md border border-black shadow-md" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">
+              <span aria-hidden="true" class="icon icon-minus"></span>
+            </button>
+            <input class="appearance-none text-center px-0 w-8" type="text" rv-value="item.quantity">
+            <button class="bg-white py-1 px-2 rounded-md border border-black shadow-md" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">
+              <span aria-hidden="true" class="icon icon-plus"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div rv-hide="cart.item_count | lt 1">
+      {% if settings.cart_notes_enable == true %}
+        <div class="notes mt-8">
+          <textarea class="w-full border border-black rounded-md p-2" placeholder="Notes" name="" id="" rows="4"></textarea>
+        </div>
+      {% endif %}
+    
+      <div class="my-6">
+        <div class="flex justify-between">
+          <p>{{ 'cart.general.subtotal' | t }}</p>
+          <p rv-html="cart.total_price | money_with_currency Currency.currentCurrency"></p>
+        </div>
+        <div class="flex justify-between">
+          <p>{{ 'cart.general.shipping' | t }}</p>
+          <p>{{ 'cart.general.free' | t }}</p>
+        </div>
+      </div>
+    
+      <div class="text-center">
+        <button class="flex justify-center items-center space-x-2 w-full btn-lg btn-primary py-2 mb-3" name="checkout" type="submit">
+          <p>{{ 'cart.general.checkout' | t }}</p>
+        </button>
+        <a href="/" class="clr-general-links">{{ 'cart.general.continue_browsing_html' | t }}</a>
+      </div>
+    </div>
+  </form>
+  
+  
+
+  <div class="mt-7" rv-show="cart.item_count | lt 1">
+    <p class="mb-3">{{ 'cart.general.empty' | t }}</p>
+    <a href="/" class="clr-general-links my-3">{{ 'cart.general.continue_browsing_html' | t }}</a>
+  </div>
+</div>

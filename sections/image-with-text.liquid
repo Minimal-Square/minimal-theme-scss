@@ -1,0 +1,196 @@
+<section class="max-width mx-auto py-8 md:py-12 iwt-background grid gap-8 md:gap-16 grid-cols-1 md:grid-cols-6 items-center">
+    <div class="{% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-2 {% endif %}
+        {% if section.settings.iwt_order == 'iwt_left' %}
+            order-last
+        {% elsif section.settings.iwt_order == 'iwt_right' %}
+            order-last md:order-first
+        {% endif %}
+
+        {% if section.settings.iwt_text_align == 'align_left' %}
+            text-left           
+        {% elsif section.settings.iwt_text_align == 'align_center' %}
+            text-center 
+        {% elsif section.settings.iwt_text_align == 'align_right' %}
+            text-right
+        {% endif %}">
+      <h2 class="heading-md clr-general-headings mb-4">{{ section.settings.iwt_heading }}</h2>
+      <p class="mb-6 body-md clr-general-text">{{ section.settings.iwt_body_text }}</p>
+      {% if section.settings.iwt_button_label != blank %} <a href="{{ section.settings.iwt_button_url }}" class="btn-lg {% if section.settings.iwt_button_type == 'btn-primary' %} btn-primary {% elsif section.settings.iwt_button_type == 'btn-secondary' %} btn-secondary {% endif %} rounded-md px-4 py-2 md:px-8 md:py-4">{{ section.settings.iwt_button_label }}</a> {% endif %}
+      {% if section.settings.iwt_button_2_label != blank %} <a href="{{ section.settings.iwt_button_2_url }}" class="ml-2 btn-lg {% if section.settings.iwt_button_2_type == 'btn-primary' %} btn-primary {% elsif section.settings.iwt_button_2_type == 'btn-secondary' %} btn-secondary {% endif %} rounded-md px-4 py-2 md:px-8 md:py-4">{{ section.settings.iwt_button_2_label }}</a> {% endif %}
+    </div>
+    <div class="aspect-w-10 aspect-h-{{ section.settings.iwt_image_aspect_mobile | times: 10 | round }} md:aspect-w-10 md:aspect-h-{{ section.settings.iwt_image_aspect | times: 10 | round }} {% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-4 {% endif %}">
+        <img class="object-cover" src="{{ section.settings.iwt_image | img_url: '2048x2048' }}" alt="">
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Image with text",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "iwt_image",
+            "label": "Image"
+        },
+        {
+            "type": "select",
+            "id": "iwt_image_width",
+            "label": "Image width",
+            "options": [
+                {
+                    "value": "iwt-image-half",
+                    "label": "Half"
+                },
+                {
+                    "value": "iwt-image-two-thirds",
+                    "label": "Two thirds"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "iwt_image_aspect",
+            "label": "Aspect ratio",
+            "unit": ":1",
+            "min": 0.5,
+            "max": 1.5,
+            "step": 0.1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "iwt_image_aspect_mobile",
+            "label": "Aspect ratio mobile",
+            "unit": ":1",
+            "min": 0.5,
+            "max": 1.5,
+            "step": 0.1,
+            "default": 1
+        },
+        {
+            "type": "header",
+            "content": "Text"
+        },
+        {
+            "type": "text",
+            "id": "iwt_heading",
+            "label": "Heading",
+            "default": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "iwt_body_text",
+            "label": "Body text",
+            "default": "Text"
+        },
+        {
+            "type": "header",
+            "content": "Button 1"
+        },
+        {
+            "type": "select",
+            "id": "iwt_button_type",
+            "label": "Button type",
+            "options": [
+                {
+                    "value": "btn-primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "btn-secondary",
+                    "label": "Secondary"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "iwt_button_label",
+            "label": "Button label",
+            "default": "Learn more"
+        },
+        {
+            "type": "url",
+            "id": "iwt_button_url",
+            "label": "Button link"
+        },
+        {
+            "type": "header",
+            "content": "Button 2"
+        },
+        {
+            "type": "select",
+            "id": "iwt_button_2_type",
+            "label": "Button type",
+            "options": [
+                {
+                    "value": "btn-primary",
+                    "label": "Primary"
+                },
+                {
+                    "value": "btn-secondary",
+                    "label": "Secondary"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "iwt_button_2_label",
+            "label": "Button label",
+            "default": "Learn more"
+        },
+        {
+            "type": "url",
+            "id": "iwt_button_2_url",
+            "label": "Button link"
+        },
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "select",
+            "id": "iwt_order",
+            "label": "Text position",
+            "options": [
+                {
+                    "value": "iwt_left",
+                    "label": "Left of image"
+                },
+                {
+                    "value": "iwt_right",
+                    "label": "Right of image"
+                }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "iwt_text_align",
+            "label": "Text alignment",
+            "options": [
+                {
+                    "value": "align_left",
+                    "label": "Left"
+                },
+                {
+                    "value": "align_center",
+                    "label": "Center"
+                },
+                {
+                    "value": "align_right",
+                    "label": "Right"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "category": "Image",
+        "name": "Image with text"
+      }
+    ]
+}
+{% endschema %}

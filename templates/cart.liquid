@@ -1,0 +1,98 @@
+<div class="max-w-3xl mx-auto px-4 md:px-0" data-cart-view="data-cart-view">
+  <div class="py-12 sm:py-16">
+    <h1 class="heading-lg clr-general-headings text-center">{{ 'cart.general.title' | t }}</h1>
+  </div>
+  <form action="{{ routes.cart_url }}" method="post">
+    <div class="divide-y mb-16">
+        <div class="flex py-8 space-x-4" rv-each-item="cart.items">
+          <div class="h-16 w-16 bg-cover rounded flex-shrink-0">
+              <a rv-href="item.url">
+                <img rv-src="item.image" alt="">
+              </a>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-8 gap-3 sm:gap-0 w-full" >
+            <div class="col-span-2 sm:col-span-5 self-center">
+              <a rv-href="item.url"><h3 class="body-md clr-general-text font-semibold leading-none mb-2" rv-text="item.product_title"></h3></a>
+            
+              <p rv-unless="item.product_has_only_default_variant" rv-text="item.selected_variant"></p>
+          
+              
+              <div class="space-y-1">
+                  <p class="body-xs clr-general-text leading-none space-x-1">
+                    <span>{{ 'cart.label.price' | t }}:</span>
+                    <span rv-html="item.price | money Currency.currentCurrency"></span>
+                  </p>
+              </div>
+            </div>
+  
+            <div class="sm:order-1 justify-self-end self-start sm:self-center">
+              <a href="#" rv-data-cart-remove="index | plus 1">
+                <span aria-hidden="true" class="text-2xl flex-shrink-0 icon icon-x"></span>
+              </a>
+            </div>
+
+            <div class="col-span-2 sm:col-span-1 flex space-x-4 sm:justify-self-end items-center self-center">
+              <div class="quantity flex justify-between items-center">
+                <button class="border border-black shadow-md rounded py-1 px-2" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">
+                  <span aria-hidden="true" class="icon icon-minus"></span>
+                </button>
+                <input class="appearance-none body-md text-center px-0 w-8" type="text" rv-value="item.quantity">
+                <button class="border border-black shadow-md rounded py-1 px-2" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">
+                  <span aria-hidden="true" class="icon icon-plus"></span>
+                </button>
+              </div>
+              
+            </div>
+            <p class="justify-self-end body-md self-center sm:self-center" rv-html="item.final_line_price | money Currency.currentCurrency"></p>
+          </div>
+        </div>
+
+      <!-- Notes -->
+
+      {% if settings.cart_notes_enable == true %}
+      <div class="py-8 space-y-4 flex flex-col" rv-hide="cart.item_count | lt 1">
+        <label class="body-md clr-general-text" for="CartNote">{{ 'cart.general.note' | t }}</label>
+        <textarea class="textarea w-1/2 appearance-none" name="note" rows="3" id="CartNote" placeholder="Notes">{{ cart.note }}</textarea>
+      </div>
+    {% endif %}
+  
+
+
+      <!-- Subtotal + Shipping + Buttons -->
+      <div rv-hide="cart.item_count | lt 1">
+        <div class="flex justify-between py-8">
+          <div class="space-y-2">
+            <h4 class="heading-sm clr-general-headings">{{ 'cart.general.subtotal' | t }}</h4>
+            <p class="body-sm clr-general-text ">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+          </div>
+          <h4 class="body-md font-semibold" rv-html="cart.total_price | money Currency.currentCurrency"></h4>
+        </div>
+        <div class="text-center">
+
+          <button name="checkout" type="submit" class="appearance-none btn-lg btn-primary w-full mb-8">
+            <div class="flex justify-center">
+            <span aria-hidden="true" class="text-xl icon icon-shopping-bag mr-2"></span>
+            {{ 'cart.general.checkout' | t }}
+          </div>
+          </button>
+
+          <a class="body-sm font-medium clr-general-links underline" href="/">{{ 'cart.general.continue_browsing_html' | t }}</a>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="pb-12 sm:pb-16 text-center" rv-hide="cart.item_count | gt 0">
+
+      <div class="supports-cookies mb-8">
+        <p class="body-md clr-general-text">{{ 'cart.general.empty' | t }}</p>
+        <a class="body-sm font-medium clr-general-links underline" href="/">{{ 'cart.general.continue_browsing_html' | t }}</a>
+      </div>
+    
+      <div class="supports-no-cookies">
+        <p class="body-md clr-general-text">{{ 'cart.general.cookies_required' | t }}</p>
+      </div>
+    </div>
+  </form>
+</div>
+

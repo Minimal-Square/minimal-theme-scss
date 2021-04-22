@@ -1,0 +1,260 @@
+<!-- Footer -->
+
+<div class="py-8 md:py-12 w-full clr-footer-background bottom-0">
+    <div class="max-width mx-auto md:grid gap-5 space-y-12 md:space-y-0
+        {% if section.blocks.size == 1 %}
+        md:grid-cols-1
+        {% elsif section.blocks.size == 2 %}
+        md:grid-cols-2
+        {% elsif section.blocks.size == 3 %}
+        md:grid-cols-3
+        {% elsif section.blocks.size == 4 %}
+        md:grid-cols-4
+        {% elsif section.blocks.size == 5 %}
+        md:grid-cols-5
+        {% endif %}
+        ">
+        {% for block in section.blocks %}
+            {% if block.type == 'block-1' %}
+                <div class="text-center space-y-6 md:text-left">
+                    <h3 class="mb-4 clr-footer-headings heading-xs">{{ block.settings.heading_footer }}</h3>
+                    {% if section.settings.logo %}
+                    <a href="/">
+                         <img class="object-cover mx-auto md:m-0 h-{{ block.settings.size }}" src="{{ block.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}">
+                    </a>
+                    {% endif %}
+                    <p class="mb-8 clr-footer-text body-md ">{{ block.settings.paragraph_footer }}</p>
+                    <div class="social-icons flex justify-center md:justify-start space-x-2">
+                        {% if block.settings.footer_social_enable %}
+                            <div class="flex space-x-2">
+                                {% if settings.social_accounts_twitter != blank %}
+                                    <a target="_blank" class="icon-fallback-text" href="{{ settings.social_accounts_twitter }}" title="{{ shop.name }} on Twitter">
+                                        <span aria-hidden="true" class="text-2xl icon icon-twitter"></span>
+                                    </a>
+                                {% endif %}
+                                {% if settings.social_accounts_facebook != blank %}
+                                    <a target="_blank" class="icon-fallback-text" href="{{ settings.social_accounts_facebook }}" title="{{ shop.name }} on Facebook">
+                                        <span aria-hidden="true" class="text-2xl icon icon-facebook"></span>
+                                    </a>
+                                {% endif %}
+                                {% if settings.social_accounts_instagram != blank %}
+                                    <a target="_blank" class="icon-fallback-text" href="{{ settings.social_accounts_instagram }}" title="{{ shop.name }} on Instagram">
+                                        <span aria-hidden="true" class="text-2xl icon icon-instagram"></span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% elsif block.type == 'block-2' %}
+                <div class="flex flex-col text-center w-full md:text-left">
+                    <div class="space-y-4">
+                        {% if block.settings.footer_newsletter_title != blank %}
+                            <label class="clr-footer-headings md:text-left heading-xs">{{ block.settings.footer_newsletter_title | escape }}</label>
+                        {% endif %}
+                        {% if block.settings.footer_newsletter_subtitle != blank %}
+                            <p class="md:text-left pb-4 clr-footer-text body-md">{{ block.settings.footer_newsletter_subtitle | escape }}</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                      {% if settings.mailchimp_link != blank %}
+                        <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form" target="_blank">
+                            {% if settings.display_first_name %}
+                            <input type="text" value="" class="firstName" name="FNAME" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}">
+                            {% endif %}
+                            {% if settings.display_last_name %}
+                            <input type="text" value="" name="LNAME" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}">
+                            {% endif %}
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+                            <input class="input clr-form-background clr-form-text clr-form-border border-input mb-2 xl:mb-0 xl:mr-2" type="email" name="EMAIL" id="Email"
+                            value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+                            placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                            autocorrect="off"
+                            autocapitalize="off">
+                            <input class="btn-lg btn-primary w-full xl:w-auto" type="submit" value=" {{ 'general.newsletter_form.submit' | t }}"  id="Subscribe">
+                        </form>
+                    {% else %}  
+                      {% form 'customer' %}
+                        {% if form.errors %}
+                        <div class="text-red-600 rounded-md w-full py-1 px-4 bg-red-100 flex items-center space-x-2 mb-2">
+                            <span aria-hidden="true" class="text-lg icon icon-alert-circle"></span>
+                        {{ form.errors | default_errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.posted_successfully? %}
+                            <p class="text-center text-green-700">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                        {% else %}
+                        <div class="xl:flex items-center">
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+                            <input class="input clr-form-background clr-form-text clr-form-border border-input mb-2 xl:mb-0 xl:mr-2" type="email"
+                            name="contact[email]"
+                            id="Email"
+                            value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+                            placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
+                            autocorrect="off"
+                            autocapitalize="off">
+                            <button class="btn-lg btn-primary w-full xl:w-auto" type="submit" name="commit" id="Subscribe">
+                            <span>{{ 'general.newsletter_form.submit' | t }}</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                        {% endform %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% elsif block.type == 'block-3' %}
+                <div class="flex text-center justify-center md:text-left md:{{ block.settings.block_3_position}} ">
+                    <div class="block">
+                        <h3 class="mb-4 clr-footer-headings heading-xs">{{ linklists[block.settings.menu].title }}</h3>
+                        <ul class="space-y-2">
+                            <li>
+                                {% for link in linklists[block.settings.menu].links %}
+                                <li><p><a class="clr-general-links body-md" href="{{ link.url }}">{{ link.title }}</a></p></li>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="max-width mx-auto block pt-8 md:pt-12 space-y-4 md:space-y-0 md:flex md:justify-between items-center">
+        <div class="text-center md:text-left">
+            <div class="flex space-x-2 justify-center mb-1">
+            {% if shop.refund_policy != blank %}
+            <a class="clr-general-links body-sm border-nav pr-2 leading-none" href="{{ shop.refund_policy.url }}">{{ shop.refund_policy.title}}</a>
+            {% endif %}
+            {% if shop.privacy_policy != blank %}
+            <a class="clr-general-links body-sm border-nav pr-2 leading-none" href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title}}</a>
+            {% endif %}
+            {% if shop.terms_of_service != blank %}
+            <a class="clr-general-links body-sm border-nav pr-2 leading-none" href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title}}</a>
+            {% endif %}
+            {% if shop.legal_notice != blank %}
+            <a class="clr-general-links body-sm border-nav pr-2 leading-none" href="{{ shop.legal_notice.url }}">{{ shop.legal_notice.title}}</a>
+            {% endif %}
+            {% if shop.shipping_policy != blank %}
+            <a class="clr-general-links body-sm border-nav pr-2 leading-none" href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title}}</a>
+            {% endif %}
+        </div>
+            <p class="clr-general-light-text body-sm">&copy; {{ 'now' | date: "%Y" }}, <span class="clr-general-links body-sm">{{ shop.name | link_to: routes.root_url }}</span>
+                 <span class="clr-general-links body-sm">{{ powered_by_link }} </span>
+            </p>
+        </div>
+        <div class="lg:flex justify-center items-end ">
+                {%- unless shop.enabled_payment_types == empty -%}
+
+        <div class="flex justify-center space-x-2 ">
+    {%- for type in shop.enabled_payment_types -%}
+
+        {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+    
+    {%- endfor -%}
+    </div>
+{%- endunless -%}
+        </div>
+    </div>
+</div>
+</div>
+
+<style>
+
+ .border-nav { border-right: 1px solid {{ settings.clr_general_light_text }}; } .border-nav:last-child { border-right: none; }
+
+</style>
+{% schema %}
+
+{
+    "name": "Footer",
+    "max_blocks":4,
+    "blocks": [
+    {
+        "type": "block-1",
+        "name": "About Us",
+        "settings": [
+        {
+            "type": "text",
+            "id": "heading_footer",
+            "label": "Heading",
+            "default": "About Us"
+        },
+        {
+            "type": "textarea",
+            "id": "paragraph_footer",
+            "label": "Paragraph",
+            "default": "Text about us"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo image"
+        },
+        {
+            "type": "range",
+            "id": "size",
+            "label": "Logo image size",
+            "default": 5,
+            "min": 1,
+            "max": 20,
+            "step": 1
+        },
+        {
+            "type": "checkbox",
+            "id": "footer_social_enable",
+            "label": "Show social media icons"
+        }
+        ]
+    },
+    {
+        "type": "block-2",
+        "name": "Newsletter",
+        "settings": [
+        {
+            "type": "text",
+            "id": "footer_newsletter_title",
+            "label": "Title"
+        },
+        {
+            "type": "text",
+            "id": "footer_newsletter_subtitle",
+            "label": "Sub Title"
+        }
+        ]
+    },
+    {
+        "type": "block-3",
+        "name": "Quick Links",
+        "settings": [
+        {
+            "type": "link_list",
+            "id": "menu",
+            "label": "Menu",
+            "info": "This menu won't show drop-down items"
+        },
+        {
+            "type": "select",
+            "id": "block_3_position",
+            "label": "Position",
+            "options": [
+            {
+                "value": "justify-self-start",
+                "label": "Left"
+            },
+            {
+                "value": "justify-self-center",
+                "label": "Center"
+            },
+            {
+                "value": "justify-self-end",
+                "label": "Right"
+            }
+            ]
+        }
+        ]
+    }
+    ]
+    
+}
+
+{% endschema %}

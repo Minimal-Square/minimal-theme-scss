@@ -1,0 +1,22 @@
+<div class="max-width mx-auto py-12 lg:py-24 space-y-12">
+    {{ section.settings.custom_html }}    
+</div>
+    
+{% schema %}
+{
+    "name": "Custom HTML",
+    "settings": [
+        {
+            "type": "textarea",
+            "id": "custom_html",
+            "label": "Custom html"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Content",
+            "name":"Custom HTML"
+        }
+    ]
+}
+{% endschema %}

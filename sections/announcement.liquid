@@ -1,0 +1,69 @@
+{% if section.settings.announcement_activate == true %} 
+    <section class="clr-announcement-background relative">
+        {% if section.settings.announcement_text != blank or section.settings.announcement_link_text != blank %}
+            <a class="absolute inset-0" href="{{ section.settings.announcement_link_url }}"></a>
+            <div class="max-width mx-auto flex items-center justify-center space-x-3 py-3 px-4">
+                <p class="body-sm text-center clr-announcement-text">{{ section.settings.announcement_text }}</p>
+                {% if section.settings.announcement_link_text != blank %}
+                    <a class="hidden md:inline-block body-sm whitespace-nowrap clr-announcement-link" href="{{ section.settings.announcement_link_url }}">{{ section.settings.announcement_link_text }}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+{% endif %}
+
+<style>
+    #shopify-section-{{ section.id }} .clr-announcement-background { background-color: {{ section.settings.announcement_background_color }}; }
+    #shopify-section-{{ section.id }} .clr-announcement-text { color: {{ section.settings.announcement_text_color }}; }
+    #shopify-section-{{ section.id }} .clr-announcement-link { color: {{ section.settings.announcement_link_color }}; }
+</style>
+
+
+{% schema %}
+{
+  "name": "Announcement",
+  "settings": [
+    {
+        "type": "checkbox",
+        "id": "announcement_activate",
+        "label": "Activate announcement",
+        "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "announcement_text",
+      "label": "Text",
+      "default": "It's default announcement text"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_text",
+      "label": "Link text",
+      "info": "If you don't want a link, leave the field blank."
+    },
+    {
+      "type": "url",
+      "id": "announcement_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "color",
+      "id": "announcement_background_color",
+      "label": "Background color",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+        "type": "color",
+        "id": "announcement_link_color",
+        "label": "Link color",
+        "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}

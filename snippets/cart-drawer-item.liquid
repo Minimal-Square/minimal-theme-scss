@@ -1,0 +1,21 @@
+<div class="flex space-x-4 border-b py-8">
+    <div>
+      <img class="w-16 h-16 object-cover rounded-md" src="{{ item | img_url }}" alt="">
+    </div>
+    <div class="space-y-2">
+      <div class="space-y-1">
+        <p class="text-sm">{{ item.title }}</p>
+        <p class="text-xs text-gray-500">{{ item.selected_variant }}</p>
+      </div>
+      <p class="text-sm">{{ item.price | money }}</p>
+      <div class="quantity flex">
+        <button class="bg-white py-1 px-2 rounded-md border border-black shadow-md" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1">
+          <span aria-hidden="true" class="icon icon-minus"></span>
+        </button>
+        <input class="appearance-none text-center px-0 w-8" type="text" value="item.quantity">
+        <button class="bg-white py-1 px-2 rounded-md border border-black shadow-md" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1">
+          <span aria-hidden="true" class="icon icon-plus"></span>
+        </button>
+      </div>
+    </div>
+</div>
