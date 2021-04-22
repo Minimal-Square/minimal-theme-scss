@@ -17,13 +17,13 @@
     }
 
     &__text {
-        color: var(--clr-announcement-text);
         font-size: var(--font-size-body-small);
+        color: var(--clr-announcement-text);
     }
 
     &__link {
-        color: var(--clr-announcement-link);
         font-size: var(--font-size-body-small);
+        color: var(--clr-announcement-link);
         white-space: nowrap;
         margin-left: 12px;
         @include mq($from: mobile) {
