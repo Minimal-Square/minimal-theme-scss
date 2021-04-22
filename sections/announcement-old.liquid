@@ -1,11 +1,11 @@
 {% if section.settings.announcement_activate == true %} 
-    <section class="announcement">
+    <section class="clr-announcement-background relative">
         {% if section.settings.announcement_text != blank or section.settings.announcement_link_text != blank %}
-            <a class="announcement--link" href="{{ section.settings.announcement_link_url }}"></a>
-            <div class="announcement__content">
-                <p class="announcement__text">{{ section.settings.announcement_text }}</p>
+            <a class="absolute inset-0" href="{{ section.settings.announcement_link_url }}"></a>
+            <div class="max-width mx-auto flex items-center justify-center space-x-3 py-3 px-4">
+                <p class="body-sm text-center clr-announcement-text">{{ section.settings.announcement_text }}</p>
                 {% if section.settings.announcement_link_text != blank %}
-                    <a class="announcement__link" href="{{ section.settings.announcement_link_url }}">{{ section.settings.announcement_link_text }}</a>
+                    <a class="hidden md:inline-block body-sm whitespace-nowrap clr-announcement-link" href="{{ section.settings.announcement_link_url }}">{{ section.settings.announcement_link_text }}</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -13,11 +13,9 @@
 {% endif %}
 
 <style>
-  :root {
-    --clr-announcement-background: {{ section.settings.clr_announcement_background }};
-    --clr-announcement-text: {{ section.settings.clr_announcement_text }};
-    --clr-announcement-link: {{ section.settings.clr_announcement_link }};
-  }
+    #shopify-section-{{ section.id }} .clr-announcement-background { background-color: {{ section.settings.announcement_background_color }}; }
+    #shopify-section-{{ section.id }} .clr-announcement-text { color: {{ section.settings.announcement_text_color }}; }
+    #shopify-section-{{ section.id }} .clr-announcement-link { color: {{ section.settings.announcement_link_color }}; }
 </style>
 
 
@@ -50,19 +48,19 @@
     },
     {
       "type": "color",
-      "id": "clr_announcement_background",
+      "id": "announcement_background_color",
       "label": "Background color",
       "default": "#222222"
     },
     {
       "type": "color",
-      "id": "clr_announcement_text",
+      "id": "announcement_text_color",
       "label": "Text color",
       "default": "#ffffff"
     },
     {
         "type": "color",
-        "id": "clr_announcement_link",
+        "id": "announcement_link_color",
         "label": "Link color",
         "default": "#ffffff"
     }
