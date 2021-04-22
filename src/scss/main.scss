@@ -1,5 +1,2 @@
-$bg: red;
-
-.color {
-    color: $bg;
-}
+@import 'components/buttons';
+@import 'sections/announcement';
