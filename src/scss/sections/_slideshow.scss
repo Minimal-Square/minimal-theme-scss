@@ -1,0 +1,159 @@
+.slideshow {
+    &__mobile-height--sm {
+        height: 350px;
+    }
+    &__mobile-height--md {
+        height: 400px;
+    }
+    &__mobile-height--lg {
+        height: 450px;
+    }
+    &__mobile-height--xl {
+        height: 500px;
+    }
+    &__mobile-height--fit {
+        height: 100vh; // Update me
+    }
+    &__desktop-height--sm {
+        @include mq($from: desktop) {
+            height: 500px;
+        }
+    }
+    &__desktop-height--md {
+        @include mq($from: desktop) {
+            height: 600px;
+        }
+    }
+    &__desktop-height--lg {
+        @include mq($from: desktop) {
+            height: 700px;
+        }
+    }
+    &__desktop-height--fit {
+        @include mq($from: desktop) {
+            height: 100vh; // Update me
+        }
+    }
+    &__width--full {
+        width: 100%;
+    }
+    &__width--content {
+        @extend .container;
+        margin: 24px auto;
+    }
+}
+
+.slideshow-cell {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    &--mask {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    &__image {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        object-fit: cover;
+    }
+    &__image--top {
+        object-position: top;
+    }
+    &__image--right {
+        object-position: right;
+    }
+    &__image--center {
+        object-position: center;
+    }
+    &__image--left {
+        object-position: left;
+    }
+    &__image--bottom {
+        object-position: bottom;
+    }
+    &__overlay {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+    }
+    &--position {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        padding: 48px;
+        @include mq($from: mobile, $until: desktop) {
+            padding: 24px;
+        }
+        @include mq($until: mobile) {
+            padding: 24px;
+        }
+    }
+    &--position--top-left {
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: left;
+    }
+    &--position--top-center {
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+    }
+    &--position--top-right {
+        align-items: flex-end;
+        justify-content: flex-start;
+        text-align: right;
+    }
+    &--position--center-left {
+        align-items: flex-start;
+        justify-content: center;
+        text-align: left;
+    }
+    &--position--center {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    &--position--center-right {
+        align-items: flex-end;
+        justify-content: center;
+        text-align: right;
+    }
+    &--position--bottom-left {
+        align-items: flex-start;
+        justify-content: flex-end;
+        text-align: left;
+    }
+    &--position--bottom-center {
+        align-items: center;
+        justify-content: flex-end;
+        text-align: center;
+    }
+    &--position--bottom-right {
+        align-items: flex-end;
+        justify-content: flex-end;
+        text-align: right;
+    }
+}
+
+.slideshow-content {
+    max-width: 640px;
+    position: absolute;
+    margin: 0 auto;
+    &__heading {
+        font-size: var(--font-size-heading-slideshow);
+        line-height: 1.125;
+        font-weight: var(--font-weight);
+        margin-bottom: 16px;
+    }
+    &__text {
+        font-size: var(--font-size-body);
+        margin-bottom: 24px;
+    }
+}

@@ -15,21 +15,31 @@
     --clr-general-text: {{ settings.clr_general_text }};
     --clr-general-light-text: {{ settings.clr_general_light_text }};
     --clr-general-links: {{ settings.clr_general_links }};
+
     --clr-button-primary-background: {{ settings.clr_button_primary_background }};
+    --clr-button-primary-background-hover: {{ settings.clr_button_primary_background | color_darken: 5 }};
+    --clr-button-primary-background-active: {{ settings.clr_button_primary_background | color_darken: 10 }};
     --clr-button-primary-text: {{ settings.clr_button_primary_text }};
     --clr-button-secondary-background: {{ settings.clr_button_secondary_background }};
+    --clr-button-secondary-background-hover: {{ settings.clr_button_secondary_background | color_darken: 5 }};
+    --clr-button-secondary-background-active: {{ settings.clr_button_secondary_background | color_darken: 10 }};
     --clr-button-secondary-text: {{ settings.clr_button_secondary_text }};
     --clr-button-secondary-border: {{ settings.clr_button_secondary_border }};
+
     --clr-header-background: {{ settings.clr_header_background }};
     --clr-header-text: {{ settings.clr_header_text }};
+
     --clr-form-background: {{ settings.clr_form_background }};
     --clr-form-text: {{ settings.clr_form_text }};
     --clr-form-border: {{ settings.clr_form_border }};
+
     --clr-product-sale-accent: {{ settings.clr_product_sale_accent }};
     --clr-product-review-star: {{ settings.clr_product_review_star }};
+
     --clr-footer-background: {{ settings.clr_footer_background }};
     --clr-footer-headings: {{ settings.clr_footer_headings }};
     --clr-footer-text: {{ settings.clr_footer_text }};
+    
     --clr-overlay: {{ settings.clr_overlay }};
     --clr-overlay-opacity: {{ settings.clr_overlay_opacity }};
 
@@ -109,4 +119,9 @@
         --font-size-heading-body-smaller: 0.8203125rem;
         --font-size-heading-slideshow: 1.9921875rem;
     }
+}
+
+/* MAX WIDTH */
+:root {
+    --max-width: {{- settings.layout_max_width -}}px;
 }

@@ -1,6 +1,10 @@
-@import 'components/buttons';
 @import 'abstracts/breakpoints';
 @import 'abstracts/mixins';
+@import 'abstracts/global';
+
+@import 'components/buttons';
 
 @import 'sections/announcement';
+@import 'sections/slideshow';
 @import 'sections/rich-text';
+@import 'sections/highlights';

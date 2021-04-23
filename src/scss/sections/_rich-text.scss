@@ -1,5 +1,4 @@
 .rich-text {
-    background-color: var(--clr-richtext-background);
     @include mq($until: mobile) {
         margin: 0 16px;
     }
@@ -28,7 +27,6 @@
         font-size: var(--font-size-heading-large);
         font-family: var(--font-primary);
         font-weight: var(--font-weight);
-        color: var(--clr-general-headings);
         margin-bottom: 16px;
         @include mq($until: desktop) {
             font-size: var(--font-size-heading-1);
@@ -37,7 +35,6 @@
 
     &__text {
         font-size: var(--font-size-body);
-        color: var(--clr-general-text);
         margin-bottom: 24px;
     }
 }

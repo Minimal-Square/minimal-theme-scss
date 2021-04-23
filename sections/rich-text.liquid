@@ -9,10 +9,14 @@
 </section>
 
 <style>
-    :root {
-        --clr-richtext-heading: {{ section.settings.clr_richtext_heading }};
-        --clr-richtex-text: {{ section.settings.clr_richtext_text }};
-        --clr-richtext-background: {{ section.settings.clr_richtext_background }};
+    #shopify-section-{{ section.id }} .rich-text {
+        background-color: {{ section.settings.clr_richtext_background }};
+    }
+    #shopify-section-{{ section.id }} .rich-text__heading {
+        color: {{ section.settings.clr_richtext_heading }};
+    }
+    #shopify-section-{{ section.id }} .rich-text__text {
+        color: {{ section.settings.clr_richtext_text }};
     }
 </style>
 

@@ -1,29 +1,44 @@
-<div class="slideshow main-carousel js-flickity
+<style>
+    #shopify-section-{{ section.id }} .flickity-viewport {
+        height: 100%!important;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-page-dots {
+        position: absolute;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow {
+        overflow: hidden!important;
+    }
+</style>
+
+<div class="main-carousel slideshow js-flickity
 {% if section.settings.slideshow_height_mobile == 'small' %}
-slideshow__mobile-height--sm
+h-80
 {% elsif section.settings.slideshow_height_mobile == 'medium' %}
-slideshow__mobile-height--md
+h-96
 {% elsif section.settings.slideshow_height_mobile == 'large' %}
-slideshow__mobile-height--lg
+h-128
 {% elsif section.settings.slideshow_height_mobile == 'extra_large' %}
-slideshow__mobile-height--xl
+h-144
 {% elsif section.settings.slideshow_height_mobile == 'fit_screen' %}
-slideshow__mobile-height--fit
+h-screen
 {% endif %}
 {% if section.settings.slideshow_height == 'small' %}
-slideshow__desktop-height--sm
+lg:h-128
 {% elsif section.settings.slideshow_height == 'medium' %}
-slideshow__desktop-height--md
+lg:h-144
 {% elsif section.settings.slideshow_height == 'large' %}
-slideshow__desktop-height--lg
+lg:h-176
 {% elsif section.settings.slideshow_height == 'fit_screen' %}
-slideshow__desktop-height--fit
+lg:h-screen
 {% endif %}
 {% if section.settings.slideshow_width == 'full_width' %}
-slideshow__width--full
+w-full
 {% elsif section.settings.slideshow_width == 'content_width' %}
-slideshow__width--content
-{% endif %}" 
+max-width my-6 mx-auto
+{% endif %}
+sm:h-172" 
 {% unless section.blocks.size == 1 %}
 data-flickity='{ "imagesLoaded": true,"wrapAround": true
 {% if section.settings.slideshow_autoplay == true %}
@@ -33,33 +48,34 @@ data-flickity='{ "imagesLoaded": true,"wrapAround": true
 {% endunless %}
 data-section-type="slideshow" data-section-id="{{ section.id }}">
     {% for block in section.blocks %}
-        <div class="carousel-cell slideshow-cell" id="slide-{{forloop.index}}">
-            <div class="slideshow-cell--mask">
-                <img src="{{ block.settings.slideshow_image | img_url: 'master' }}" id="desktop_slide_{{forloop.index}}" alt="Slide {{ forloop.index }}" class="slideshow-cell__image 
+        
+        <div class="carousel-cell h-full w-full flex flex-col relative" id="slide-{{forloop.index}}">
+            <div class="w-full h-full absolute hero_image">
+                <img src="{{ block.settings.slideshow_image | img_url: 'master' }}" id="desktop_slide_{{forloop.index}}" alt="Slide {{ forloop.index }}" class="w-full h-full absolute object-cover 
                 {% if block.settings.slideshow_image_position == 'top' %}
-                slideshow-cell__image--top
+                object-top
                 {% elsif block.settings.slideshow_image_position == 'right' %}
-                slideshow-cell__image--right
+                object-right
                 {% elsif block.settings.slideshow_image_position == 'center' %}
-                slideshow-cell__image--center
+                object-center
                 {% elsif block.settings.slideshow_image_position == 'left' %}
-                slideshow-cell__image--left
+                object-left
                 {% elsif block.settings.slideshow_image_position == 'bottom' %}
-                slideshow-cell__image--bottom
+                object-bottom
                 {% endif %}
                 ">
                 {% unless block.settings.slideshow_image_mobile == blank %}
-                    <img src="{{ block.settings.slideshow_image_mobile | img_url: 'master' }}" id="mobile_slide_{{forloop.index}}" alt="Mobile Slide {{ forloop.index }}" class="slideshow-cell__image 
+                    <img src="{{ block.settings.slideshow_image_mobile | img_url: 'master' }}" id="mobile_slide_{{forloop.index}}" alt="Mobile Slide {{ forloop.index }}" class="w-full h-full absolute object-cover 
                     {% if block.settings.slideshow_image_position == 'top' %}
-                    slideshow-cell__image--top
+                    object-top
                     {% elsif block.settings.slideshow_image_position == 'right' %}
-                    slideshow-cell__image--right
+                    object-right
                     {% elsif block.settings.slideshow_image_position == 'center' %}
-                    slideshow-cell__image--center
+                    object-center
                     {% elsif block.settings.slideshow_image_position == 'left' %}
-                    slideshow-cell__image--left
+                    object-left
                     {% elsif block.settings.slideshow_image_position == 'bottom' %}
-                    slideshow-cell__image--bottom
+                    object-bottom
                     {% endif %}
                     ">
 
@@ -79,20 +95,17 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
 
                 <style>
                     :root {
-                        --slide-text-color: {{ block.settings.clr_slideshow_text }};
+                        --slide-text-color: {{ block.settings.slideshow_text_color }};
                     }
+                    
 
                     .flickity-button {
                         color: var(--slide-text-color);
                     }
-
-                    .dot {
-                        background: var(--slide-text-color) !important;
-                    }
                 </style>
 
                 {% if section.settings.slideshow_overlay_enable == true %}
-                <div class="slideshow-cell__overlay" style="
+                <div class="w-full h-full absolute top-0" style="
                 {% if section.settings.slideshow_overlay_style == 'solid' %}
                 background-color: {{ section.settings.slideshow_overlay_color }}; 
                 {% elsif section.settings.slideshow_overlay_style == 'gradient' %}
@@ -101,29 +114,30 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                 filter: opacity({{ section.settings.slideshow_overlay_opacity }}%);"></div>
                 {% endif %}
             </div>
-            <div class="slideshow-cell--position
+            <div class="w-full h-full flex flex-col 
             {% if block.settings.slideshow_text_position_horizontal == 'top-left' %}
-            slideshow-cell--position--top-left
+            items-start justify-start text-left 
             {% elsif block.settings.slideshow_text_position_horizontal == 'top-center' %}
-            slideshow-cell--position--top-center
+            items-center justify-start text-center 
             {% elsif block.settings.slideshow_text_position_horizontal == 'top-right' %}
-            slideshow-cell--position--top-right
+            items-end justify-start text-right 
             {% elsif block.settings.slideshow_text_position_horizontal == 'center-left' %}
-            slideshow-cell--position--center-left
+            items-start justify-center text-left 
             {% elsif block.settings.slideshow_text_position_horizontal == 'center' %}
-            slideshow-cell--position--center
+            items-center justify-center text-center 
             {% elsif block.settings.slideshow_text_position_horizontal == 'center-right' %}
-            slideshow-cell--position--center-right 
+            items-end justify-center text-right 
             {% elsif block.settings.slideshow_text_position_horizontal == 'bottom-left' %}
-            slideshow-cell--position--bottom-left
+            items-start justify-end text-left
             {% elsif block.settings.slideshow_text_position_horizontal == 'bottom-center' %}
-            slideshow-cell--position--bottom-center
+            items-center justify-end text-center 
             {% elsif block.settings.slideshow_text_position_horizontal == 'bottom-right' %}
-            slideshow-cell--position--bottom-right
-            {% endif %}">
-                <div class="slideshow-content">
-                    <h1 class="slideshow-content__heading">{{ block.settings.slideshow_heading }}</h1>
-                    <h2 class="slideshow-content__text">{{ block.settings.slideshow_subheading }}</h2>
+            items-end justify-end text-right 
+            {% endif %}
+            absolute px-8 py-12 md:p-12 lg:p-12">
+                <div class="max-w-screen-sm absolute mx-auto hero_content">
+                    <h1 class="heading-xl mb-4" style="color: {{ block.settings.slideshow_text_color }}">{{ block.settings.slideshow_heading }}</h1>
+                    <h2 class="body-md mb-6" style="color: {{ block.settings.slideshow_text_color }}">{{ block.settings.slideshow_subheading }}</h2>
                     <div class="space-x-2">
                         {% if block.settings.slideshow_button_text != blank %}
                         <a href="{{ block.settings.slideshow_button_url }}" class="btn-lg 
@@ -149,41 +163,25 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
     {% endfor %}
 </div>
 
-<style>
-    #shopify-section-{{ section.id }} .flickity-viewport {
-        height: 100%!important;
-    }
-
-    #shopify-section-{{ section.id }} .flickity-page-dots {
-        position: absolute;
-    }
-
-    #shopify-section-{{ section.id }} .slideshow {
-        overflow: hidden!important;
-    }
-
-    #shopify-section-{{ section.id }} .slideshow-content__heading .slideshow-content__text {
-        color: var(--slide-text-color)
-    }
-</style>
-
 {% javascript %}
-    function showAlert() {
-        var elem = document.querySelector('.slideshow');
-        var flkty = new Flickity( elem, {
-        imagesLoaded: true,
-        wrapAround: true,
-        cellAlign: 'left',
-        contain: true
-        });
-    }
+function showAlert() {
+    var elem = document.querySelector('.slideshow');
+    var flkty = new Flickity( elem, {
+    // options
+    imagesLoaded: true,
+    wrapAround: true,
+    cellAlign: 'left',
+    contain: true
+    });
+}
+
 document.addEventListener("shopify:section:load", showAlert());
 document.addEventListener("shopify:block:select", showAlert());
 {% endjavascript %}
 
 {% schema %}
 {
-    "name": "Slideshow",
+    "name": "Slideshow old",
     "max_blocks": 5,
     "blocks": [
         {
@@ -250,7 +248,7 @@ document.addEventListener("shopify:block:select", showAlert());
                 },
                 {
                     "type": "color",
-                    "id": "clr_slideshow_text",
+                    "id": "slideshow_text_color",
                     "label": "Text color",
                     "default": "#ffffff"
                 },
@@ -472,7 +470,7 @@ document.addEventListener("shopify:block:select", showAlert());
         },
         {
             "type": "color",
-            "id": "clr_slideshow_overlay",
+            "id": "slideshow_overlay_color",
             "label": "Overlay color",
             "default": "#222222"
         },
@@ -499,7 +497,7 @@ document.addEventListener("shopify:block:select", showAlert());
     "presets": [
         {
             "category": "Image",
-            "name":"Slideshow"
+            "name":"Slideshow old"
         }
     ]
 }

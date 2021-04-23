@@ -332,26 +332,6 @@
 
 
 /* HERO */
-@media only screen and (max-width: 768px) {
-    .hero_content {
-    max-width: 90%;
-    }
-
-    .hero_content h1 {
-        font-size: {{ settings.base_font_size | times: 2.369 }}px;
-        font-family: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-        font-weight: {{ settings.font_heading.weight }};
-    }
-
-    .hero_content a {
-        border-radius: 4px;
-        transition: all .1s ease-in;
-        font-size: {{ settings.base_font_size }}px;
-        font-family: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
-        font-weight: 500;
-        display: inline-block;
-    }
-}
 
 /* HEADER */
 
@@ -460,15 +440,6 @@ input[type=number] {
 
 .shadow-small {
     filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.06));
-}
-
-/* Text selection color */
-::-moz-selection { /* Code for Firefox */
-    background-color: rgb(230, 230, 230);
-  }
-  
-::selection {
-background-color: rgb(238, 238, 238);
 }
 
 /* Mobile Navmenu */
