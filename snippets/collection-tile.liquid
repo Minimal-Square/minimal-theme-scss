@@ -1,97 +1,96 @@
-<div class="{% if section.settings.collection_layout == 'carousel' %} carousel-cell {% endif %} w-full">
-<div class="bg-white w-full h-full relative hoverDropdown shadow p-3 lg:p-4 {% if section.settings.collection_box == true %} p-4 {% endif %}">
-    <a href="{{ product.url }}">
-        {% unless product.available %}
-            <div class="bg-black text-white text-center mt-2 ml-2 md:mt-4 md:ml-4 py-0.5 px-2 rounded-sm z-50 absolute body-xs">Sold Out</div>
-        {% endunless %}
-        <div class="aspect-w-1 aspect-h-1 overflow-hidden">
-            <img class="object-cover cursor-pointer pb-0 {% if section.settings.hover_animation == true %} transform hover:scale-125 transition ease-in-out {% endif %}" src="{{ product | img_url: '2048x2048' }}" alt="{{ product.title }}">
-        </div>
-    </a>
-    <div class="space-y-2 pt-4">
-        {% if section.settings.product_vendor == true %}<h3 class="clr-general-light-text body-sm flex">{{ product.vendor }}</h3>{% endif %}
-        <div class="space-y-1">
-            <a href="{{ product.url }}">
-                <h3 class="body-md font-medium">{{ product.title }}</h3>
-            </a>
-            <h3 class="body-md">{{ product.price | money }}</h3>
-        </div> 
-        <div class="items-center block sm:flex">
-            <div class="flex">
-                {% if settings.shopify_star == true %}
-                    <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}"></span>
-                {% endif %}
+<div class="tile {% if section.settings.collection_layout == 'carousel' %} carousel-cell {% endif %}">
+    <div class="tile__content hoverDropdown">
+        <a href="{{ product.url }}">
+            {% unless product.available %}
+                <div class="tile__sold-out">Sold Out</div>
+            {% endunless %}
+            <div class="tile__wrapper aspect-w-1 aspect-h-1">
+                <img class="tile__image {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product | img_url: '2048x2048' }}" alt="{{ product.title }}">
+            </div>
+        </a>
+        <div class="tile__info">
+            {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
+            <div class="tile__product-name-price">
+                <a href="{{ product.url }}">
+                    <h3 class="tile__name">{{ product.title }}</h3>
+                </a>
+                <div class="tile__group-price">
+                    <p class="tile__price">{{ product.price | money }}</p>
+                    {% if product.compare_at_price > product.price %}<p class="tile__compare-price">{{ product.compare_at_price | money }}</p>{% endif %} <!-- Update me -->
+                </div>
+            </div> 
+            <div class="tile__reviews items-center block sm:flex">
+                <div class="flex">
+                    {% if settings.shopify_star == true %}
+                        <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}"></span>
+                    {% endif %}
 
-                <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
-                    {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
-                    {%- assign time_now = 'now' | date: '%s' %}
-                    {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
-                    {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
-                    {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
-                    {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
+                    <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
+                        {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+                        {%- assign time_now = 'now' | date: '%s' %}
+                        {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+                        {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
+                        {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
+                        {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
 
-                    {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
-                        {%- assign yotpo_bottomline_obsolete = false %}
-                    {%- else %}
-                        {%- assign yotpo_bottomline_obsolete = true %}
-                    {%- endif %}
-                    {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
-                        {{ product.metafields.yotpo.catalog_bottomline }}
-                    {%- endif %}
+                        {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
+                            {%- assign yotpo_bottomline_obsolete = false %}
+                        {%- else %}
+                            {%- assign yotpo_bottomline_obsolete = true %}
+                        {%- endif %}
+                        {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
+                            {{ product.metafields.yotpo.catalog_bottomline }}
+                        {%- endif %}
+                    </div>
                 </div>
             </div>
+            <div class="w-full">
+                <form method="post" action="/cart/add" class="w-full z-40 text-center">
+                    {% if section.settings.collection_addtocart_quickshop_activate == 'default' %}
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                        <div class="block space-y-2">
+                            {% if section.settings.collection_addtocart_activate == true %}
+                                <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
+                            {% endif %}
+                            {% if section.settings.collection_quickshop_activate == true %}
+                                <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
+                            {% endif %}
+                        </div>
+                    {% elsif section.settings.collection_addtocart_quickshop_activate == 'none' %}
+                    {% endif %}
+                </form>
+            </div>
         </div>
-        <div class="w-full">
-            <form method="post" action="/cart/add" class="w-full z-40 text-center">
-                {% if section.settings.collection_addtocart_quickshop_activate == 'default' %}
-                    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-                    <div class="block space-y-2">
-                        {% if section.settings.collection_addtocart_activate == true %}
-                            <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
-                        {% endif %}
-                        {% if section.settings.collection_quickshop_activate == true %}
-                            <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
-                        {% endif %}
-                    </div>
-                {% elsif section.settings.collection_addtocart_quickshop_activate == 'none' %}
-                {% endif %}
-            </form>
-        </div>
-    </div>
 
-    <!-- Modal -->
-  
-    <div id="ex1" class="modal z-50">
-      {% include 'product-form' %}
-    </div>
+        <!-- Modal -->
     
-    <!-- Product hover -->
-    {% if section.settings.collection_addtocart_quickshop_activate == 'hover' %}
-        <div class="hidden absolute hoverItem z-30 w-full">
-            <form method="post" action="/cart/add" class="flex w-full z-40">
-                <input type="hidden" name="id" value="{{ product.variants.first.id }}"/>
-                <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
-                <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
-            </form>
+        <div id="ex1" class="modal z-50">
+        {% include 'product-form' %}
         </div>
-    {% endif %}
-</div>
+        
+        <!-- Product hover -->
+        {% if section.settings.collection_addtocart_quickshop_activate == 'hover' %}
+            <div class="hidden absolute hoverItem z-30 w-full">
+                <form method="post" action="/cart/add" class="flex w-full z-40">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}"/>
+                    <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
+                    <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
+                </form>
+            </div>
+        {% endif %}
+    </div>
 </div>
   
 <style>
-#shopify-section-{{ section.id }} .shadow {
-    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.06);
-    border: 1px solid #eee;
-    border-radius: 4px;
-}
+    .spr-icon {
+        font-size: 75% !important;
+        color: var(--clr-product-review-star);
+        margin-right: 0.125rem;
+    }
 
-.spr-icon {
-    font-size: 75% !important;
-}
-
-.spr-badge-caption {
-    font-size: var(--body-sm);
-    color: var(--clr-general-text);
-    margin-left: 4px;
-}
+    .spr-badge-caption {
+        font-size: var(--font-size-body-tiny);
+        color: var(--clr-general-text);
+        margin-left: 0.125rem;
+    }
 </style>

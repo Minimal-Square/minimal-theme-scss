@@ -1,4 +1,4 @@
-<div class="slideshow main-carousel js-flickity
+<div class="slideshow {% if section.blocks.size > 1 %} main-carousel js-flickity {% endif %}
 {% if section.settings.slideshow_height_mobile == 'small' %}
 slideshow__mobile-height--sm
 {% elsif section.settings.slideshow_height_mobile == 'medium' %}
@@ -64,25 +64,27 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                     ">
 
                     <style>
+                        {% unless block.settings.slideshow_image_mobile != blank %}
                         @media only screen and (max-width: 768px) {
                             #desktop_slide_{{forloop.index}} {
                                 display: none;
                             }
-                        } 
+                        }
+                        {% endunless %}
                         @media only screen and (min-width: 768px) {
                             #mobile_slide_{{forloop.index}} {
                                 display: none;
                             }
-                        } 
+                        }
                     </style>
                 {% endunless %}
 
-                <style>
+                <style> 
                     :root {
                         --slide-text-color: {{ block.settings.clr_slideshow_text }};
                     }
 
-                    .flickity-button {
+                    .flickity-prev-next-button {
                         color: var(--slide-text-color);
                     }
 
@@ -91,17 +93,17 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                     }
                 </style>
 
-                {% if section.settings.slideshow_overlay_enable == true %}
+                {% if block.settings.slideshow_overlay_enable == true %}
                 <div class="slideshow-cell__overlay" style="
-                {% if section.settings.slideshow_overlay_style == 'solid' %}
-                background-color: {{ section.settings.slideshow_overlay_color }}; 
-                {% elsif section.settings.slideshow_overlay_style == 'gradient' %}
-                background-image: linear-gradient(rgba(0,0,0,0), {{ section.settings.slideshow_overlay_color }});
+                {% if block.settings.slideshow_overlay_style == 'solid' %}
+                background-color: {{ block.settings.clr_slideshow_overlay }}; 
+                {% elsif block.settings.slideshow_overlay_style == 'gradient' %}
+                background-image: linear-gradient(rgba(0,0,0,0), {{ block.settings.clr_slideshow_overlay }});
                 {% endif %}
-                filter: opacity({{ section.settings.slideshow_overlay_opacity }}%);"></div>
+                filter: opacity({{ block.settings.slideshow_overlay_opacity }}%);"></div>
                 {% endif %}
             </div>
-            <div class="slideshow-cell--position
+            <div class="slideshow-cell--position {% if section.blocks.size > 1 %} slideshow-cell__multiple {% else %} slideshow-cell__single {% endif %}
             {% if block.settings.slideshow_text_position_horizontal == 'top-left' %}
             slideshow-cell--position--top-left
             {% elsif block.settings.slideshow_text_position_horizontal == 'top-center' %}
@@ -122,11 +124,11 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
             slideshow-cell--position--bottom-right
             {% endif %}">
                 <div class="slideshow-content">
-                    <h1 class="slideshow-content__heading">{{ block.settings.slideshow_heading }}</h1>
-                    <h2 class="slideshow-content__text">{{ block.settings.slideshow_subheading }}</h2>
+                    <h1 class="slideshow-content__heading" style="color: {{ block.settings.clr_slideshow_text }};">{{ block.settings.slideshow_heading }}</h1>
+                    <h2 class="slideshow-content__text" style="color: {{ block.settings.clr_slideshow_text }};">{{ block.settings.slideshow_subheading }}</h2>
                     <div class="space-x-2">
                         {% if block.settings.slideshow_button_text != blank %}
-                        <a href="{{ block.settings.slideshow_button_url }}" class="btn-lg 
+                        <a href="{{ block.settings.slideshow_button_url }}" class="slideshow-content__btn
                         {% if block.settings.slideshow_button_style == 'slideshow_button_style_primary' %}
                         btn-primary
                         {% elsif block.settings.slideshow_button_style == 'slideshow_button_style_secondary' %}
@@ -135,7 +137,7 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                         </a>
                         {% endif %}
                         {% if block.settings.slideshow_second_button_text != blank %}
-                            <a href="{{ block.settings.slideshow_second_button_url }}" class="btn-lg
+                            <a href="{{ block.settings.slideshow_second_button_url }}" class="slideshow-content__btn
                             {% if block.settings.slideshow_second_button_style == 'slideshow_second_button_style_primary' %}
                             btn-primary
                             {% elsif block.settings.slideshow_second_button_style == 'slideshow_second_button_style_secondary' %}
@@ -160,10 +162,6 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
 
     #shopify-section-{{ section.id }} .slideshow {
         overflow: hidden!important;
-    }
-
-    #shopify-section-{{ section.id }} .slideshow-content__heading .slideshow-content__text {
-        color: var(--slide-text-color)
     }
 </style>
 
@@ -355,6 +353,50 @@ document.addEventListener("shopify:block:select", showAlert());
                             "label": "Secondary"
                         }
                     ]
+                },
+                {
+                    "type": "header",
+                    "content": "Overlay"
+                },
+                {
+                    "type": "checkbox",
+                    "default": true,
+                    "id": "slideshow_overlay_enable",
+                    "label": "Activate overlay"
+                    
+                },
+                {
+                    "type": "range",
+                    "id": "slideshow_overlay_opacity",
+                    "label": "Overlay opacity",
+                    "min": 1,
+                    "max": 100,
+                    "step": 1,
+                    "default": 30,
+                    "unit": "%"
+                },
+                {
+                    "type": "select",
+                    "id": "slideshow_overlay_style",
+                    "label": "Overlay style",
+                    "default": "solid",
+                    "options": [
+                        {
+                            "value": "solid",
+                            "label": "Solid"
+                        },
+                        {
+                            "value": "gradient",
+                            "label": "Gradient"
+                        }
+                        
+                    ]
+                },
+                {
+                    "type": "color",
+                    "id": "clr_slideshow_overlay",
+                    "label": "Overlay color",
+                    "default": "#222222"
                 }
             ]
         }
@@ -431,50 +473,6 @@ document.addEventListener("shopify:block:select", showAlert());
                     "label": "Fit screen"
                 }
             ]
-        },
-        {
-            "type": "header",
-            "content": "Overlay"
-        },
-        {
-            "type": "checkbox",
-            "default": true,
-            "id": "slideshow_overlay_enable",
-            "label": "Activate overlay"
-            
-        },
-        {
-            "type": "range",
-            "id": "slideshow_overlay_opacity",
-            "label": "Overlay opacity",
-            "min": 1,
-            "max": 100,
-            "step": 1,
-            "default": 30,
-            "unit": "%"
-        },
-        {
-            "type": "select",
-            "id": "slideshow_overlay_style",
-            "label": "Overlay style",
-            "default": "solid",
-            "options": [
-                {
-                    "value": "solid",
-                    "label": "Solid"
-                },
-                {
-                    "value": "gradient",
-                    "label": "Gradient"
-                }
-                
-            ]
-        },
-        {
-            "type": "color",
-            "id": "clr_slideshow_overlay",
-            "label": "Overlay color",
-            "default": "#222222"
         },
         {
             "type": "header",

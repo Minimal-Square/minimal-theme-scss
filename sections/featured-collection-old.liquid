@@ -3,35 +3,37 @@
 {% assign products_per_row = section.settings.products_per_row %}
 {% assign collection_button_text = section.settings.collection_button_text %}
 
-<section class="featured-collection">
-    <div class="featured-collection__header">
-        <h2 class="featured-collection__heading">{{ section.settings.collection_title }}</h2>
-        {% if section.settings.collection_paragraph != blank %}<p class="featured-collection__text">{{ section.settings.collection_paragraph }}</p>{% endif %}
-    </div>
-    <div class="featured-collection__content">
+<section class="collection-background">
+    <div class="max-width mx-auto py-12 lg:py-24 space-y-12">
+        <div class="text-center">
+            <h2 class="heading-sm clr-general-headings mb-4">{{ section.settings.collection_title }}</h2>
+            <p class="body-md clr-general-text">{{ section.settings.collection_paragraph }}</p>
+        </div>
         <div class="
             {% if section.settings.collection_layout == 'carousel' %}
                 main-carousel
             {% elsif section.settings.collection_layout == 'grid' %}
-                featured-collection__grid
+                grid gap-3 lg:gap-4 grid-cols-2 md:grid-cols-3
             {% if products_per_row == 2 %}
-                featured-collection__grid--cols-2
+                lg:grid-cols-2
             {% elsif products_per_row == 3 %}
-                featured-collection__grid--cols-3
+                lg:grid-cols-3
             {% elsif products_per_row == 4 %}
-                featured-collection__grid--cols-4
+                lg:grid-cols-4
             {% elsif products_per_row == 5 %}
-                featured-collection__grid--cols-5
+                lg:grid-cols-5
             {% endif %}
-        {% endif %}"{% if section.settings.collection_layout == 'carousel' %} data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": false, "watchCSS": false, "prevNextButtons": true }' {% endif %}>
+        {% endif %}
+        " {% if section.settings.collection_layout == 'carousel' %} data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": false, "watchCSS": false, "prevNextButtons": true }' {% endif %}>
             {% for product in collections[section.settings.collection].products limit: section.settings.collection_number_of_products %}
                 {% include 'collection-tile' %}
             {% endfor %}
         </div>
         {% if section.settings.collection_button_text != blank %}
-        <div class="text-center">
-            <a class="featured-collection__btn btn-secondary" href='{{ collections[section.settings.collection].url }}'>{{ section.settings.collection_button_text }}</a>
-        </div>
+            <div class="text-center">
+                <a class="appearance-none btn-sm btn-secondary" href='{{ collections[section.settings.collection].url }}'>{{ section.settings.collection_button_text }}</a>
+                
+            </div>
         {% endif %}
     </div>
 </section>
@@ -39,11 +41,7 @@
 {% assign products_per_row_gap = products_per_row | minus: 1 %}
 
 <style>
-    #shopify-section-{{ section.id }} .featured-collection {
-        background-color: {{ section.settings.collection_background }};
-    }
-
-
+    #shopify-section-{{ section.id }} .collection-background { background: {{ section.settings.collection_background }}; }
     #shopify-section-{{ section.id }} .carousel-cell { {% if section.blocks.size == 1 %} width: 100%; {% else %} width: 60%; {% endif %} {% if section.settings.highlights_layout_mobile == 'highlight-grid' %} width: 100%; {% endif %} }
     #shopify-section-{{ section.id }} .carousel-cell {
         width: calc(100% / {{ section.settings.products_per_row }} - 12px);
@@ -74,7 +72,7 @@
 
 {% schema %}
 {
-    "name": "Featured collection",
+    "name": "Featured collection old",
     "settings": [
     {
         "type": "collection",
@@ -190,7 +188,7 @@
     "presets": [
         {
             "category": "Collection",
-            "name":"Featured collection"
+            "name":"Featured collection old"
         }
     ]
 }

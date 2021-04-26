@@ -17,7 +17,7 @@
             {% for block in section.blocks %}
                 <div class="carousel-cell">
                     <a href="{{ block.settings.highlights_link_url }}">
-                        <div class="{% if section.settings.highlight_icon_layout == 'left' %} highlights__block--left {% else %} highlights__block--center {% endif %}">
+                        <div class="highlights__block {% if section.settings.highlight_icon_layout == 'left' %} highlights__block--left {% else %} highlights__block--center {% endif %}">
                             <div class="{% if section.settings.highlight_icon_layout == 'left' %} highlights__icon--left {% else %} highlights__icon--center {% endif %} ">
                                 {% if block.settings.highlight_image == blank %}
                                 {% include 'highlights-icons' %}
@@ -25,8 +25,8 @@
                                 {% if block.settings.highlight_image != blank %}<img class="highlights__image" src="{{ block.settings.highlight_image | image_url }}"> {% endif %}
                             </div>
                             <div class="highlights__info">
-                                {% if block.settings.highlight_heading != blank %}<h5 class="highlights__heading {% if block.settings.highlight_text != blank %} highlights__heading--margin {% endif %}">{{ block.settings.highlight_heading }}</h5> {% endif %}
-                                {% if block.settings.highlight_text != blank %}<p class="highlights__text {% if block.settings.highlights_link_url != blank %} highlights__text--margin {% endif %}">{{ block.settings.highlight_text }}</p> {% endif %}
+                                {% if block.settings.highlight_heading != blank %}<h5 class="highlights__heading">{{ block.settings.highlight_heading }}</h5> {% endif %}
+                                {% if block.settings.highlight_text != blank %}<p class="highlights__text">{{ block.settings.highlight_text }}</p> {% endif %}
                                 {% if block.settings.highlights_link_url != blank %}<p class="highlights__link">{{ block.settings.highlight_link_text }}</p>{% endif %}
                             </div>
                         </div>
@@ -58,6 +58,11 @@
         height: {{ section.settings.highlight_icon_size }}px;
         width: {{ section.settings.highlight_icon_size }}px;
         fill: {{ section.settings.clr_highlight_icon }};
+    }
+
+    #shopify-section-{{ section.id }} .highlights__image {
+        height: {{ section.settings.highlight_icon_size }}px;
+        width: {{ section.settings.highlight_icon_size }}px;
     }
 
     #shopify-section-{{ section.id }} .carousel-cell { {% if section.blocks.size == 1 %} width:100%; {% else %} width: 60%; {% endif %} {% if section.settings.highlights_layout_mobile == 'highlight-grid' %} width: 100%; {% endif %} }

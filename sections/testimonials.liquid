@@ -15,7 +15,7 @@
           rounded-none
           {% elsif section.settings.image_crop == 'rounded_rectangle' %}
           rounded-lg
-          {% endif %} object-cover mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
+          {% endif %} object-contain mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
           {% endunless %}
           {% if block.settings.star_reviews == '4_out_of_5' %}
             <div class="mb-4 clr-product-review-star">

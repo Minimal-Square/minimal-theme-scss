@@ -1,9 +1,9 @@
 <section class="rich-text {% if section.settings.richtext_height == 'small' %} rich-text--height-small {% elsif section.settings.richtext_height == 'large' %} rich-text--height-large {% endif %}">
     <div class="rich-text__content">
-        <h2 class="rich-text__heading">{{ section.settings.richtext_heading }}</h2>
-        <p class="rich-text__text">{{ section.settings.richtext_text }}</p>
+        {% if section.settings.richtext_heading != blank %}<h2 class="rich-text__heading">{{ section.settings.richtext_heading }}</h2>{% endif %}
+        {% if section.settings.richtext_text != blank %}<p class="rich-text__text">{{ section.settings.richtext_text }}</p>{% endif %}
         {% if section.settings.richtext_button_text != blank %}
-        <a href="{{ section.settings.richtext_link_url }}" class="btn-lg {% if section.settings.richtext_button_style == 'primary' %} btn-primary {% elsif section.settings.richtext_button_style == 'secondary' %} btn-secondary {% endif %}">{{ section.settings.richtext_button_text }}</a>
+        <a href="{{ section.settings.richtext_link_url }}" class="rich-text__btn {% if section.settings.richtext_button_style == 'primary' %} btn-primary {% elsif section.settings.richtext_button_style == 'secondary' %} btn-secondary {% endif %}">{{ section.settings.richtext_button_text }}</a>
         {% endif %}
     </div>
 </section>

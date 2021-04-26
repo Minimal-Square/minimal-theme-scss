@@ -16,3 +16,22 @@ body {
         padding-right: 12px;
     }
 }
+
+// Margins
+.space-content {
+    margin-top: 1.25rem;
+    @include mq($from: tablet) {
+        margin-top: 1.75rem;
+    }
+}
+
+.space-header {
+    margin-top: 3.125rem;
+    margin-bottom: 1.25rem;
+    @include mq($from: tablet) {
+        margin-bottom: 1.75rem;
+    }
+    @include mq($from: desktop) {
+        margin-top: 4.25rem;
+    }
+}

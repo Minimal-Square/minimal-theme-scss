@@ -12,7 +12,7 @@
     &__content--grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.25rem;
+        gap: 1.75rem;
     }
     &__content--left {
         @include mq($from: desktop) {
@@ -25,6 +25,10 @@
             display: flex;
             justify-content: space-between;
         }
+    }
+    &__block {
+        width: calc(100% - 1rem);
+        margin: 0 auto;
     }
     &__block--left {
         display: flex;
@@ -42,12 +46,13 @@
     }
     &__icon--left {
         align-self: center;
-        margin-right: 16px;
+        margin-right: 1rem;
     }
     &__icon--center {
-        margin-bottom: 8px;
+        margin-bottom: 0.5rem;
     }
     &__image {
+        margin: 0 auto;
         object-position: center;
         object-fit: cover;
     }
@@ -64,6 +69,8 @@
     }
     &__text {
         font-size: var(--font-size-body);
+        line-height: 1.4;
+        margin-top: 0.25rem;
         @include mq($until: desktop) {
             font-size: var(--font-size-body-smaller);
         }
@@ -71,11 +78,9 @@
     &__link {
         font-size: var(--font-size-body);
         font-weight: 500;
+        margin-top: 1rem;
         @include mq($until: desktop) {
             font-size: var(--font-size-body-smaller);
         }
-    }
-    &__heading--margin, &__text--margin {
-        margin-bottom: 4px; 
     }
 }
