@@ -17,8 +17,8 @@
     box-shadow:         $h-offset $v-offset $blur $spread $color; 
 }
 
-@mixin animation-zoom {
-    -ms-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2); 
+@mixin animation-zoom($number) {
+    -ms-transform: scale($number);
+    -webkit-transform: scale($number);
+    transform: scale($number); 
 }

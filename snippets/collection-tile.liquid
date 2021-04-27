@@ -4,10 +4,33 @@
             {% unless product.available %}
                 <div class="tile__sold-out">Sold Out</div>
             {% endunless %}
-            <div class="tile__wrapper aspect-w-1 aspect-h-1">
-                <img class="tile__image {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product | img_url: '2048x2048' }}" alt="{{ product.title }}">
-            </div>
+            {% if product.available == true %}
+                {% if product.compare_at_price_max > product.price %}
+                    <span class="tile__save">Save {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
+                {% endif %}
+            {% endif %}
+            <form action="" class="main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false }'>
+                {% for image in product.images %}
+                    {% for variant in image.variants %}
+                        <div class="carousel-cell w-full">
+                            <img class="tile__image {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '2048x2048' }}" alt="{{ product.title }}">
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </form>
         </a>
+        <form class="nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false }'>
+            {% for image in product.images %}
+                {% for variant in image.variants %}
+                    <label for="" class="carousel-cell w-full">
+                        <!-- <input type="radio" tabindex="0" class="opacity-0 absolute"> -->
+                        <div class="tile__ aspect-w-1 aspect-h-1">
+                            <div class="bg-cover" style="background: url('{{ image.src | img_url: 'master' }}');"></div>
+                        </div>
+                    </label>
+                {% endfor %}
+            {% endfor %}
+        </form>
         <div class="tile__info">
             {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
             <div class="tile__product-name-price">
@@ -64,7 +87,7 @@
 
         <!-- Modal -->
     
-        <div id="ex1" class="modal z-50">
+        <div id="ex1" class="modal z-50"> 
         {% include 'product-form' %}
         </div>
         
@@ -80,6 +103,22 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+var $carouselMain = $('.main-carousel').flickity();
+
+var $carouselNav = $('.nav-carousel').flickity({
+  asNavFor: '.main-carousel',
+  contain: true,
+  pageDots: false,
+});
+
+// select main on nav hover
+$carouselNav.on( 'mouseover', '.carousel-cell', function( event ) {
+  var index = $( event.currentTarget ).index();
+  $carouselMain.flickity( 'select', index );
+});
+</script>
   
 <style>
     .spr-icon {

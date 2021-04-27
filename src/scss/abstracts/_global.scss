@@ -18,7 +18,7 @@ body {
 }
 
 // Margins
-.space-content {
+.space-content { 
     margin-top: 1.25rem;
     @include mq($from: tablet) {
         margin-top: 1.75rem;

@@ -16,16 +16,23 @@
     }
 
     &__sold-out {
-        font-size: var(--font-size-body-smallest);
+        font-size: var(--font-size-body-tiny);
         background-color: #000000;
         color: #ffffff;
         text-align: center;
-        margin-top: 0.5rem;
-        margin-left: 0.5rem;
         padding: 0.125rem 0.5rem;
-        @include border-radius(2px);
         position: absolute;
         z-index: 50;
+    }
+
+    &__save {
+        font-size: var(--font-size-body-tiny);
+        background-color: var(--clr-button-primary-background);
+        color: #ffffff;
+        text-align: center;
+        padding: 0.125rem 0.5rem;
+        position: absolute;
+        z-index: 51;
     }
 
     &__wrapper {
@@ -41,7 +48,7 @@
     &__image--animation {
         transition: all .2s ease-in-out;
         &:hover {
-            @include animation-zoom;
+            @include animation-zoom(1.2);
         }
     }
     
