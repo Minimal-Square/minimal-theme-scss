@@ -283,3 +283,13 @@ $(function(){
 $(function() {
 	FastClick.attach(document.body);
 });
+
+
+//Currency selector ---------------------------
+function currencyFormSubmit(event) {
+  event.target.form.submit();
+}
+
+document.querySelectorAll('.shopify-currency-form select').forEach(function(element) {
+  element.addEventListener('change', currencyFormSubmit);
+});
