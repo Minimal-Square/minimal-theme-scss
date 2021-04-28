@@ -501,6 +501,14 @@ summary {
   margin-left: 0.25rem;
 }
 
+.width100 {
+  width: 100% !important;
+}
+
+.obj {
+  background-size: cover !important;
+}
+
 :root {
   --menu-closed-height: 0;
   --menu-open-height: 200px;
