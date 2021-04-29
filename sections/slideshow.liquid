@@ -84,11 +84,11 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                         --slide-text-color: {{ block.settings.clr_slideshow_text }};
                     }
 
-                    .flickity-prev-next-button {
+                    #shopify-section-{{ section.id }} .flickity-prev-next-button {
                         color: var(--slide-text-color);
                     }
 
-                    .dot {
+                    #shopify-section-{{ section.id }} .dot {
                         background: var(--slide-text-color) !important;
                     }
                 </style>

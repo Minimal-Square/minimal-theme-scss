@@ -35,3 +35,8 @@ body {
         margin-top: 4.25rem;
     }
 }
+
+.shadow {
+    border: 1px solid rgba(128, 128, 128, 0.16);
+    box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
+}

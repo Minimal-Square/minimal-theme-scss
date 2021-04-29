@@ -10,7 +10,7 @@
                 {% endif %}
             {% endif %}
             {% if product.has_only_default_variant == false %}
-            <form action="" class="carousel-main carousel">
+            <!-- <form action="" class="carousel-main carousel">
                 {% for image in product.images %}
                 {% for variant in image.variants %}
                 <div class="mini-carousel-cell width100 aspect-w-1 aspect-h-1">
@@ -18,12 +18,12 @@
                 </div>
                 {% endfor %}
                 {% endfor %}
-            </form>
+            </form> -->
             {% elsif product.has_only_default_variant == true %}
                 <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
             {% endif %}
         </a>
-        <form class="carousel-nav carousel">
+        <!-- <form class="carousel-nav carousel">
             {% for image in product.images %} 
                 {% for variant in image.variants %} 
                     <label for="" class="mini-carousel-cell relative">
@@ -34,7 +34,7 @@
                     </label>
                 {% endfor %}
             {% endfor %}
-        </form>
+        </form> -->
         <div class="tile__info">
             {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
             <div class="tile__product-name-price">
@@ -108,7 +108,7 @@
     </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
 
@@ -131,7 +131,7 @@
       var index = $( event.currentTarget ).index();
       $carouselMain.flickity( 'select', index );
     });
-</script>
+</script> -->
 
   
 <style>

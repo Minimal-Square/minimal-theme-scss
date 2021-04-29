@@ -1,18 +1,15 @@
-<div class="video">
-    <div class="video__header">
-        <h2 class="video__heading">{{ section.settings.collection_heading }}</h2>
-    </div>
-    <div class="video__content"​​​​​​>
-        <div class="video__mask {% if section.settings.video_aspect == '16-9' %} aspect-w-16 aspect-h-9 {% elsif section.settings.video_aspect == '21-9' %} aspect-w-21 aspect-h-9 {% endif %}">
-            <a class="video__link" href="" id="play-video">
-                <img class="video__thumbnail" src="{{ section.settings.video_thumbnail | img_url: 'master' }}" alt="">
-                <div class="video__play-icon">
-                    <span aria-hidden="true" class="icon icon-play-circle"></span>
-                </div>
-            </a> 
+<h2 class="heading-sm clr-general-headings mb-4 text-center">{{ section.settings.collection_heading }}</h2>
+
+<div class="max-width mx-auto w-full flex justify-center items-center relative"​​​​​​>
+    <div class="relative w-full {% if section.settings.video_aspect == '16-9' %} aspect-w-16 aspect-h-9 {% elsif section.settings.video_aspect == '21-9' %} aspect-w-21 aspect-h-9 {% endif %}">
+    <a class="cursor-pointer flex justify-center items-center h-full w-full z-20" href="" id="play-video">
+        <img src="{{ section.settings.video_thumbnail | img_url: 'master' }}" class="absolute h-full w-full object-cover object-center" alt="">
+        <div class="bg-white h-20 w-20 flex justify-center items-center rounded-full z-30">
+            <span aria-hidden="true" class="text-3xl icon icon-play-circle"></span>
         </div>
-        <div class="video__image" id="player"></div>
+    </a> 
     </div>
+    <div class="absolute w-full h-full" style="max-width: {{ settings.layout_max_width }}px;" id="player"></div>
 </div>
 
 <script type="text/javascript">
@@ -37,7 +34,7 @@
 
 {% schema %}
 {
-    "name": "Video",
+    "name": "Video old",
     "settings": [
       {
           "type": "text",
@@ -74,7 +71,7 @@
     "presets": [
         {
             "category": "Video",
-            "name":"Video"
+            "name":"Video old"
         }
     ]
   }
