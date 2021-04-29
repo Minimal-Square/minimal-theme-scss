@@ -1,0 +1,37 @@
+.blog {
+    &__card {
+        @extend .shadow;
+    }
+
+    &__image {
+        object-fit: cover;
+    }
+
+    &__wrapper-text {
+        padding: 1.25rem;
+    }
+
+    &__date-author {
+        display: flex;
+    }
+
+    &__date {
+        font-size: var(--font-size-body-small);
+        @include mq($until: tablet) {
+            font-size: var(--font-size-body-smallest);
+        }
+        color: var(--clr-general-light-text);
+        padding-right: 0.5rem;
+        line-height: 1;
+    }
+
+    &__author {
+        font-size: var(--font-size-body-small);
+        @include mq($until: tablet) {
+            font-size: var(--font-size-body-smallest);
+        }
+        color: var(--clr-general-light-text);
+        padding-left: 0.5rem;
+        line-height: 1;
+    }
+}

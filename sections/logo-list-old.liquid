@@ -1,41 +1,31 @@
-<section class="logo-list">
-    {% if section.settings.logo_list_heading != blank or section.settings.logo_list_text != blank %}
-    <div class="logo-list__header">
-        {% if section.settings.logo_list_heading != blank %}<h2 class="logo-list__heading">{{ section.settings.logo_list_heading }}</h2>{% endif %}
-        {% if section.settings.logo_list_text != blank %}<p class="logo-list__text">{{ section.settings.logo_list_text }}</p>{% endif %}
-    </div>
-    {% endif %}
-    <div class="logo-list__content">
-            {% for block in section.blocks %}
-            <div class="logo-list__image-wrapper">
-                <img class="logo-list__image" src="{{ block.settings.logo_list_image | img_url: '300x300' }}">
-            </div>
-            {% endfor %}
+<section class="clr-background-logo-list">
+    <div class="max-width mx-auto py-4">
+        {% if section.settings.logo_list_heading != blank or section.settings.logo_list_text != blank %}
+        <div class="text-center mb-6 lg:mb-8 {% if section.settings.logo_list_text != blank %} space-y-3 lg:space-y-4 {% endif %}">
+            {% if section.settings.logo_list_heading != blank %}<h2 class="heading-sm clr-general-headings">{{ section.settings.logo_list_heading }}</h2>{% endif %}
+            {% if section.settings.logo_list_text != blank %}<p class="body-md clr-general-text">{{ section.settings.logo_list_text }}</p>{% endif %}
+        </div>
+        {% endif %}
+        <div class="flex flex-wrap justify-center justify-items-center">
+              {% for block in section.blocks %}
+                <div class="self-center my-4 mx-4 lg:mx-8">
+                  <img class="logo-list-image-size logo-list-image-size-mobile object-center object-cover" src="{{ block.settings.logo_list_image | img_url: '180x180' }}">
+                </div>
+              {% endfor %}
+        </div>
     </div>
 </section>
   
 <style>
-    @media only screen and (max-width : 1280px) {
-        .logo-list__image {
-            width: {{ section.settings.logo_list_image_size_mobile }}px;
-        }
-    }
-
-    @media only screen and (min-width : 1280px) {
-        .logo-list__image {
-            width: {{ section.settings.logo_list_image_size }}px;
-        }
-    }
-
-    .logo-list {
-        background: {{ section.settings.clr_logo_list_background }};
-    }
+    @media only screen and (max-width : 1280px) { .logo-list-image-size-mobile { width: {{ section.settings.logo_list_image_size_mobile }}px; } }
+    @media only screen and (min-width : 1280px) { .logo-list-image-size { width: {{ section.settings.logo_list_image_size }}px; } }
+    .clr-background-logo-list { background: {{ section.settings.logo_list_background }}; }
 </style>
 
 
     {% schema %}
     {
-        "name": "Logo list",
+        "name": "Logo list old",
         "max_blocks": 6,
         "settings": [
           {
@@ -52,7 +42,7 @@
           },
           {
               "type": "color",
-              "id": "clr_logo_list_background",
+              "id": "logo_list_background",
               "label": "Background color"
           },
           {
@@ -92,7 +82,7 @@
         "presets": [
           {
               "category": "Image",
-              "name": "Logo list"
+              "name": "Logo list old"
           }
         ]
     }

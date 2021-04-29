@@ -1,31 +1,31 @@
-<section class="testimonials">
-  <div class="testimonials__header">
-    <h2 class="testimonials__heading">{{ section.settings.testimonials_heading }}</h2>
-    <p class="testimonials__text">{{ section.settings.testimonials_subheading }}</p>
+<section class="max-width mx-auto py-12 lg:py-24 space-y-12">
+  <div class="text-center mb-6 lg:mb-8">
+    <h2 class="heading-sm clr-general-headings mb-4">{{ section.settings.testimonials_heading }}</h2>
+    <p class="body-md clr-general-text">{{ section.settings.testimonials_subheading }}</p>
   </div>
-  <div class="testimonials__content main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+  <div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
     {% for block in section.blocks %}
-      <div class="testimonials-cell carousel-cell">
-        <div class="testimonials__wrapper">
+      <div class="carousel-cell shadow mr-4 p-8">
+        <div class="flex flex-col items-center">
           {% unless section.settings.testimonials_avatar_off == false %}
-          <img class="testimonials__image
+          <img class="h-16 w-16
           {% if section.settings.image_crop == 'circle' %}
-            testimonials__image--rounded-full
+          rounded-full
           {% elsif section.settings.image_crop == 'original' %}
-            testimonials__image--rounded-none
+          rounded-none
           {% elsif section.settings.image_crop == 'rounded_rectangle' %}
-            testimonials__image--rounded-small
-          {% endif %}" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
+          rounded-lg
+          {% endif %} object-contain mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
           {% endunless %}
           {% if block.settings.star_reviews == '4_out_of_5' %}
-            <div class="testimonials__4-stars">
+            <div class="mb-4 clr-product-review-star">
               <span class="icon icon-star"></span>
               <span class="icon icon-star"></span>
               <span class="icon icon-star"></span>
               <span class="icon icon-star"></span>
             </div>
           {% elsif block.settings.star_reviews == '5_out_of_5' %}
-            <div class="testimonials__5-stars">
+            <div class="mb-4 clr-product-review-star">
               <span class="icon icon-star"></span>
               <span class="icon icon-star"></span>
               <span class="icon icon-star"></span>
@@ -34,9 +34,9 @@
             </div>
           {% endif %}
         </div>
-        <div class="testimonials__quote">
-          <p class="testimonials__quote-text body-md clr-general-text italic mb-4">{{ block.settings.testimonials_paragraph }}</p>
-          <p class="testimonials__quote-name body-sm clr-general-light-text">{{ block.settings.testimonials_name }}</p>
+        <div class="text-center sm:px-0">
+          <p class="body-md clr-general-text italic mb-4">{{ block.settings.testimonials_paragraph }}</p>
+          <p class="body-sm clr-general-light-text">{{ block.settings.testimonials_name }}</p>
         </div>
       </div>
     {% endfor %}
@@ -71,7 +71,7 @@ $('.main-carousel').flickity( options );
 
 {% schema %}
     {
-      "name": "Testimonials",
+      "name": "Testimonials old",
       "max_blocks": 6,
       "settings": [
         {
@@ -153,7 +153,7 @@ $('.main-carousel').flickity( options );
       "presets": [
           {
               "category": "Testimonials",
-              "name": "Testimonials"
+              "name": "Testimonials old"
           }
       ]
     }

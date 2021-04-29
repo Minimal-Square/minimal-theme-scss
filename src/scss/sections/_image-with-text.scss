@@ -1,0 +1,88 @@
+.iwt {
+    @extend .container;
+    @extend .space-header;
+    display: grid;
+    align-items: center;
+    gap: 2rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    @include mq($from: tablet) {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    &__width {
+        padding: 0 4rem;
+        @include mq($until: mobile) {
+            padding: 0 2rem;
+        }
+    }
+
+    &-width--half {
+        @include mq($from: tablet) {
+            grid-column: span 3 / span 3;
+        }
+    }
+
+    &-width--two-thirds {
+        @include mq($from: tablet) {
+            grid-column: span 2 / span 2;
+        }
+    }
+
+    &-order--last {
+        order: 9999;
+    }
+
+    &-order--first {
+        order: 9999;
+        @include mq($from: tablet) {
+            order: -9999;
+        }
+    }
+
+    &-align--left {
+        text-align: left;
+    }
+
+    &-align--center {
+        text-align: center;
+    }
+
+    &-align--right {
+        text-align: right;
+    }
+
+    &__heading {
+        font-size: var(--font-size-heading-2);
+        @include mq($until: tablet) {
+            font-size: var(--font-size-heading-3);
+        }
+        line-height: 1.3;
+        color: var(--clr-general-headings);
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight);
+    }
+
+    &__text {
+        font-size: var(--font-size-body);
+        line-height: 1.625;
+        margin-top: 1.3125rem;
+        color: var(--clr-general-text);
+    }
+
+    &__image {
+        object-fit: cover;
+    }
+
+    &__btn {
+        @include btn-medium;
+        margin-top: 1.3125rem;
+    }
+
+    &__btn--primary {
+        @extend .btn-primary;
+    }
+
+    &__btn--secondary {
+        @extend .btn-secondary;
+    }
+}
