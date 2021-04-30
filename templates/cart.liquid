@@ -7,7 +7,7 @@
         <div class="flex py-8 space-x-4" rv-each-item="cart.items">
           <div class="h-16 w-16 bg-cover rounded flex-shrink-0">
               <a rv-href="item.url">
-                <img rv-src="item.image" alt="">
+                <img rv-src="item.image" rv-alt="item.product_title">
               </a>
           </div>
           <div class="grid grid-cols-3 sm:grid-cols-8 gap-3 sm:gap-0 w-full" >

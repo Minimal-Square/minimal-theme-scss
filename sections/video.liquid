@@ -5,7 +5,11 @@
     <div class="video__content"​​​​​​>
         <div class="video__mask {% if section.settings.video_aspect == '16-9' %} aspect-w-16 aspect-h-9 {% elsif section.settings.video_aspect == '21-9' %} aspect-w-21 aspect-h-9 {% endif %}">
             <a class="video__link" href="" id="play-video">
-                <img class="video__thumbnail" src="{{ section.settings.video_thumbnail | img_url: 'master' }}" alt="">
+             {% if section.settings.video_thumbnail == blank %}
+                {{ 'image' | placeholder_svg_tag: 'absolute h-full w-full bg-gray-200' }}
+              {% else %}
+                <img class="video__thumbnail" src="{{ section.settings.video_thumbnail | img_url: 'master' }}" alt="{{ shop.name }}">
+              {% endif %}
                 <div class="video__play-icon">
                     <span aria-hidden="true" class="icon icon-play-circle"></span>
                 </div>

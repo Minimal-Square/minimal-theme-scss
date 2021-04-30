@@ -35,6 +35,12 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
     {% for block in section.blocks %}
         <div class="carousel-cell slideshow-cell" id="slide-{{forloop.index}}">
             <div class="slideshow-cell--mask">
+                {% if block.settings.slideshow_image == blank %}
+                <div class="slideshow--placeholder">
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'svg-placeholder-slideshow svg-placeholder-opacity' }}
+                </div>
+                {% else %}
+              
                 <img src="{{ block.settings.slideshow_image | img_url: 'master' }}" id="desktop_slide_{{forloop.index}}" alt="Slide {{ forloop.index }}" class="slideshow-cell__image 
                 {% if block.settings.slideshow_image_position == 'top' %}
                 slideshow-cell__image--top
@@ -101,6 +107,7 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
                 background-image: linear-gradient(rgba(0,0,0,0), {{ block.settings.clr_slideshow_overlay }});
                 {% endif %}
                 filter: opacity({{ block.settings.slideshow_overlay_opacity }}%);"></div>
+                {% endif %}
                 {% endif %}
             </div>
             <div class="slideshow-cell--position {% if section.blocks.size > 1 %} slideshow-cell__multiple {% else %} slideshow-cell__single {% endif %}

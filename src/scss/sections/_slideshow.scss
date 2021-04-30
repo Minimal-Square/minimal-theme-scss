@@ -220,3 +220,17 @@
         margin-top: 1.875rem;
     }
 }
+
+.slideshow--placeholder {
+    height: 100%;
+    width: 100%;
+    
+}
+
+.svg-placeholder-slideshow {
+    height: 100%;
+    width: 100%;
+    @include mq($until: desktop) {
+        width: auto;
+    }
+}
