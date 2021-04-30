@@ -9,28 +9,32 @@
                     <span class="tile__save">Save {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
                 {% endif %}
             {% endif %}
-            <form action="" class="main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false }'>
+            {% if product.has_only_default_variant == false %}
+            <!-- <form action="" class="carousel-main carousel">
                 {% for image in product.images %}
-                    {% for variant in image.variants %}
-                        <div class="carousel-cell w-full">
-                            <img class="tile__image {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '2048x2048' }}" alt="{{ product.title }}">
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            </form>
-        </a>
-        <form class="nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false }'>
-            {% for image in product.images %}
                 {% for variant in image.variants %}
-                    <label for="" class="carousel-cell w-full">
-                        <!-- <input type="radio" tabindex="0" class="opacity-0 absolute"> -->
-                        <div class="tile__ aspect-w-1 aspect-h-1">
-                            <div class="bg-cover" style="background: url('{{ image.src | img_url: 'master' }}');"></div>
+                <div class="mini-carousel-cell width100 aspect-w-1 aspect-h-1">
+                    <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}">
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </form> -->
+            {% elsif product.has_only_default_variant == true %}
+                <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
+            {% endif %}
+        </a>
+        <!-- <form class="carousel-nav carousel">
+            {% for image in product.images %} 
+                {% for variant in image.variants %} 
+                    <label for="" class="mini-carousel-cell relative">
+                        <input type="radio" class="carousel-focus opacity-0 absolute" tabindex="0">
+                        <div class="tile__ w-12 h-12">
+                            <div class="bg-cover h-full obj" style="background: url('{{ image.src | img_url: '512x512' }}');"></div>
                         </div>
                     </label>
                 {% endfor %}
             {% endfor %}
-        </form>
+        </form> -->
         <div class="tile__info">
             {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
             <div class="tile__product-name-price">
@@ -104,21 +108,31 @@
     </div>
 </div>
 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
+
 <script>
-var $carouselMain = $('.main-carousel').flickity();
+    var $carouselMain = $('.carousel-main').flickity({
+        prevNextButtons: false,
+        pageDots: false,
+        fade: true,
+    });
+    
+    var $carouselNav = $('.carousel-nav').flickity({
+      asNavFor: '.carousel-main',
+      contain: true,
+      prevNextButtons: false,
+      pageDots: false,
+    });
+    
+    // select main on nav hover
+    $carouselNav.on( 'mouseover', '.mini-carousel-cell', function( event ) {
+      var index = $( event.currentTarget ).index();
+      $carouselMain.flickity( 'select', index );
+    });
+</script> -->
 
-var $carouselNav = $('.nav-carousel').flickity({
-  asNavFor: '.main-carousel',
-  contain: true,
-  pageDots: false,
-});
-
-// select main on nav hover
-$carouselNav.on( 'mouseover', '.carousel-cell', function( event ) {
-  var index = $( event.currentTarget ).index();
-  $carouselMain.flickity( 'select', index );
-});
-</script>
   
 <style>
     .spr-icon {

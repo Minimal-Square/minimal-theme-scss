@@ -1,35 +1,31 @@
-<section class="iwt">
-    <div class="iwt__width {% if section.settings.iwt_image_width == 'iwt-image-half' %} iwt-width--half {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} iwt-width--two-thirds {% endif %}
+<section class="max-width mx-auto py-8 md:py-12 iwt-background grid gap-8 md:gap-16 grid-cols-1 md:grid-cols-6 items-center">
+    <div class="{% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-2 {% endif %}
         {% if section.settings.iwt_order == 'iwt_left' %}
-            iwt-order--last
+            order-last
         {% elsif section.settings.iwt_order == 'iwt_right' %}
-            iwt-order--first
-        {% endif %}
-        {% if section.settings.iwt_text_align == 'align_left' %}
-            iwt-align--left
-        {% elsif section.settings.iwt_text_align == 'align_center' %}
-            iwt-align--center
-        {% elsif section.settings.iwt_text_align == 'align_right' %}
-            iwt-align--right
-        {% endif %}">
-      <h2 class="iwt__heading">{{ section.settings.iwt_heading }}</h2>
-      <p class="iwt__text">{{ section.settings.iwt_body_text }}</p>
-      {% if section.settings.iwt_button_label != blank %} <a href="{{ section.settings.iwt_button_url }}" class="iwt__btn {% if section.settings.iwt_button_type == 'btn-primary' %} iwt__btn--primary {% elsif section.settings.iwt_button_type == 'btn-secondary' %} iwt__btn--secondary {% endif %}">{{ section.settings.iwt_button_label }}</a> {% endif %}
-      {% if section.settings.iwt_button_2_label != blank %} <a href="{{ section.settings.iwt_button_2_url }}" class="iwt__btn {% if section.settings.iwt_button_2_type == 'btn-primary' %} iwt__btn--primary {% elsif section.settings.iwt_button_2_type == 'btn-secondary' %} iwt__btn--secondary {% endif %}">{{ section.settings.iwt_button_2_label }}</a> {% endif %}
-    </div>
-    <div class="aspect-w-10 aspect-h-{{ section.settings.iwt_image_aspect_mobile | times: 10 | round }} md:aspect-w-10 md:aspect-h-{{ section.settings.iwt_image_aspect | times: 10 | round }} {% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-4 {% endif %}">
-      {% if section.settings.iwt_image == blank %}
-            {{ 'image' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
-        {% else %}
-        <img class="iwt__image" src="{{ section.settings.iwt_image | img_url: 'master' }}" alt="{{ shop.name }}>
+            order-last md:order-first
         {% endif %}
 
+        {% if section.settings.iwt_text_align == 'align_left' %}
+            text-left           
+        {% elsif section.settings.iwt_text_align == 'align_center' %}
+            text-center 
+        {% elsif section.settings.iwt_text_align == 'align_right' %}
+            text-right
+        {% endif %}">
+      <h2 class="heading-md clr-general-headings mb-4">{{ section.settings.iwt_heading }}</h2>
+      <p class="mb-6 body-md clr-general-text">{{ section.settings.iwt_body_text }}</p>
+      {% if section.settings.iwt_button_label != blank %} <a href="{{ section.settings.iwt_button_url }}" class="btn-lg {% if section.settings.iwt_button_type == 'btn-primary' %} btn-primary {% elsif section.settings.iwt_button_type == 'btn-secondary' %} btn-secondary {% endif %} rounded-md px-4 py-2 md:px-8 md:py-4">{{ section.settings.iwt_button_label }}</a> {% endif %}
+      {% if section.settings.iwt_button_2_label != blank %} <a href="{{ section.settings.iwt_button_2_url }}" class="ml-2 btn-lg {% if section.settings.iwt_button_2_type == 'btn-primary' %} btn-primary {% elsif section.settings.iwt_button_2_type == 'btn-secondary' %} btn-secondary {% endif %} rounded-md px-4 py-2 md:px-8 md:py-4">{{ section.settings.iwt_button_2_label }}</a> {% endif %}
+    </div>
+    <div class="aspect-w-10 aspect-h-{{ section.settings.iwt_image_aspect_mobile | times: 10 | round }} md:aspect-w-10 md:aspect-h-{{ section.settings.iwt_image_aspect | times: 10 | round }} {% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-4 {% endif %}">
+        <img class="object-cover" src="{{ section.settings.iwt_image | img_url: '2048x2048' }}" alt="">
     </div>
 </section>
 
 {% schema %}
 {
-    "name": "Image with text",
+    "name": "Image with text old",
     "settings": [
         {
             "type": "header",
@@ -193,7 +189,7 @@
     "presets": [
       {
         "category": "Image",
-        "name": "Image with text"
+        "name": "Image with text old"
       }
     ]
 }
