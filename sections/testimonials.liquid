@@ -1,4 +1,4 @@
-<section class="testimonials">
+<section class="testimonials"> 
   <div class="testimonials__header">
     <h2 class="testimonials__heading">{{ section.settings.testimonials_heading }}</h2>
     <p class="testimonials__text">{{ section.settings.testimonials_subheading }}</p>
@@ -19,8 +19,7 @@
           {% elsif section.settings.image_crop == 'rounded_rectangle' %}
             testimonials__image--rounded-small
           {% endif %}" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="{{ block.settings.testimonials_name }}">
-          {% endif %}
-          {% endunless %}
+          {% endif %}{% endunless %}
           {% if block.settings.star_reviews == '4_out_of_5' %}
             <div class="testimonials__4-stars">
               <span class="icon icon-star"></span>

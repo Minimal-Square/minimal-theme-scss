@@ -10,6 +10,11 @@
 
 :root {
     /* COLORS */
+    --clr-error: #dc2626;
+    --clr-error-light: #FEE2E2;
+    --clr-success: #047857;
+    --clr-success-light: #D1FAE5;
+
     --clr-general-background: {{ settings.clr_general_background }};
     --clr-general-headings: {{ settings.clr_general_headings }};
     --clr-general-text: {{ settings.clr_general_text }};
@@ -32,6 +37,7 @@
     --clr-form-background: {{ settings.clr_form_background }};
     --clr-form-text: {{ settings.clr_form_text }};
     --clr-form-border: {{ settings.clr_form_border }};
+    --clr-form-border-hover: {{ settings.clr_form_border | color_darken: 4 }};
 
     --clr-product-sale-accent: {{ settings.clr_product_sale_accent }};
     --clr-product-review-star: {{ settings.clr_product_review_star }};
