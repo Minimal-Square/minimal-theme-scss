@@ -53,15 +53,14 @@ body {
   }
 }
 
-
 .svg-placeholder-opacity {
   opacity: 0.5;
   background: rgba(0, 0, 0, 0.2);
+}
 
 .shadow, .tile__content, .blog__card, .testimonials-cell {
   border: 1px solid rgba(128, 128, 128, 0.16);
   box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
-
 }
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
@@ -158,12 +157,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace,
- SFMono-Regular,
- Consolas,
- 'Liberation Mono',
- Menlo,
- monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
