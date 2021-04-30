@@ -1,4 +1,4 @@
-<div class="slideshow {% if section.blocks.size > 1 %} main-carousel js-flickity {% endif %}
+<div id="slideshow" class="slideshow {% if section.blocks.size > 1 %} main-carousel js-flickity {% endif %}
 {% if section.settings.slideshow_height_mobile == 'small' %}
 slideshow__mobile-height--sm
 {% elsif section.settings.slideshow_height_mobile == 'medium' %}
@@ -172,19 +172,28 @@ data-section-type="slideshow" data-section-id="{{ section.id }}">
     }
 </style>
 
-{% javascript %}
-    function showAlert() {
-        var elem = document.querySelector('.slideshow');
+
+<script>
+   
+    // var index = flkty.selectedIndex
+    // var carouselStatus = document.querySelector('.pro');
+    // function updateStatus() {
+    //     var slideNumber = flkty.selectedIndex + 1;
+    //     carouselStatus.textContent = slideNumber + '/' + flkty.slides.length;
+    // }
+    // flkty.on( 'select', updateStatus );
+    // flkty.select( index, false, true );
+
+    document.addEventListener("shopify:section:load", function(event) {
+        var elem = document.querySelector('#slideshow');
         var flkty = new Flickity( elem, {
         imagesLoaded: true,
         wrapAround: true,
         cellAlign: 'left',
         contain: true
         });
-    }
-document.addEventListener("shopify:section:load", showAlert());
-document.addEventListener("shopify:block:select", showAlert());
-{% endjavascript %}
+    });
+</script>
 
 {% schema %}
 {

@@ -12,7 +12,7 @@
     {% if product.variants.size > 1 %}
       {% for option in product.options %}
       {% assign option_index = forloop.index0 %}
-      {% if product.options[option_index] == 'Color' %}
+      {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
       <div class="product_variant_container">
         <div class="mb-4">
           <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ option }}</h5></div>
@@ -21,8 +21,14 @@
             {% for variant in product.variants %}
             {% unless used contains variant.options[option_index] %}
             <div class="flex items-center justify-center">
-              <input class="absolute z-0 appearance-none options" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation()">
-              <label for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" class="option w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" style="z-index: 5;"></label>
+              {% assign variantName = variant.options[option_index] | downcase %}
+              {% assign variantColor = variantName | split: ' ' %}
+              {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
+
+              <label for="{{ option | downcase }}-{{ variant.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" style="z-index: 5;">
+                <input class="absolute z-0 appearance-none options" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation()">
+                <div onclick="changeRadioValue()" class="option w-full h-full transition-colors ease-in-out rounded-md label" data-variant-option-chosen-value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+              </label>
               {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
             </div>
             {% endunless %}
@@ -50,7 +56,7 @@
       </div>
       {% endif %}
 
-      {% if product.options[option_index] == 'Color' %}
+      {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
       <style>
         input[name='color']+label {
           border: 1px solid var(--clr-button-secondary-border);

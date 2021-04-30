@@ -19,6 +19,7 @@
           {% elsif section.settings.image_crop == 'rounded_rectangle' %}
             testimonials__image--rounded-small
           {% endif %}" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="{{ block.settings.testimonials_name }}">
+          {% endif %}
           {% endunless %}
           {% if block.settings.star_reviews == '4_out_of_5' %}
             <div class="testimonials__4-stars">
@@ -45,12 +46,14 @@
     {% endfor %}
   </div>
 </section>
+
 <style>
 #shopify-section-{{ section.id }} .carousel-cell { width: calc(100% / 3 - 12px); }
 #shopify-section-{{ section.id }} .shadow { box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.06); border: 1px solid #eee; border-radius: 4px; }
 #shopify-section-{{ section.id }} .flickity-viewport {margin-bottom: 16px; }
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) { #shopify-section-{{ section.id }} .carousel-cell { width: 100%; } }
 </style>
+
 <script>
 var options = {
   groupCells: false,
@@ -61,7 +64,20 @@ if ( matchMedia('screen and (min-width: 768px)').matches ) {
   options.groupCells = 3;
 }
 $('.main-carousel').flickity( options );
+
+
+document.addEventListener("shopify:section:load", function(event) {
+  var elem = document.querySelector('.testimonials__content');
+  var flkty = new Flickity( elem, {
+  pageDots: true,
+  prevNextButtons: false,
+  cellAlign: 'left',
+  contain: true,
+  groupCells: true
+  });
+});
 </script>
+
 {% schema %}
     {
       "name": "Testimonials",
