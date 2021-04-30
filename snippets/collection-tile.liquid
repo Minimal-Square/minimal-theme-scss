@@ -2,11 +2,11 @@
     <div class="tile__content hoverDropdown">
         <a href="{{ product.url }}">
             {% unless product.available %}
-                <div class="tile__sold-out">Sold Out</div>
+                <div class="tile__sold-out">{{ 'products.product.sold_out' | t }}</div>
             {% endunless %}
             {% if product.available == true %}
                 {% if product.compare_at_price_max > product.price %}
-                    <span class="tile__save">Save {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
+                    <span class="tile__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
                 {% endif %}
             {% endif %}
             {% if product.has_only_default_variant == false %}
@@ -77,10 +77,10 @@
                         <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
                         <div class="block space-y-2">
                             {% if section.settings.collection_addtocart_activate == true %}
-                                <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
+                                <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">{{ 'products.product.add_to_cart' | t }}</button>
                             {% endif %}
                             {% if section.settings.collection_quickshop_activate == true %}
-                                <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
+                                <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">{{ 'products.product.quick_shop' | t }}</a>
                             {% endif %}
                         </div>
                     {% elsif section.settings.collection_addtocart_quickshop_activate == 'none' %}
@@ -100,8 +100,8 @@
             <div class="hidden absolute hoverItem z-30 w-full">
                 <form method="post" action="/cart/add" class="flex w-full z-40">
                     <input type="hidden" name="id" value="{{ product.variants.first.id }}"/>
-                    <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">Add to cart</button>
-                    <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">Quick shop</a>
+                    <button id="addToCartBtn" data-cart-add="{{ product.variants.first.id }}" class="appearance-none btn-sm btn-primary w-full">{{ 'products.product.add_to_cart' | t }}</button>
+                    <a href="#ex1" rel="modal:open" type="button" class="appearance-none btn-sm btn-secondary w-full">{{ 'products.product.quick_shop' | t }}</a>
                 </form>
             </div>
         {% endif %}

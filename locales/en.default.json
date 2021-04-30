@@ -6,7 +6,8 @@
     },
     "404": {
       "subtext_html": "We can't find the page you are looking for.",
-      "title": "404 Page Not Found"
+      "title": "404 Page Not Found",
+      "return_to_homepage" : "Return to homepage"
     },
     "breadcrumbs": {
       "home": "Home",
@@ -23,8 +24,12 @@
       "results_for_html": "Your search for \"{{ terms }}\" revealed the following:",
       "title": "Search for products on our site",
       "placeholder": "Search our store",
-      
-      "submit": "Search"
+      "submit": "Search",
+      "moible_nav_search": "Search"
+    },
+    "cookies": {
+      "accept": "Accept",
+      "close": "Close"
     },
     "popup": {
       "email": "Email address",
@@ -108,6 +113,8 @@
     },
     "sorting": {
       "title": "Sort by",
+      "show": "Show",
+      "view_as": "View as",
       "featured": "Featured",
       "best_selling": "Best Selling",
       "az": "Alphabetically, A-Z",
@@ -296,8 +303,10 @@
       "on_sale_from_html": "<strong>On Sale</strong> from {{ price }}",
       "unavailable": "Unavailable",
       "compare_at": "Compare at",
+      "save": "Save",
       "quantity": "Quantity",
-      "add_to_cart": "Add to Cart"
+      "add_to_cart": "Add to Cart",
+      "quick_shop": "Quick shop"
     }
   },
   "gift_cards": {

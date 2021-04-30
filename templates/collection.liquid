@@ -12,7 +12,7 @@
   <!-- Collection Filter -->
   <div class="bg-gray-100 mb-8 py-3 px-4 lg:px-6 rounded-md flex justify-between">
     <div class="flex space-x-4 lg:flex lg:space-x-6 items-center">
-      <label for="SortBy" class="font-semibold">Sort by</label>
+      <label for="SortBy" class="font-semibold">{{ 'collections.sorting.title' | t }}</label>
         <select class="bg-transparent text-gray-500 text-sm" name="SortBy" id="SortBy">
           {% for option in collection.sort_options %}
               <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
@@ -22,7 +22,7 @@
 
     <div class="flex space-x-6">
       <div class="hidden lg:flex space-x-4 items-center">
-        <p class="font-semibold">Show</p>
+        <p class="font-semibold">{{ 'collections.sorting.show' | t }}</p>
         <div class="space-x-1 text-sm ">
           <a href="">1</a>
           <a href="">2</a>
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="flex space-x-4">
-        <p class="hidden lg:flex font-semibold">View as</p>
+        <p class="hidden lg:flex font-semibold">{{ 'collections.sorting.view_as' | t }}</p>
         <div class="flex space-x-2">
           <a href="">
             <span aria-hidden="true" class="text-2xl icon icon-list"></span>

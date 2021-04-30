@@ -1,6 +1,6 @@
-<div class="max-w-lg bg-white rounded-md shadow-md text-center relative {%- if settings.exit_popup_enable == true -%} 
+<div class="max-w-lg bg-white rounded-md shadow-md text-center relative {%- if settings.popup_enable == true -%} 
 flex
-{% elsif settings.exit_popup_enable == false %}
+{% elsif settings.popup_enable == false %}
 hidden
 {%- endif -%}"">
       
@@ -14,8 +14,8 @@ hidden
       </a>
       
       <div class="pb-6 space-y-4">
-          <p class="text-3xl font-serif">{{ settings.exit_popup_title }}</p>
-          <p class="text-gray-600">{{ settings.exit_popup_subtitle }}</p>
+          <p class="text-3xl font-serif">{{ settings.popup_title }}</p>
+          <p class="text-gray-600">{{ settings.popup_subtitle }}</p>
         {% if settings.mailchimp_popup_link != blank %}
 
         <form class="flex justify-center space-x-2" action="{{ settings.mailchimp_popup_link }}" method="post" name="mc-embedded-subscribe-form" tags="pop-up" id="contact_form" target="_blank">
