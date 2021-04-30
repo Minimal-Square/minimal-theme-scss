@@ -30,7 +30,7 @@
         @include mq($until: tablet) {
             font-size: var(--font-size-body-smallest);
         }
-        color: var(--clr-general-light-text);
+        color: var(--clr-general-light-text); 
         padding-left: 0.5rem;
         line-height: 1;
         border-left: 1px solid var(--clr-general-light-text);
