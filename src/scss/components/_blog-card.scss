@@ -33,5 +33,35 @@
         color: var(--clr-general-light-text);
         padding-left: 0.5rem;
         line-height: 1;
+        border-left: 1px solid var(--clr-general-light-text);
+    }
+
+    &__heading {
+        font-size: var(--font-size-heading-4);
+        font-weight: var(--font-weight);
+        font-family: var(--font-primary);
+        line-height: 1.3;
+        margin-top: 0.75rem;
+        margin-bottom: 1.0rem;
+    }
+
+    &__excerpt-content, &__excerpt {
+        font-size: var(--font-size-body);
+        @include mq($until: tablet) {
+            font-size: var(--font-size-small);
+        }
+        line-height: 1.625;
+        color: var(--clr-general-text);
+        margin-top: 1.0rem;
+        margin-bottom: 1.0rem;
+    }
+
+    &__link {
+        color: var(--clr-general-links);
+        display: flex;
+        span {
+            @extend .icon-sm;
+            line-height: inherit;
+        }
     }
 }

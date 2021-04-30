@@ -37,27 +37,27 @@
                         <span class="blog__date">{{ article.published_at | time_tag: format: 'month_day_year' }}</span>
                         {%- endif -%}
                         {%- if section.settings.blog_author -%}
-                        <span class="blog__author border-1">{{ article.author }}</span>
+                        <span class="blog__author">{{ article.author }}</span>
                         {%- endif -%}
                     </div>
                     <a href="{{ article.url }}">
-                        <h2 class="blog__heading heading-xs clr-general-headings my-3">{{ article.title }}</h2>
+                        <h2 class="blog__heading">{{ article.title }}</h2>
                     </a>
                     {%- if article.excerpt.size > 0 -%}
                     <p class="blog__excerpt">{{ article.excerpt }}</p>
                     {%- else -%}
-                    <p class="blog__excerpt-content body-md clr-general-text mb-3">
+                    <p class="blog__excerpt-content">
                         {{ article.content | strip_html | truncate: 150 }}
                     </p>
                     {%- endif -%}
-                    <a class="blog__link clr-general-links flex" href="{{ article.url }}" aria-label="Read more: {{ article.title }}">{{ 'blogs.article.read_more' | t }}<span aria-hidden="true" class="text-xl self-center icon icon-chevron-right"></span></a>
+                    <a class="blog__link" href="{{ article.url }}" aria-label="Read more: {{ article.title }}">{{ 'blogs.article.read_more' | t }}<span aria-hidden="true" class="icon icon-chevron-right"></span></a>
                 </div> 
             </div>
             {%- endfor -%}
         </div>
         {%- if section.settings.blog_link_activate == true -%}
         <div class="blog__btn-wrapper">
-            <a href="{{ blog.url }}" class="blog__btn clr-general-links self-center" aria-label="{{ 'blogs.article.see_more' | t }}"> {{ 'blogs.article.see_more' | t }}</a>
+            <a href="{{ blog.url }}" class="blog__btn" aria-label="{{ 'blogs.article.see_more' | t }}"> {{ 'blogs.article.see_more' | t }}</a>
         </div>
         {%- endif -%}
     </div>
@@ -91,10 +91,6 @@
             margin: 0 !important;
             width: 70%;
         }
-    }
-    
-    .border-1 {
-        border-left: 1px solid {{ settings.clr_general_light_text }};
     }
 
 </style>

@@ -2,7 +2,7 @@
 BREAKPOINTS
 *********************/
 body {
-  font-family: var(--font-secondary);
+  font-family: var(--font-secondary) !important;
 }
 
 .container, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog {
@@ -61,6 +61,10 @@ body {
 .shadow, .tile__content, .blog__card, .testimonials-cell {
   border: 1px solid rgba(128, 128, 128, 0.16);
   box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
+}
+
+.icon-sm, .blog__link span {
+  font-size: 18px;
 }
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
@@ -546,12 +550,45 @@ summary {
   color: var(--clr-general-light-text);
   padding-left: 0.5rem;
   line-height: 1;
+  border-left: 1px solid var(--clr-general-light-text);
 }
 
 @media (max-width: 47.99em) {
   .blog__author {
     font-size: var(--font-size-body-smallest);
   }
+}
+
+.blog__heading {
+  font-size: var(--font-size-heading-4);
+  font-weight: var(--font-weight);
+  font-family: var(--font-primary);
+  line-height: 1.3;
+  margin-top: 0.75rem;
+  margin-bottom: 1.0rem;
+}
+
+.blog__excerpt-content, .blog__excerpt {
+  font-size: var(--font-size-body);
+  line-height: 1.625;
+  color: var(--clr-general-text);
+  margin-top: 1.0rem;
+  margin-bottom: 1.0rem;
+}
+
+@media (max-width: 47.99em) {
+  .blog__excerpt-content, .blog__excerpt {
+    font-size: var(--font-size-small);
+  }
+}
+
+.blog__link {
+  color: var(--clr-general-links);
+  display: flex;
+}
+
+.blog__link span {
+  line-height: inherit;
 }
 
 :root {
