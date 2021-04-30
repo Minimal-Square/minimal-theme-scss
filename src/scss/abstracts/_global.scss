@@ -1,5 +1,5 @@
 body {
-    font-family: var(--font-secondary);
+    font-family: var(--font-secondary) !important;
 }
 
 .container {
@@ -36,7 +36,13 @@ body {
     }
 }
 
+// Shadows
 .shadow {
     border: 1px solid rgba(128, 128, 128, 0.16);
     box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
+}
+
+// Icon sizes
+.icon-sm {
+    font-size: 18px;
 }
