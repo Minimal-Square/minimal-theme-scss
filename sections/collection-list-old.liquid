@@ -1,29 +1,12 @@
-<section class="collection-list"> 
+<section class="max-width mx-auto text-center py-12 lg:py-16"> 
     {% if section.settings.collection_list_heading != blank or section.settings.collection_list_subheading != blank %}
-        <div class="collection-list__header">
-            {% if section.settings.collection_list_heading != blank %}<h2 class="collection-list__heading">{{ section.settings.collection_list_heading }}</h2>{% endif %}
-            {% if section.settings.collection_list_subheading != blank %}<p class="collection-list__text">{{ section.settings.collection_list_subheading }}</p>{% endif %}
+        <div class="mb-6 lg:mb-8">
+            {% if section.settings.collection_list_heading != blank %}<h2 class="heading-sm clr-general-heading mb-3 lg:mb-4">{{ section.settings.collection_list_heading }}</h2>{% endif %}
+            {% if section.settings.collection_list_subheading != blank %}<p class="body-md clr-general-text">{{ section.settings.collection_list_subheading }}</p>{% endif %}
         </div>
     {% endif %} 
-    <div class="collection-list__content
-    {% if section.settings.collection_list_per_row == 1 %}
-        collection-list__cols-1
-    {% elsif section.settings.collection_list_per_row == 2%}
-        collection-list__cols-2
-    {% elsif section.settings.collection_list_per_row == 3 %}
-        collection-list__cols-3
-    {% elsif section.settings.collection_list_per_row == 4 %}
-        collection-list__cols-4
-    {% elsif section.settings.collection_list_per_row == 5 %}
-        collection-list__cols-5
-    {% endif %}
-    {% if section.settings.collection_list_per_row_mobile == 1 %}
-        collection-list__cols-mobile-1
-    {% elsif section.settings.collection_list_per_row_mobile == 2 %}
-        collection-list__cols-mobile-2
-    {% elsif section.settings.collection_list_per_row_mobile == 3 %}
-        collection-list__cols-mobile-3
-    {% endif %}">
+    <div class="{% if section.settings.collection_list_link_text != blank %} mb-6 lg:mb-8 {% endif %} grid gap-3 sm:gap-4 lg:gap-5 
+    {% if section.settings.collection_list_per_row == 1 %} md:grid-cols-1 {% elsif section.settings.collection_list_per_row == 2%} md:grid-cols-2 {% elsif section.settings.collection_list_per_row == 3 %} md:grid-cols-3 {% elsif section.settings.collection_list_per_row == 4 %} md:grid-cols-4 {% elsif section.settings.collection_list_per_row == 5 %} md:grid-cols-5 {% endif %}{% if section.settings.collection_list_per_row_mobile == 1 %} grid-cols-1 {% elsif section.settings.collection_list_per_row_mobile == 2 %} grid-cols-2 {% elsif section.settings.collection_list_per_row_mobile == 3 %} grid-cols-3 {% endif %}">
         {% for block in section.blocks %}
         {%- assign collection = collections[block.settings.collection_list] -%}
             {% include 'collection-list-tile', collection: collection %}
@@ -33,20 +16,20 @@
 
 <style>
     @media screen and (max-width: 640px) {
-        #shopify-section-{{ section.id }} .collection-list-tile:nth-child(n+{{ section.settings.collection_list_per_row_mobile | plus: 1 }}) {
-            margin-top: 0.5rem;
+        #shopify-section-{{ section.id }} .mt-dynamic:nth-child(n+{{ section.settings.collection_list_per_row_mobile | plus: 1 }}) {
+            margin-top: 8px;
         }
     }
     @media screen and (min-width: 640px) {
-        #shopify-section-{{ section.id }} .collection-list-tile:nth-child(n+{{ section.settings.collection_list_per_row | plus: 1 }}) {
-            margin-top: 1rem;
+        #shopify-section-{{ section.id }} .mt-dynamic:nth-child(n+{{ section.settings.collection_list_per_row | plus: 1 }}) {
+            margin-top: 16px;
         }
     } 
 </style>
 
 {% schema %} 
 {
-    "name": "Collection list",
+    "name": "Collection list old",
     "settings": [
         {
             "type": "text",
@@ -114,7 +97,7 @@
     "presets": [
         {
             "category": "Collection",
-            "name":"Collection list"
+            "name":"Collection list old"
         }
     ]
 }

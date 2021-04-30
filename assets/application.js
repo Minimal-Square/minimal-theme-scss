@@ -182,18 +182,20 @@ $(function(){
 
 //Header Mega Animation ---------------------------
 $(function(){
-  $('#header ul li .megamenu-height').each(function(index, mega){
-    var height = $(mega).height();
+  $('#header ul li').hover(function(e){
+    var height = $(this).find('.header_content').outerHeight();
     height += 'px';
-    $('#header ul li:hover .dropdown-menu').css({'--menu-open-height': height });
-    console.log(height);
+    document.documentElement.style.setProperty('--menu-open-height', height);
+    // console.log(height);
   });
 });
 
-$("#divId img").each(function(index, picture) {
-  var height = $(picture).height();
-  //Do everything you want with the height from the image now
-});
+
+
+// $("#divId img").each(function(index, picture) {
+//   var height = $(picture).height();
+//   //Do everything you want with the height from the image now
+// });
 
 // function(e) {
 //   e.stopPropagation();
@@ -285,6 +287,7 @@ $(function() {
 });
 
 
+
 //Currency selector ---------------------------
 function currencyFormSubmit(event) {
   event.target.form.submit();
@@ -293,3 +296,4 @@ function currencyFormSubmit(event) {
 document.querySelectorAll('.shopify-currency-form select').forEach(function(element) {
   element.addEventListener('change', currencyFormSubmit);
 });
+

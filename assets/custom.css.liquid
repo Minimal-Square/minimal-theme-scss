@@ -185,14 +185,14 @@
 {{ settings.font_body | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}
 
 /* Max-width */
-.max-width, iframe {
+.max-width {
     max-width: {{ settings.layout_max_width }}px;
     padding-left: 24px;
     padding-right: 24px;
 }
 
 @media screen and (max-width: 639px) {
-    .max-width, iframe {
+    .max-width {
         max-width: {{ settings.layout_max_width }}px;
         padding-left: 12px;
         padding-right: 12px;
@@ -200,7 +200,7 @@
 }
 
 @media screen and (min-width: 640px) and (max-width: 1024px) {
-    .max-width, iframe {
+    .max-width {
         max-width: {{ settings.layout_max_width }}px;
         padding-left: 16px;
         padding-right: 16px;
@@ -329,30 +329,6 @@
     color: #0A0A0A;
 }
 
-
-
-/* HERO */
-@media only screen and (max-width: 768px) {
-    .hero_content {
-    max-width: 90%;
-    }
-
-    .hero_content h1 {
-        font-size: {{ settings.base_font_size | times: 2.369 }}px;
-        font-family: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
-        font-weight: {{ settings.font_heading.weight }};
-    }
-
-    .hero_content a {
-        border-radius: 4px;
-        transition: all .1s ease-in;
-        font-size: {{ settings.base_font_size }}px;
-        font-family: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
-        font-weight: 500;
-        display: inline-block;
-    }
-}
-
 /* HEADER */
 
 #header li li {
@@ -377,48 +353,7 @@ input[name="add"]:disabled {
     background: #EDEDED;
     color: var(--clr-general-light-text);
 } 
-
-input[name='color']+label {
-    border: 1px solid var(--clr-button-secondary-border);
-    color: var(--clr-);
-}
   
-input[name='color']:checked+label {
-    border: 1px solid var(--clr-general-links);
-    color: var(--clr-general-links);
-}
-
-input[name='color']:focus+label {
-    border: 1px solid var(--clr-general-links);
-    color: var(--clr-general-links);
-    transition: all 150ms ease-out;
-    box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
-}
-  
-input[name='size']+label, input[name='material']+label {
-    border: 1px solid var(--clr-button-secondary-border);
-    color: var(--clr-general-text);
-    transition: all 150ms ease-out;
-    font-size: var(--body-sm);
-}
-  
-input[name='size']:checked+label, input[name='material']:checked+label {
-    border: 1px solid var(--clr-general-links);
-    color: var(--clr-general-links);
-    
-}
-  
-input[name='size']:focus+label, input[name='material']:focus+label {
-    border: 1px solid var(--clr-general-links);
-    color: var(--clr-general-links);
-    transition: all 150ms ease-out;
-    box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
-    
-}
-
-input[name='size']:hover+label, input[name='material']:hover+label {
-    filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.08));
-}
 
 #selected {
     background-color: #EDEDED;
@@ -462,15 +397,6 @@ input[type=number] {
     filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.06));
 }
 
-/* Text selection color */
-::-moz-selection { /* Code for Firefox */
-    background-color: rgb(230, 230, 230);
-  }
-  
-::selection {
-background-color: rgb(238, 238, 238);
-}
-
 /* Mobile Navmenu */
 
 #slides{  
@@ -493,6 +419,15 @@ background:white;
 width:100%;
 height:100vh;
 }
+/* Text selection color */
+::-moz-selection { /* Code for Firefox */
+    background-color: rgb(230, 230, 230);
+  }
+  
+::selection {
+background-color: rgb(238, 238, 238);
+}
+
 
 .chevronDesc, .chevronNav {
   transition: transform .3s ease-in-out;

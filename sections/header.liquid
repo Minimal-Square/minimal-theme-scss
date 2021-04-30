@@ -1,66 +1,20 @@
 <style>
-:root {
-        --menu-closed-height: 0;
-    }
-    #header ul li .header_content {
-        transition: opacity 200ms cubic-bezier(0, 0, 0.2, 1);
-        opacity: 0;
-    }
-    #header ul li:hover .header_content {
-        opacity: 1;
-    }
-    #header .parent_link:hover {
-        opacity: 0.8;
-    }
-    #header .child_default a:hover, #header .child_mega a:hover {
-        color: #046e82;
-    }
-    #header ul li .dropdown-menu {
-        transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
-        height: var(--menu-closed-height);
-    }
-    #header ul li:hover .dropdown-menu {
-        visibility: visible;
-        height: var(--menu-open-height, auto);
-    }
+#shopify-section-{{ section.id }} .grid-autofit {
+grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+}
 
-    .stickyHeader {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 9995;
-        float:left;
-        transition: all 0.3s ease-out;
-    }
+#shopify-section-{{ section.id }} .megamenu-image-width {
+width: 300px;
+}
 
-    .content {
-        padding-top: 64px;
-    }
-
-    #shopify-section-{{ section.id }} .grid-autofit {
-        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-    }
-
-    #shopify-section-{{ section.id }} .megamenu-image-width {
-        width: 300px;
-    }
-
-    #shopify-section-{{ section.id }} .megamenu-height {
-        max-height: 70vh;
-    }
-    #header .child_default .grandchild_default {
-        background:white; 
-        display:none;
-        position: absolute;
-        top: 0;
-        left: calc(100% + 1rem);
-        min-width: 170px;
-    }
-    #header .child_default a:hover + .grandchild_default {
-        display: block;
-    }
+#shopify-section-{{ section.id }} .megamenu-height {
+max-height: 70vh;
+}
+#shopify-section-{{ section.id }} .child_mega > ul {
+overflow-y: auto;
+max-height: 60vh;
+}
 </style>
-
 
 {% assign mega = '' | split: ',' %}
 
@@ -69,7 +23,7 @@
   <div class="bg-white relative z-10 header shadow-small">
     <div class="grid grid-cols-3 items-center {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} max-width mx-auto {% endif %}">
       <nav class="flex h-full items-center justify-start">
-        <ul class="hidden -ml-4 lg:flex h-full">
+        <ul class="hidden ml-4 lg:flex h-full">
             
           
           {% for link in linklists[section.settings.header_main_menu].links %}
@@ -80,7 +34,7 @@
                         <span class="icon icon-chevron-down"></span>
                   {% endif %}
               {% endif %}
-              </a> 
+              </a>
 
               {% if link.links != blank %}
 
@@ -149,15 +103,16 @@
                     {% endif %}
                 {% endfor %}
               {% else %}
+
               <!-- DEFAULT LINKS -->
                 <div class="bg-white shadow-md absolute invisible z-50 dropdown-menu w-60 megamenu-height">
-                    <div class="flex py-2 {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} mx-auto {% endif %} flex-col px-4 w-full header_content">
+                    <div class="flex {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} mx-auto {% endif %} flex-col w-full header_content">
                         <ul class="child_default">
                         
                         {% for child_link in link.links %}
                         {% unless mega contains link.title %}
                             <li class="w-full relative">
-                                <a href="{{ child_link.url }}" class="body-md flex items-center py-2 justify-between">
+                                <a href="{{ child_link.url }}" class="body-md flex items-center py-2 px-4 justify-between">
                                     <p>{{ child_link.title }}</p>
                                     {% if child_link.links != blank %}
                                         <span aria-hidden="true" class="text-2xl icon icon-chevron-right cursor-pointer navDropdown chevronNav"></span>
@@ -223,9 +178,9 @@
         <div class="cart" data-cart-view>
           <a href="{% if settings.cart_type == 'cart_type_page' %}/cart{% endif %}"{% if settings.cart_type == 'cart_type_drawer' %}@click.prevent="cartOpen = true"{% endif %}class="flex space-x-4">
             <span class="text-2xl icon icon-shopping-cart relative" aria-hidden="true">
-                {% if cart.item_count >= 1 %}
-                    <div class="-mr-1 w-4 h-4 text-center items-center body-xs bg-yellow-400 rounded-full absolute top-0 right-0">{{ cart.item_count }}</div>
-                {% endif %}
+            
+                <div class="-mr-1 w-4 h-4 text-center items-center body-xs bg-yellow-400 rounded-full absolute top-0 right-0" rv-show="cart.item_count | gt 0" rv-html="cart.item_count">{{cart.item_count}}</div>
+            
             </span>
           </a>
           

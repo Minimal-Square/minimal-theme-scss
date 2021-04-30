@@ -1,8 +1,12 @@
-<div class="mt-dynamic">
+<div class="list-tile">
     <a href="{{ collection.url }}">
         <div class="aspect-w-1 aspect-h-1">
-            <img class="object-cover" src="{% if block.settings.collection_list_image != blank %}{{ block.settings.collection_list_image | img_url: 'master' }}{% elsif block.settings.collection_list_image == blank %}{{ collection.image | img_url: 'master' }}{% endif %}" alt="">
+            {% if collection.image == blank and block.settings.collection_list_image == blank %}
+                {{ 'collection-1' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
+            {% else %}
+            <img class="list-tile__image" src="{% if block.settings.collection_list_image != blank %}{{ block.settings.collection_list_image | img_url: 'master' }}{% elsif block.settings.collection_list_image == blank %}{{ collection.image | img_url: 'master' }}{% endif %}" alt="{{ collection.title }}">
+            {% endif %}
         </div>
-        <h3 class="mt-3 body-md font-medium clr-general-text text-center">{% if block.settings.collection_list_custom_title != blank %}{{ block.settings.collection_list_custom_title }}{% elsif block.settings.collection_list_custom_title == blank %}{{ collection.title }}{% endif %}</h3>
+        <h3 class="list-tile__heading">{% if block.settings.collection_list_custom_title != blank %}{{ block.settings.collection_list_custom_title }}{% elsif block.settings.collection_list_custom_title == blank %}{{ collection.title }}{% endif %}</h3>
     </a>
 </div>

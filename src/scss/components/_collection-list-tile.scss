@@ -1,1 +1,13 @@
-@import 'buttons';
+.list-tile {
+    &__image {
+        object-fit: cover;
+    }
+    &__heading {
+        font-size: var(--font-size-body);
+        font-family: var(--font-secondary);
+        font-weight: 500;
+        color: var(--clr-general-text);
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+}

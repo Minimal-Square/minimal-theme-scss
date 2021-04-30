@@ -44,7 +44,6 @@
 </div>
 
 {% include 'sticky-add-to-cart' %}
-
 <style>
   #shopify-section-{{ section.id }} .carousel-width {
     margin: 3px 12px 3px 3px;
@@ -57,9 +56,155 @@
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-  } 
+  }
+
+  #shopify-section-{{ section.id }} .flickity-page-dots {
+    position: absolute;
+  }
 </style>
 
+<script>
+  var optionRadio1 = document.querySelectorAll('input[name="{{ product.options[0] | downcase }}"]');
+  var optionRadio2 = document.querySelectorAll('input[name="{{ product.options[1] | downcase }}"]');
+  var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
+
+  var addToCartButton = document.getElementById("add_to_cart");
+
+  function decrement() {
+    $('#quantity').val( function(i, oldval) {
+      if (oldval > 1){
+        return --oldval;
+      } else {
+        return oldval;
+      }
+        
+    });
+  }
+  function increment() {
+    $('#quantity').val( function(i, oldval) {
+        return ++oldval;
+    });
+  } 
+
+  function addCartUpdate() {
+    var quantity = document.getElementById('quantity').value;
+    addToCartButton.setAttribute("data-cart-quantity", quantity);
+  }
+
+  function eventFire(el, etype){
+    if (el.fireEvent) {
+      el.fireEvent('on' + etype);
+    } else {
+      var evObj = document.createEvent('Events');
+      evObj.initEvent(etype, true, false);
+      el.dispatchEvent(evObj);
+    }
+  }
+
+  {% if product.options.size == 1 %}
+  (function () {
+    checked = false;
+
+    for (var i = 0; i < optionRadio1.length; i++) {
+        if (optionRadio1[i].checked) {
+            checked = true;
+            break;
+        }
+    }
+
+    if (!checked) {
+      optionRadio1[0].checked = true;
+      eventFire(optionRadio1[0], 'click');
+      updateProductInformation();
+    }
+  }());
+  {% endif %}
+
+  // Function to get the value of the checked radio button in the form.
+  function getRadioVal(form, name) {
+      var val;
+      var radios = form.elements[name];
+      for (var i=0, len=radios.length; i<len; i++) {
+          if ( radios[i].checked ) {
+              val = radios[i].value; 
+              break;
+          }
+      }
+      return val;
+  }
+
+  {% unless product.has_only_default_variant %}
+    function changeRadioValue() {
+          if (!(optionRadio1.checked) || !(optionRadio2.checked) {% if product.options[2] %} || !(optionRadio3.checked){% endif %}) {
+            addToCartButton.disabled = true;
+        } else {
+            addToCartButton.disabled = false;
+        }
+    };
+
+    function changeButton() {
+      if (!(optionRadio1.checked) && !(optionRadio2.checked){% if product.options[2] %} && !(optionRadio3.checked){% endif %}) {
+        addToCartButton.disabled = true;
+      }
+      else {
+        addToCartButton.disabled = false;
+      }
+    };
+    changeButton();
+  {% endunless %}
+
+
+  // Function runs every time a variant radio button or select dropdown changes.
+  function updateProductInformation() {
+    // Save the option select values
+    {% for option in product.options %}
+        var opt{{- forloop.index }} = getRadioVal( document.getElementById('product_form'), '{{ option | downcase }}' );
+    {% endfor %}
+    
+    // Capture the quantity and save it as a liquid variable
+    var quantity = document.getElementById('quantity').value;
+    // document.getElementById('add_to_cart').setAttribute("data-cart-quantity", quantity);
+    {% capture quantity %}quantity{% endcapture %}
+    var id = '';
+    var available;
+    // Loop through all of the variants to check if the option values match any of the variant combinations
+    {% for v in product.variants %}
+      if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
+        // Save the ID for the specific variant combination.
+        var id = {{ v.id }};
+        var available = {{ v.available }};
+        // Save the price given the quantity the user has selected. Once multiplied then format the price using the js api.
+        var fullPrice = {{ quantity }} * {{ v.price }};
+        var price = Shopify.formatMoney({{v.price}}, "{{ shop.money_format }}");
+        var formattedPrice = Shopify.formatMoney(fullPrice, "{{ shop.money_format }}" );
+      }
+    {% endfor %}
+    // URL Query String
+    // console.log(window.location.search);
+    // If variant has an id then set the cart to the selected variant and change the price field.
+    if(id!='') {
+      addToCartButton.setAttribute('data-cart-add', id);
+      document.getElementById('price').innerHTML = price;
+      addToCartButton.disabled = true;
+
+      if(available == false){
+        addToCartButton.setAttribute('value', 'Sold Out');
+        addToCartButton.disabled = true;
+      } else if (available == true) {
+        addToCartButton.setAttribute('value', 'Add To Cart');
+        addToCartButton.disabled = false;
+      }
+      
+    } else {
+      addToCartButton.setAttribute('data-variant-id', id);
+      addToCartButton.setAttribute('value', 'Choose Options');
+      document.getElementById('price').innerHTML = 'Unavailable';
+      addToCartButton.disabled = true;
+    }
+  }
+  updateProductInformation()
+  
+</script>
 
 {% schema %}
 {

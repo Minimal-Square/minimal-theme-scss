@@ -1,0 +1,50 @@
+.logo-list {
+    @extend .container;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        @include mq($from: desktop) {
+            margin-bottom: 2rem;
+        }
+        @extend .space-header;
+    }
+
+    &__heading {
+        font-family: var(--font-primary);
+        font-size: var(--font-size-section-heading);
+        font-weight: var(--font-weight);
+        color: var(--clr-general-headings);
+        line-height: 1.3;
+    }
+
+    &__text {
+        font-size: var(--font-size-body);
+        font-family: var(--font-secondary);
+        color: var(--clr-general-text);
+        line-height: 1.625;
+        margin-top: 1.3125rem;
+    }
+
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        justify-items: center;
+        @extend .space-content;
+    }
+
+    &__image-wrapper {
+        align-self: center;
+        margin: 1rem;
+        @include mq($from: desktop) {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    &__image {
+        object-position: center;
+        object-fit: cover;
+    }
+}

@@ -1,0 +1,53 @@
+body {
+    font-family: var(--font-secondary) !important;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    @include mq($from: mobile, $until: desktop) {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    @include mq($until: mobile) {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+// Margins
+.space-content { 
+    margin-top: 1.25rem;
+    @include mq($from: tablet) {
+        margin-top: 1.75rem;
+    }
+}
+
+.space-header {
+    margin-top: 3.125rem;
+    margin-bottom: 1.25rem;
+    @include mq($from: tablet) {
+        margin-bottom: 1.75rem;
+    }
+    @include mq($from: desktop) {
+        margin-top: 4.25rem;
+    }
+}
+
+// Icon sizes
+.icon-sm {
+    font-size: 18px;
+}
+
+.svg-placeholder-opacity {
+    opacity: 0.5;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+// Shadows
+.shadow {
+    border: 1px solid rgba(128, 128, 128, 0.16);
+    box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
+}

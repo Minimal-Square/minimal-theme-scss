@@ -4,3 +4,21 @@
     bottom: $number;
     left: $number;
 }
+
+@mixin border-radius($number) {
+    -webkit-border-radius: $number; 
+    -moz-border-radius: $number; 
+    border-radius: $number; 
+}
+
+@mixin box-shadow($h-offset, $v-offset, $blur, $spread, $color) {
+    -webkit-box-shadow: $h-offset $v-offset $blur $spread $color;
+    -moz-box-shadow:    $h-offset $v-offset $blur $spread $color;
+    box-shadow:         $h-offset $v-offset $blur $spread $color; 
+}
+
+@mixin animation-zoom($number) {
+    -ms-transform: scale($number);
+    -webkit-transform: scale($number);
+    transform: scale($number); 
+}

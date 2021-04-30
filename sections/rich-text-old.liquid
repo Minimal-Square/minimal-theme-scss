@@ -1,28 +1,26 @@
-<section class="rich-text {% if section.settings.richtext_height == 'small' %} rich-text--height-small {% elsif section.settings.richtext_height == 'large' %} rich-text--height-large {% endif %}">
-    <div class="rich-text__content">
-        {% if section.settings.richtext_heading != blank %}<h2 class="rich-text__heading">{{ section.settings.richtext_heading }}</h2>{% endif %}
-        {% if section.settings.richtext_text != blank %}<p class="rich-text__text">{{ section.settings.richtext_text }}</p>{% endif %}
+<section class="max-width mx-auto clr-richtext-background {% if section.settings.richtext_height == 'small' %} py-12 lg:py-16 {% elsif section.settings.richtext_height == 'large' %} py-16 lg:py-32 {% endif %}">
+    <div class="mx-auto">
+      <div class="max-w-screen-sm mx-auto text-center">
+        <h2 class="heading-lg clr-richtext-heading mb-4">{{ section.settings.richtext_heading }}</h2>
+        <p class="body-md clr-richtext-text mb-6">{{ section.settings.richtext_text }}</p>
         {% if section.settings.richtext_button_text != blank %}
-        <a href="{{ section.settings.richtext_link_url }}" class="rich-text__btn {% if section.settings.richtext_button_style == 'primary' %} btn-primary {% elsif section.settings.richtext_button_style == 'secondary' %} btn-secondary {% endif %}">{{ section.settings.richtext_button_text }}</a>
+            <div class="flex justify-center">
+                <a href="{{ section.settings.richtext_link_url }}" class="btn-lg {% if section.settings.richtext_button_style == 'primary' %} btn-primary {% elsif section.settings.richtext_button_style == 'secondary' %} btn-secondary {% endif %}">{{ section.settings.richtext_button_text }}</a>
+            </div>
         {% endif %}
+      </div>
     </div>
 </section>
 
 <style>
-    #shopify-section-{{ section.id }} .rich-text {
-        background-color: {{ section.settings.clr_richtext_background }};
-    }
-    #shopify-section-{{ section.id }} .rich-text__heading {
-        color: {{ section.settings.clr_richtext_heading }};
-    }
-    #shopify-section-{{ section.id }} .rich-text__text {
-        color: {{ section.settings.clr_richtext_text }};
-    }
+    #shopify-section-{{ section.id }} .clr-richtext-heading { color: {{ section.settings.richtext_heading_color }}; }
+    #shopify-section-{{ section.id }} .clr-richtex-text { color: {{ section.settings.richtext_text_color }}; }
+    #shopify-section-{{ section.id }} .clr-richtext-background { background-color: {{ section.settings.richtext_background_color }}; }
 </style>
 
 {% schema %}
 {
-    "name": "Rich text",
+    "name": "Rich text old",
     "settings": [
         {
             "type": "text",
@@ -80,19 +78,19 @@
         },
         {
             "type": "color",
-            "id": "clr_richtext_heading",
+            "id": "richtext_heading_color",
             "label": "Heading color",
             "default": "#222222"
         },
         {
             "type": "color",
-            "id": "clr_richtext_text",
+            "id": "richtext_text_color",
             "label": "Text color",
             "default": "#222222"
         },
         {
             "type": "color",
-            "id": "clr_richtext_background",
+            "id": "richtext_background_color",
             "label": "Background color",
             "default": "#FFFFFF"
         }
@@ -101,7 +99,7 @@
     "presets": [
       {
         "category": "Text",
-        "name": "Rich text"
+        "name": "Rich text old"
       }
     ]
 }

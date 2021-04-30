@@ -9,14 +9,18 @@
                 {% endif %}
             </div>
         {% endif %}
-    </section>
+    </section> 
 {% endif %}
 
 <style>
-  :root {
-    --clr-announcement-background: {{ section.settings.clr_announcement_background }};
-    --clr-announcement-text: {{ section.settings.clr_announcement_text }};
-    --clr-announcement-link: {{ section.settings.clr_announcement_link }};
+  #shopify-section-{{ section.id }} .announcement {
+    background-color: {{ section.settings.clr_announcement_background }};
+  }
+  #shopify-section-{{ section.id }} .announcement__text {
+    color: {{ section.settings.clr_announcement_text }};
+  }
+  #shopify-section-{{ section.id }} .announcement__link {
+    color: {{ section.settings.clr_announcement_link }};
   }
 </style>
 

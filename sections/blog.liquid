@@ -1,62 +1,66 @@
 {% assign blog_per_row = section.settings.blog_per_row %}
 
-<section class="max-width mx-auto py-12 lg:py-16">
-    <div class="text-center mb-6 lg:mb-8 space-y-3 lg:space-y-4 lg:w-128 mx-auto">
-        <h1 class="heading-sm clr-general-headings">{{ section.settings.blog_heading | escape }}</h1>
-        <p class="body-md clr-general-text">{{ section.settings.blog_subheading | escape }}</p>
+<section class="blog">
+    <div class="blog__header">
+        <h1 class="blog__heading">{{ section.settings.blog_heading | escape }}</h1>
+        <p class="blog__text">{{ section.settings.blog_subheading | escape }}</p>
     </div>
     {%- assign blog = blogs[section.settings.blog] -%}
     {%- if blog.articles_count > 0 -%}
-        <div class="main-carousel mb-6 lg:mb-8 md:grid sm:grid-cols-2 md:grid-cols-2 md:gap-5 block
-            {% if section.settings.blog_posts == 2 %}
-                lg:grid-cols-2
-            {% elsif section.settings.blog_posts == 3 %}
-                lg:grid-cols-3
-            {% elsif section.settings.blog_posts == 4 %}
-                lg:grid-cols-4
-            {% elsif section.settings.blog_posts == 5 %}
-                lg:grid-cols-5
-            {% endif %}" data-flickity='{ "cellAlign": "left", "contain": true, "watchCSS": true, "prevNextButtons": false, "pageDots": false }'>
+    <div class="blog__content">
+        <div class="blog__carousel main-carousel
+        {% if section.settings.blog_posts == 2 %}
+            blog__carousel--cols-2
+        {% elsif section.settings.blog_posts == 3 %}
+            blog__carousel--cols-3
+        {% elsif section.settings.blog_posts == 4 %}
+            blog__carousel--cols-4
+        {% elsif section.settings.blog_posts == 5 %}
+            blog__carousel--cols-5
+        {% endif %}" data-flickity='{ "cellAlign": "left", "contain": true, "watchCSS": true, "prevNextButtons": false, "pageDots": false }'>
             {%- for article in blog.articles limit: section.settings.blog_posts -%}
-                <div class="carousel-cell">
-                    <div class="border">
-                        {%- if article.image -%}
-                            <div class="aspect-h-3 aspect-w-6">
-                                <a class="aspect-h-3 aspect-w-6" href="{{ article.url }}">
-                                    <img class="object-cover" src="{{ article | img_url: 'master' }}" alt="{{ article.title }}">
-                                </a>
-                            </div>
+            <div class="blog__card carousel-cell">
+                {%- if article.image -%}
+                <div class="blog__wrapper-image aspect-h-3 aspect-w-6">
+                    <a class="aspect-h-3 aspect-w-6" href="{{ article.url }}">
+                        <img class="blog__image" src="{{ article | img_url: 'master' }}" alt="{{ article.title }}">
+                    </a>
+                </div>
+                {%- else -%}
+                  <div class=""blog__wrapper-image aspect-h-3 aspect-w-6">
+                     {{ 'collection-6' | placeholder_svg_tag: 'svg-placeholder-opacity w-full' }}
+                   </div>
+                {% endif %}
+                <div class="blog__wrapper-text">
+                    <div class="blog__date-author">
+                        {%- if section.settings.blog_date -%}
+                        <span class="blog__date">{{ article.published_at | time_tag: format: 'month_day_year' }}</span>
                         {%- endif -%}
-                        <div class="p-4">
-                            <div class="flex space-x-2">
-                                {%- if section.settings.blog_date -%}
-                                        <span class="clr-general-light-text leading-none body-sm">{{ article.published_at | time_tag: format: 'month_day_year' }}</span>
-                                {%- endif -%}
-                                {%- if section.settings.blog_author -%}
-                                        <span class="clr-general-light-text leading-none body-sm border-1 pl-2">{{ article.author }}</span>
-                                {%- endif -%}
-                            </div>
-                            <a href="{{ article.url }}">
-                                <h2 class="heading-xs clr-general-headings my-3">{{ article.title }}</h2>
-                            </a>
-                            {%- if article.excerpt.size > 0 -%}
-                                {{ article.excerpt }}
-                            {%- else -%}
-                                <p class="body-md clr-general-text mb-3">
-                                    {{ article.content | strip_html | truncate: 150 }}
-                                </p>
-                            {%- endif -%}
-                            <a class="clr-general-links flex" href="{{ article.url }}" aria-label="Read more: {{ article.title }}">{{ 'blogs.article.read_more' | t }}<span aria-hidden="true" class="text-xl self-center icon icon-chevron-right"></span></a>
-                        </div> 
+                        {%- if section.settings.blog_author -%}
+                        <span class="blog__author">{{ article.author }}</span>
+                        {%- endif -%}
                     </div>
-                </div>   
+                    <a href="{{ article.url }}">
+                        <h2 class="blog__heading">{{ article.title }}</h2>
+                    </a>
+                    {%- if article.excerpt.size > 0 -%}
+                    <p class="blog__excerpt">{{ article.excerpt }}</p>
+                    {%- else -%}
+                    <p class="blog__excerpt-content">
+                        {{ article.content | strip_html | truncate: 150 }}
+                    </p>
+                    {%- endif -%}
+                    <a class="blog__link" href="{{ article.url }}" aria-label="Read more: {{ article.title }}">{{ 'blogs.article.read_more' | t }}<span aria-hidden="true" class="icon icon-chevron-right"></span></a>
+                </div> 
+            </div>
             {%- endfor -%}
         </div>
         {%- if section.settings.blog_link_activate == true -%}
-        <div class="text-center">
-            <a href="{{ blog.url }}"class="clr-general-links self-center" aria-label="{{ 'blogs.article.see_more' | t }}"> {{ 'blogs.article.see_more' | t }} </a>
+        <div class="blog__btn-wrapper">
+            <a href="{{ blog.url }}" class="blog__btn" aria-label="{{ 'blogs.article.see_more' | t }}"> {{ 'blogs.article.see_more' | t }}</a>
         </div>
-    {%- endif -%}
+        {%- endif -%}
+    </div>
     {%- endif -%}
   </section>
 
@@ -81,15 +85,12 @@
     @media screen and ( max-width: 768px ) {
         #shopify-section-{{ section.id }} .carousel-cell {
             width: 70%;
-            padding-left: 12px;
+            margin-left: 12px;
         }
         #shopify-section-{{ section.id }} .carousel-cell:first-child {
-            padding: 0 !important;
+            margin: 0 !important;
+            width: 70%;
         }
-    }
-    
-    .border-1 {
-        border-left: 1px solid {{ settings.clr_general_light_text }};
     }
 
 </style>

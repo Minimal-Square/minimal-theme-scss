@@ -1,0 +1,50 @@
+:root {
+    --menu-closed-height: 0;
+    --menu-open-height: 200px;
+}
+#header ul li .header_content {
+transition: opacity 200ms cubic-bezier(0, 0, 0.2, 1);
+opacity: 0;
+}
+#header ul li:hover .header_content {
+opacity: 1;
+}
+#header .parent_link:hover {
+opacity: 0.8;
+}
+#header .child_default a:hover, #header .child_mega a:hover {
+color: #046e82;
+}
+#header ul li .dropdown-menu {
+transition: all 250ms cubic-bezier(0, 0, 0.2, 1);
+height: var(--menu-closed-height);
+}
+#header ul li:hover .dropdown-menu {
+visibility: visible;
+height: var(--menu-open-height, auto);
+}
+
+.stickyHeader {
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 9995;
+float:left;
+transition: all 0.3s ease-out;
+}
+
+.content {
+padding-top: 64px;
+}
+
+#header .child_default .grandchild_default {
+background:white; 
+display:none;
+position: absolute;
+top: 0;
+left: 100%;
+min-width: 180px;
+}
+#header .child_default li:hover .grandchild_default {
+display: block;
+}

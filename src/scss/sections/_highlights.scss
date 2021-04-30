@@ -1,0 +1,86 @@
+.highlights {
+    &__content {
+        @extend .container;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+    &__content--carousel {
+        @include mq($from: desktop) {
+            display: flex;
+        }
+    }
+    &__content--grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.75rem;
+    }
+    &__content--left {
+        @include mq($from: desktop) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__content--center {
+        @include mq($from: tablet) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__block {
+        width: calc(100% - 1rem);
+        margin: 0 auto;
+    }
+    &__block--left {
+        display: flex;
+        text-align: left;
+        justify-content: center;
+        @include mq($from: tablet) {
+            width: 100%;
+        }
+    }
+    &__block--center {
+        text-align: center;
+    }
+    &__icon {
+        margin: auto;
+    }
+    &__icon--left {
+        align-self: center;
+        margin-right: 1rem;
+    }
+    &__icon--center {
+        margin-bottom: 0.5rem;
+    }
+    &__image {
+        margin: 0 auto;
+        object-position: center;
+        object-fit: cover;
+    }
+    &__info {
+        margin: auto 0;
+    }
+    &__heading {
+        font-size: var(--font-size-heading-5);
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight);
+        @include mq($until: desktop) {
+            font-size: var(--font-size-body);
+        }
+    }
+    &__text {
+        font-size: var(--font-size-body);
+        line-height: 1.4;
+        margin-top: 0.25rem;
+        @include mq($until: desktop) {
+            font-size: var(--font-size-body-smaller);
+        }
+    }
+    &__link {
+        font-size: var(--font-size-body);
+        font-weight: 500;
+        margin-top: 1rem;
+        @include mq($until: desktop) {
+            font-size: var(--font-size-body-smaller);
+        }
+    }
+}

@@ -49,7 +49,7 @@ https://flickity.metafizzy.co
     color: white;
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 1024px) {
     .flickity-button {
       display: none;
     }
@@ -90,16 +90,16 @@ https://flickity.metafizzy.co
     transform: translateY(-50%);
   }
   
-  .flickity-prev-next-button.previous { left: 10px; }
-  .flickity-prev-next-button.next { right: 10px; }
+  .flickity-prev-next-button.previous { left: 36px; }
+  .flickity-prev-next-button.next { right: 36px; }
   /* right to left */
   .flickity-rtl .flickity-prev-next-button.previous {
     left: auto;
-    right: 10px;
+    right: 36px;
   }
   .flickity-rtl .flickity-prev-next-button.next {
     right: auto;
-    left: 10px;
+    left: 36px;
   }
   
   .flickity-prev-next-button .flickity-button-icon {
@@ -111,8 +111,7 @@ https://flickity.metafizzy.co
   }
   
   /* ---- page dots ---- */
-  {% if template.name == product %}
-  .flickity-page-dots {
+  /* .flickity-page-dots {
     position: absolute;
     width: 100%;
     padding: 0;
@@ -121,21 +120,24 @@ https://flickity.metafizzy.co
     text-align: center;
     line-height: 1; 
     bottom: 4%;
-  }
-  {% else%}
+  } */
+
   .flickity-page-dots {
-    /* position: absolute; */
+    position: static;
     width: 100%;
     padding: 0;
     margin: 0;
     list-style: none;
     text-align: center;
     line-height: 1; 
-    bottom: 4%;
+    bottom: 36px;
   }
-  {% endif %}
   
-
+  @media screen and (max-width: 640px) {
+    .flickity-page-dots {
+      bottom: 24px;
+    }
+  }
   
   .flickity-rtl .flickity-page-dots { direction: rtl; }
   
