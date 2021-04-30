@@ -18,7 +18,7 @@
             {% if block.type == 'block-1' %}
                 <div class="text-center space-y-6 md:text-left">
                     <h3 class="mb-4 clr-footer-headings heading-xs">{{ block.settings.heading_footer }}</h3>
-                    {% if section.settings.logo %}
+                    {% if block.settings.logo %}
                     <a href="/">
                          <img class="object-cover mx-auto md:m-0 h-{{ block.settings.size }}" src="{{ block.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}">
                     </a>

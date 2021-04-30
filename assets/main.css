@@ -53,6 +53,11 @@ body {
   }
 }
 
+.svg-placeholder-opacity {
+  opacity: 0.5;
+  background: rgba(0, 0, 0, 0.2);
+}
+
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 /*
 Document
@@ -147,7 +152,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -924,6 +929,22 @@ summary {
   .slideshow-content__btn {
     font-size: var(--font-size-button-small);
     padding: 0.625rem 1rem;
+  }
+}
+
+.slideshow--placeholder {
+  height: 100%;
+  width: 100%;
+}
+
+.svg-placeholder-slideshow {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 63.99em) {
+  .svg-placeholder-slideshow {
+    width: auto;
   }
 }
 

@@ -19,7 +19,11 @@
       {% if section.settings.iwt_button_2_label != blank %} <a href="{{ section.settings.iwt_button_2_url }}" class="ml-2 btn-lg {% if section.settings.iwt_button_2_type == 'btn-primary' %} btn-primary {% elsif section.settings.iwt_button_2_type == 'btn-secondary' %} btn-secondary {% endif %} rounded-md px-4 py-2 md:px-8 md:py-4">{{ section.settings.iwt_button_2_label }}</a> {% endif %}
     </div>
     <div class="aspect-w-10 aspect-h-{{ section.settings.iwt_image_aspect_mobile | times: 10 | round }} md:aspect-w-10 md:aspect-h-{{ section.settings.iwt_image_aspect | times: 10 | round }} {% if section.settings.iwt_image_width == 'iwt-image-half' %} md:col-span-3 {% elsif section.settings.iwt_image_width == 'iwt-image-two-thirds' %} md:col-span-4 {% endif %}">
-        <img class="object-cover" src="{{ section.settings.iwt_image | img_url: '2048x2048' }}" alt="">
+        {% if section.settings.iwt_image == blank %}
+            {{ 'image' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
+        {% else %}
+            <img class="object-cover" src="{{ section.settings.iwt_image | img_url: '2048x2048' }}" alt="{{ shop.name }}">
+        {% endif %}
     </div>
 </section>
 

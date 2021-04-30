@@ -9,8 +9,12 @@
         <div class="flex flex-wrap justify-center justify-items-center">
               {% for block in section.blocks %}
                 <div class="self-center my-4 mx-4 lg:mx-8">
-                  <img class="logo-list-image-size logo-list-image-size-mobile object-center object-cover" src="{{ block.settings.logo_list_image | img_url: '180x180' }}">
-                </div>
+                    {% if block.settings.logo_list_image == blank %}
+                        {{ 'image' | placeholder_svg_tag: 'svg-placeholder-opacity logo-list-image-size logo-list-image-size-mobile' }}
+                    {% else %}
+                        <img class="logo-list-image-size logo-list-image-size-mobile object-center object-cover" src="{{ block.settings.logo_list_image | img_url: '180x180' }}">
+                    {% endif %}
+                </div>  
               {% endfor %}
         </div>
     </div>

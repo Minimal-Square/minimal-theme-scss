@@ -26,7 +26,11 @@
                                     <img class="object-cover" src="{{ article | img_url: 'master' }}" alt="{{ article.title }}">
                                 </a>
                             </div>
-                        {%- endif -%}
+                        {%- else -%}
+                            <div class="aspect-h-3 aspect-w-6">
+                                {{ 'collection-6' | placeholder_svg_tag: 'svg-placeholder-opacity w-full' }}
+                            </div>
+                        {% endif %}
                         <div class="p-4">
                             <div class="flex space-x-2">
                                 {%- if section.settings.blog_date -%}

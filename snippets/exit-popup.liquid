@@ -8,7 +8,7 @@
 <div class="flex justify-center items-center p-0 w-full hidden modal z-50" {%- if settings.exit_popup_enable == true -%} id="ex2" {%- endif -%}>
     <div class="max-w-lg bg-white rounded-md shadow-md text-center relative">
       
-      <img src="{{settings.exit_popup_image | | img_url: 'master' }}" alt="Popup_Image">
+      <img src="{{settings.exit_popup_image | | img_url: 'master' }}" alt="{{ settings.exit_popup_title }}">
       
       <div class="p-8">
         <a href="" rel="modal:close">

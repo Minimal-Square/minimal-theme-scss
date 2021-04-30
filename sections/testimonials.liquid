@@ -8,6 +8,9 @@
       <div class="carousel-cell shadow mr-4 p-8">
         <div class="flex flex-col items-center">
           {% unless section.settings.testimonials_avatar_off == false %}
+          {% if block.settings.testimonials_avatar == blank %}
+            {{ 'image' | placeholder_svg_tag: 'svg-placeholder-opacity h-16 w-16 mb-6' }}
+          {% else %}
           <img class="h-16 w-16
           {% if section.settings.image_crop == 'circle' %}
           rounded-full
@@ -15,7 +18,8 @@
           rounded-none
           {% elsif section.settings.image_crop == 'rounded_rectangle' %}
           rounded-lg
-          {% endif %} object-contain mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="">
+          {% endif %} object-contain mb-6" src="{{ block.settings.testimonials_avatar | img_url: '128x128' }}" alt="{{ block.settings.testimonials_name }}">
+          {% endif %}
           {% endunless %}
           {% if block.settings.star_reviews == '4_out_of_5' %}
             <div class="mb-4 clr-product-review-star">

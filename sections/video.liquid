@@ -3,7 +3,13 @@
 <div class="max-width mx-auto w-full flex justify-center items-center relative"​​​​​​>
     <div class="relative w-full {% if section.settings.video_aspect == '16-9' %} aspect-w-16 aspect-h-9 {% elsif section.settings.video_aspect == '21-9' %} aspect-w-21 aspect-h-9 {% endif %}">
     <a class="cursor-pointer flex justify-center items-center h-full w-full z-20" href="" id="play-video">
-        <img src="{{ section.settings.video_thumbnail | img_url: 'master' }}" class="absolute h-full w-full object-cover object-center" alt="">
+        {% if section.settings.video_thumbnail == blank %}
+           
+                {{ 'image' | placeholder_svg_tag: 'absolute h-full w-full bg-gray-200' }}
+         
+        {% else %}
+            <img src="{{ section.settings.video_thumbnail | img_url: 'master' }}" class="absolute h-full w-full object-cover object-center" alt="{{ shop.name }}">
+        {% endif %}
         <div class="bg-white h-20 w-20 flex justify-center items-center rounded-full z-30">
             <span aria-hidden="true" class="text-3xl icon icon-play-circle"></span>
         </div>
