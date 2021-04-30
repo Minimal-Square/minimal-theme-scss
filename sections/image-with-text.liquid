@@ -21,7 +21,7 @@
       {% if section.settings.iwt_image == blank %}
             {{ 'image' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
         {% else %}
-        <img class="iwt__image" src="{{ section.settings.iwt_image | img_url: 'master' }}" alt="{{ shop.name }}>
+        <img class="iwt__image" src="{{ section.settings.iwt_image | img_url: 'master' }}" alt="{{ shop.name }}">
         {% endif %}
 
     </div>
