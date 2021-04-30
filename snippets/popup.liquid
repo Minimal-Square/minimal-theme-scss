@@ -1,28 +1,24 @@
-
-<style>
-  #ex2.modal {
-    padding: 0;
-  }
-</style>
-
-<div class="flex justify-center items-center p-0 w-full hidden modal z-50" {%- if settings.exit_popup_enable == true -%} id="ex2" {%- endif -%}>
-    <div class="max-w-lg bg-white rounded-md shadow-md text-center relative">
+<div class="max-w-lg bg-white rounded-md shadow-md text-center relative {%- if settings.exit_popup_enable == true -%} 
+flex
+{% elsif settings.exit_popup_enable == false %}
+hidden
+{%- endif -%}"">
       
-      <img src="{{settings.exit_popup_image | | img_url: 'master' }}" alt="{{ settings.exit_popup_title }}">
+    <img src="{{settings.popup_image | | img_url: 'master' }}" alt="Popup_image">
+    
+    <div class="p-8">
+      <a href="">
+        <svg class="h-6 w-6 absolute right-0 top-0 mt-3 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </a>
       
-      <div class="p-8">
-        <a href="" rel="modal:close">
-          <svg class="h-6 w-6 absolute right-0 top-0 mt-3 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </a>
-        
-        <div class="pb-6 space-y-4">
+      <div class="pb-6 space-y-4">
           <p class="text-3xl font-serif">{{ settings.exit_popup_title }}</p>
           <p class="text-gray-600">{{ settings.exit_popup_subtitle }}</p>
-        {% if settings.mailchimp_exitpopup_link != blank %}
+        {% if settings.mailchimp_popup_link != blank %}
 
-        <form class="flex justify-center space-x-2" action="{{ settings.mailchimp_exitpopup_link }}" method="post" name="mc-embedded-subscribe-form" tags="pop-up" id="contact_form" target="_blank">
+        <form class="flex justify-center space-x-2" action="{{ settings.mailchimp_popup_link }}" method="post" name="mc-embedded-subscribe-form" tags="pop-up" id="contact_form" target="_blank">
           <input type="hidden" name="contact[tags]" value="newsletter">
           <input class="border rounded-md w-full py-3 px-4 shadow-sm" type="email" name="EMAIL" id="Email"
           value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
@@ -60,7 +56,6 @@
 
          
         </div>
-      </div>
-
     </div>
+
   </div>

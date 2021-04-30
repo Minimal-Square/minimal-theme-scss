@@ -24,7 +24,13 @@
   {{ 'feather.css' | asset_url | stylesheet_tag }}
   {{ 'shopify_common.js' | asset_url | script_tag }}
   
+  <!-- Yotpo-reviews.js -->
+  <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/HEFLRIVYTxbK3d6ARIQ6vPCsbUJBgdGrqYR0vMjd/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
   
+        {% form 'currency' %}
+        {{ form | currency_selector }} 
+        {% endform %}
+
 
 </head>
 <body>
