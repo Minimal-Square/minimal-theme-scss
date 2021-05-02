@@ -7,7 +7,8 @@
     </div>
   </div>
 
-  <form method="post" action="/cart/add" id="product_form" data-cart-submit>
+  <!-- data-cart-submit -->
+  {% form 'product', product, id: 'product_form' %}
     <!-- Variants -->
     {% if product.variants.size > 1 %}
       {% for option in product.options %}
@@ -129,9 +130,10 @@
     <!-- <h2 class="text_blue font_medium product_price" id="product_price">{{ product.selected_or_first_available_variant.price | money }}</h2> -->
     <!-- Add To Cart -->
     <input type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" class="btn-lg btn-primary w-full py-4 addtocart cursor-pointer" value="{{ 'products.product.add_to_cart' | t }}">
+    {{ form | payment_button }}
     <!-- Ajax Message -->
     <p class="ajax_message"></p>
-  </form>
+    {% endform %}
   <div class="mt-8">
     <p class="body-md clr-general-text">{{ product.description }}</p>
 </div>

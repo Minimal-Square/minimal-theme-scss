@@ -1844,7 +1844,8 @@ summary {
 }
 
 .newsletter {
-  padding: 4rem 0;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .newsletter__header {
@@ -1872,12 +1873,12 @@ summary {
 }
 
 .newsletter__error {
+  border-radius: 4px;
   background-color: var(--clr-error-light);
   color: var(--clr-error);
   padding: 0.25rem 1rem;
   align-items: center;
   display: flex;
-  border-radius: 4px;
   margin-bottom: 0.5rem;
   width: 100%;
 }
@@ -1887,12 +1888,12 @@ summary {
 }
 
 .newsletter__success {
+  border-radius: 4px;
   background-color: var(--clr-success-light);
   color: var(--clr-success);
   padding: 0.25rem 1rem;
   align-items: center;
   display: flex;
-  border-radius: 4px;
   margin-bottom: 0.5rem;
   width: 100%;
 }

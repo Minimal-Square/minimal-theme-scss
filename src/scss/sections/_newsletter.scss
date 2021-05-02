@@ -1,6 +1,7 @@
 .newsletter {
     @extend .container; 
-    padding: 4rem 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
     &__header {
         max-width: 39.99em;
@@ -25,35 +26,34 @@
         margin-top: 1.3125rem;
         color: var(--clr-general-text);
     }
-
     
     &__error {
+        @include border-radius(4px);
         background-color: var(--clr-error-light);
         color: var(--clr-error);
         padding: 0.25rem 1rem;
         align-items: center;
         display: flex;
-        @include border-radius(4px);
         margin-bottom: 0.5rem;
         width: 100%;
         span {
-            margin-right: 0.5rem;
             @extend .icon-sm;
+            margin-right: 0.5rem;
         }
     }
 
     &__success {
+        @include border-radius(4px);
         background-color: var(--clr-success-light);
         color: var(--clr-success);
         padding: 0.25rem 1rem;
         align-items: center;
         display: flex;
-        @include border-radius(4px);
         margin-bottom: 0.5rem;
         width: 100%;
         span {
-            margin-right: 0.5rem;
             @extend .icon-sm;
+            margin-right: 0.5rem;
         }
     }
 
@@ -63,10 +63,10 @@
     }
     
     &__content {
+        @extend .space-content;
         max-width: 39.99em;
         margin-left: auto;
         margin-right: auto;
-        @extend .space-content;
     }
 
     &__form {
