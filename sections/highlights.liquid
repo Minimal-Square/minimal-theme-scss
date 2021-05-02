@@ -88,6 +88,19 @@
     {% endif %}
 </style>
 
+<script>
+    document.addEventListener("shopify:section:load", function(event) {
+      var elem = document.querySelector('.highlights__content--carousel');
+      var flkty = new Flickity( elem, {
+      pageDots: false,
+      prevNextButtons: false,
+      cellAlign: 'left',
+      contain: true,
+      groupCells: true,
+      watchCSS: true
+      });
+    });
+</script>
 {% schema %}
 {
     "name": "Highlights bar",

@@ -9,6 +9,7 @@
         <div class="flex mb-4">
           {% include 'breadcrumbs' %}
         </div>
+        <div></div>
           <div class="main-carousel carousel mb-5" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
               {% for media in product.media %}
                 <div class="carousel-cell aspect-w-1 aspect-h-1 w-full" >
@@ -27,25 +28,18 @@
       </div>
       <div class="lg:col-span-2"> 
         {% include 'product-form' %}
-
-        {% if section.blocks.size != 0 %}
         {% if section.settings.product_tabs_type == 'product' %}
         <div class="mt-8">
           {% include 'product-tabs' %}
         </div>
         {% endif %}
-        {% endif %}
       </div>
     </div>
-
-    {% if section.blocks.size != 0 %}
-        <div class="mt-8 sm:mt-16">
-            {% if section.settings.product_tabs_type == 'section' %}
-            {% include 'product-tabs' %}
-            {% endif %}
-        </div>
-    {% endif %}
-
+    <div class="mt-8 sm:mt-16">
+      {% if section.settings.product_tabs_type == 'section' %}
+        {% include 'product-tabs' %}
+      {% endif %}
+    </div>
   </div>
 </div>
 
@@ -75,8 +69,31 @@
   var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
 
   var addToCartButton = document.getElementById("add_to_cart");
+ 
+  //Radio input name ---------------------------
+  // function getCheckedValue(event, value) {
+  //   console.log(value)
+  //   console.log(event.target.closest('legend'))
+  //   event.target.closest('.variant-title').innerHTML = value;
+  //   // document.querySelector('.variant-title span').innerHTML = value;
+  // } 
+  // //Radio input name ---------------------------
+  // function klik() {
+  //   var checkboxes = document.getElementsByName('color');
+  //   console.log(checkboxes)
+  //   for (var checkbox of checkboxes)
+  //   {
+  //       if (checkbox.checked) {
+  //           document.querySelectorAll('.variant-title span').innerHTML() += checkbox.value;
+            
+  //       }
+        
+  //   }
+  // } 
 
-  function decrement() {
+
+  function decrement(event) {
+    event.preventDefault();
     $('#quantity').val( function(i, oldval) {
       if (oldval > 1){
         return --oldval;
@@ -86,13 +103,15 @@
         
     });
   }
-  function increment() {
+  function increment(event) {
+    event.preventDefault();
     $('#quantity').val( function(i, oldval) {
         return ++oldval;
     });
   } 
 
-  function addCartUpdate() {
+  function addCartUpdate(event) {
+    event.preventDefault();
     var quantity = document.getElementById('quantity').value;
     addToCartButton.setAttribute("data-cart-quantity", quantity);
   }
@@ -211,6 +230,7 @@
   updateProductInformation()
   
 </script>
+
 
 {% schema %}
 {

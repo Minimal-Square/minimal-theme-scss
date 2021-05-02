@@ -1,4 +1,4 @@
-<div class="tile relative {% if section.settings.collection_layout == 'carousel' %} carousel-cell {% endif %}">
+<div class="tile {% if section.settings.collection_layout == 'carousel' %} carousel-cell {% endif %}">
     <div class="tile__content hoverDropdown">
         <a href="{{ product.url }}">
             {% unless product.available %}
@@ -9,40 +9,32 @@
                     <span class="tile__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
                 {% endif %}
             {% endif %}
+            {% if product.has_only_default_variant == false %}
             <form action="" class="carousel-main carousel">
-                <div class="productitem--image width100 aspect-w-1 aspect-h-1 relative">
-                    {% if product.has_only_default_variant == false %}
-                    {% for image in product.images %}
-                    {% for variant in image.variants %}
-                        <img class="tile__image obj invisible absolute {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}" data_variant_title="{{variant.title}}">
-                    {% endfor %}
-                    {% endfor %}
-                    {% elsif product.has_only_default_variant == true %}
-                        <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
-                    {% endif %}
+                {% for image in product.images %}
+                {% for variant in image.variants %}
+                <div class="mini-carousel-cell width100 aspect-w-1 aspect-h-1">
+                    <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}">
                 </div>
-            </form>
-            
-        </a>
-        
-        <div class="productitem--swatches" data-swatches="">
-            <form class="productitem--swatches-container-{{- forloop.index }} flex flex-wrap">
-                {% for image in product.images %} 
-                    {% for variant in image.variants %} 
-                        <label for="{{variant.title}}" class="mini-carousel-cell relative cursor-pointer" onclick="hoverSetImage(event, this.for)">
-                            <input type="radio" name="swatch" value="{{variant.title}}" class="carousel-focus opacity-0 absolute" tabindex="0">
-                            <div class="tile__ w-12 h-12">
-                                <div class="bg-cover h-full obj" style="background: url('{{ image.src | img_url: '512x512' }}');"></div>
-                            </div>
-                        </label>
-                    {% endfor %}
+                {% endfor %}
                 {% endfor %}
             </form>
-            <button class="productitem--swatches-count-wrapper" tabindex="0" data-swatch-count-wrapper="" aria-label="Toggle swatches" style="left: 114px; display: none;">
-                <div class="productitem--swatches-count" data-swatch-count="">+</div>
-            </button>
-        </div>
-        
+            {% elsif product.has_only_default_variant == true %}
+                <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
+            {% endif %}
+        </a>
+        <form class="carousel-nav carousel">
+            {% for image in product.images %} 
+                {% for variant in image.variants %} 
+                    <label for="" class="mini-carousel-cell relative">
+                        <input type="radio" class="carousel-focus opacity-0 absolute" tabindex="0">
+                        <div class="tile__ w-12 h-12">
+                            <div class="bg-cover h-full obj" style="background: url('{{ image.src | img_url: '512x512' }}');"></div>
+                        </div>
+                    </label>
+                {% endfor %}
+            {% endfor %}
+        </form>
         <div class="tile__info">
             {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
             <div class="tile__product-name-price">
@@ -115,6 +107,40 @@
         {% endif %}
     </div>
 </div>
+
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
+
+<script>
+    // var $carouselMain = $('.carousel-main').flickity({
+    //     prevNextButtons: false,
+    //     pageDots: false,
+    //     fade: true,
+    // });
+    var flkty = new Flickity('.carousel-main', {
+        prevNextButtons: false,
+        pageDots: false,
+        fade: true,
+    });
+    var flktyNav = new Flickity('.carousel-nav', {
+        asNavFor: '.carousel-main',
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+    });
+    
+    // // select main on nav hover
+    // flktyNav.on( 'mouseover', '.mini-carousel-cell', function( event ) {
+    //   var index = event.currentTarget.index();
+    //   flktyNav.flickity( 'select', index );
+    // });
+
+    // var miniCarousel = document.querySelectorAll('.mini-carousel-cell')
+    // miniCarousel.addEventListener("mouseover", function( event ) {
+    //     var index = event.currentTarget.index();
+    //     flktyNav.flickity( 'select', index );
+    // });
+</script>
 
   
 <style>

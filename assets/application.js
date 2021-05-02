@@ -297,3 +297,13 @@ document.querySelectorAll('.shopify-currency-form select').forEach(function(elem
   element.addEventListener('change', currencyFormSubmit);
 });
 
+//Radio input name ---------------------------
+function getCheckedValue(event, value) {
+  $(event.target).closest(".product_variant_container").find("legend span").html(value);
+} 
+
+//Mini carousel images ---------------------------
+function hoverSetImage(event, value) {
+  var lol = $(event.target).parent(".productitem--image").getElementsByClassName("tile__image");  
+  console.log(lol, value)  
+}

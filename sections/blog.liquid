@@ -94,6 +94,19 @@
     }
 
 </style>
+
+<script>
+    document.addEventListener("shopify:section:load", function(event) {
+        var elem = document.querySelector('.blog__carousel');
+        var flkty = new Flickity( elem, {
+        pageDots: false,
+        prevNextButtons: false,
+        cellAlign: 'left',
+        contain: true,
+        watchCSS: true,
+        });
+    });
+</script>
     
 
 {% schema %}

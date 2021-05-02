@@ -54,15 +54,15 @@
 </style>
 
 <script>
-var options = {
-  groupCells: false,
-};
-// enable prev/next buttons at 768px
-if ( matchMedia('screen and (min-width: 768px)').matches ) {
-  options.groupCells = true;
-  options.groupCells = 3;
-}
-$('.main-carousel').flickity( options );
+// var options = {
+//   groupCells: false,
+// };
+// // enable prev/next buttons at 768px
+// if ( matchMedia('screen and (min-width: 768px)').matches ) {
+//   options.groupCells = true;
+//   options.groupCells = 3;
+// }
+// $('.main-carousel').flickity( options );
 
 
 document.addEventListener("shopify:section:load", function(event) {

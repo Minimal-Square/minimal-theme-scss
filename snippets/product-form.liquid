@@ -16,7 +16,7 @@
       {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
       <div class="product_variant_container">
         <div class="mb-4">
-          <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ option }}</h5></div>
+          <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
           <div class="flex space-x-2">
             {% assign used = '' %}
             {% for variant in product.variants %}
@@ -26,9 +26,9 @@
               {% assign variantColor = variantName | split: ' ' %}
               {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
 
-              <label for="{{ option | downcase }}-{{ variant.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" style="z-index: 5;">
-                <input class="absolute z-0 appearance-none options" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation()">
-                <div onclick="changeRadioValue()" class="option w-full h-full transition-colors ease-in-out rounded-md label" data-variant-option-chosen-value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+              <label for="{{ option | downcase }}-{{ variant.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" value="{{ variant.options[option_index] }}" style="z-index: 5;">
+                <input class="absolute z-0 appearance-none options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+                <div onclick="changeRadioValue()" class="option w-full h-full transition-colors ease-in-out rounded-md label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
               </label>
               {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
             </div>
@@ -37,21 +37,23 @@
           </div>
         </div>
       </div>
+      
+      
       {% else %}
       <div class="product_variant_container">
         <div class="mb-4">
-          <div><h5 class="body-sm uppercase mb-2 clr-general-text">{{ option }}</h5></div>
+          <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
           <div class="flex space-x-2">
             {% assign used = '' %}
             {% for variant in product.variants %}
             {% unless used contains variant.options[option_index] %}
             <div class="flex justify-center align-middle items-center text-center relative">
-              <input class="absolute z-0 options" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation()">
-              <label for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" style="z-index: 5;">{{ variant.options[option_index] }}</label>
+              <input class="absolute z-0 options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+              <label for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="z-index: 5;">{{ variant.options[option_index] }}</label>
               {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
             </div>
             {% endunless %}
-          {% endfor %}
+            {% endfor %}
         </div>
         </div>
       </div>
@@ -107,7 +109,6 @@
             filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.08));
         }
       </style>
-
       {% endfor %}
       
     {% endif %}
@@ -116,11 +117,11 @@
     <div class="product_variant_container mb-8">
       <label for="quantity"><h3 class="body-sm uppercase mb-2 clr-general-text">{{ 'products.product.quantity' | t }}</h3></label>
       <div class="quantity_input_container">
-        <button class="bg-white h-12 w-12 rounded-md" onclick="decrement();addCartUpdate();">
+        <button class="bg-white h-12 w-12 rounded-md" onclick="decrement(event);addCartUpdate(event);">
           <span aria-hidden="true" class="icon icon-minus heading-sm"></span>
         </button>
-        <input class="h-10 w-8 text-center appearance-none outline" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate()" value="1" />
-        <button class="bg-white h-12 w-12 rounded-md" onclick="increment();addCartUpdate();">
+        <input class="h-10 w-8 text-center appearance-none outline" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate(event)" value="1" />
+        <button class="bg-white h-12 w-12 rounded-md" onclick="increment(event);addCartUpdate(event);">
           <span aria-hidden="true" class="icon icon-plus heading-sm"></span>
         </button>
       </div>
