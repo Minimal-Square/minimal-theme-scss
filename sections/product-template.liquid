@@ -4,8 +4,8 @@
 <!-- Gallery & Product Form -->
 <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope>
   <div class="max-width mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 mt-4">
-      <div class="lg:col-span-3">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mt-4">
+      <div>
         <div class="flex mb-4">
           {% include 'breadcrumbs' %}
         </div>
@@ -26,7 +26,7 @@
           </div>
 
       </div>
-      <div class="lg:col-span-2"> 
+      <div> 
         {% include 'product-form' %}
         {% if section.settings.product_tabs_type == 'product' %}
         <div class="mt-8">

@@ -14,7 +14,12 @@
   {{ content_for_header }} <!-- Header hook for plugins -->
   {{ "js.cookie.min.js" | asset_url | script_tag }}
   
+  {% if settings.performance_minify_css == false %}
   {{ 'main.css' | asset_url | stylesheet_tag }}
+  {% elsif settings.performance_minify_css == true %}
+  {{ 'main.min.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  
   {{ 'variables.css' | asset_url | stylesheet_tag }}
   {{ 'jquery.modal.css' | asset_url | stylesheet_tag }}
   {{ 'application.css' | asset_url | stylesheet_tag }}
@@ -26,12 +31,9 @@
   
   <!-- Yotpo-reviews.js -->
   <script type="text/javascript">(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/HEFLRIVYTxbK3d6ARIQ6vPCsbUJBgdGrqYR0vMjd/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();</script>
-  
-        {% form 'currency' %}
-        {{ form | currency_selector }} 
-        {% endform %}
-
-
+    {% form 'currency' %}
+    {{ form | currency_selector }} 
+    {% endform %}
 </head>
 <body>
   <div class="w-full bg-black bg-opacity-20 fixed h-screen hidden maskCartDrawer" style="z-index: 9996;"></div>
