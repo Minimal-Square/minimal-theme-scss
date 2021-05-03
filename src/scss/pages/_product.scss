@@ -1,0 +1,70 @@
+.product {
+    @extend .container;
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 2rem;
+        margin-top: 1rem;
+        @include mq($from: desktop) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @include mq($from: mobile) {
+            gap: 2.5rem;
+        }
+    }
+    &__breadcrumbs {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+}
+
+.product__main-carousel {
+    margin-bottom: 1rem;
+    .product__main-cell {
+        width: 100%;
+    }
+    .product__main-image {
+        object-fit: cover;
+    }
+    .flickity-page-dots {
+        position: absolute;
+    }
+}
+
+.product__nav-carousel {
+    .product__nav-cell {
+        margin: 3px;
+        transition: all 0.2s ease;
+        width: 3.75rem;
+        height: 3.75rem;
+        padding: 2px;
+        @include mq($from: mobile) {
+            width: 4.75rem;
+            height: 4.75rem;
+        }
+    }
+    .product__nav-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .is-selected {
+        outline: none;
+        box-shadow: 0 0 0 1.5px var(--clr-general-links);
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        overflow: visible;
+    }
+}
+
+.product__tabs-form {
+    margin-top: 2rem;
+}
+
+.product__tabs-section {
+    margin-top: 2rem;
+    @include mq($from: mobile) {
+        margin-top: 4rem;
+    }
+}

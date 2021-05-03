@@ -1,43 +1,9 @@
-<div class="product-form">
-  <h5 class="product-form__vendor">By <a href="{{ routes.collections_url }}/vendors?q={{ product.vendor }}">{{ product.vendor }}</a></h5>
-  <h2 class="product-form__title">{{ product.title }}</h2>
-  <div class="tile__reviews items-center block sm:flex">
-    <div class="flex">
-        {% if settings.shopify_star == true %}
-            <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}"></span>
-        {% endif %}
-
-        <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
-            {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
-            {%- assign time_now = 'now' | date: '%s' %}
-            {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
-            {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
-            {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
-            {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
-
-            {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
-                {%- assign yotpo_bottomline_obsolete = false %}
-            {%- else %}
-                {%- assign yotpo_bottomline_obsolete = true %}
-            {%- endif %}
-            {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
-                {{ product.metafields.yotpo.catalog_bottomline }}
-            {%- endif %}
-        </div>
-    </div>
-    </div>
-    <div class="product-form__price-elements">
-        <h4 class="product-form__compare-price" id="price">{{ product.compare_at_price_min | money }}</h4>
-        <h4 class="product-form__price" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
-        <div class="product-form__badges">
-        {% if product.available == true %}
-            {% if product.compare_at_price_max > product.price %}
-                <span class="product-form__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
-            {% endif %}
-        {% elsif product.available == false %}
-            <div class="product-form__sold-out">{{ 'products.product.sold_out' | t }}</div>
-        {% endif %}
-        </div>
+<div class="mb-8 sm:mt-8">
+  <h5 class="body-md clr-general-text mb-4">{{ product.vendor }}</h5>
+  <h2 class="heading-md font-bold mb-2">{{ product.title }}</h2>
+    <div class="flex space-x-3 items-center mb-2">
+      <h4 class="body-lg clr-general-links" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
+      <h4 class="body-lg clr-general-text line-through" id="price">{{ product.compare_at_price_min | money }}</h4>
     </div>
   </div>
 

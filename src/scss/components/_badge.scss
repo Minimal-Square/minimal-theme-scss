@@ -1,0 +1,16 @@
+.badge {
+    font-size: var(--font-size-body-smallest);
+    font-weight: 500;
+    padding: 0.125rem 0.3125rem;
+    white-space: nowrap;
+}
+
+.badge--sold-out {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.badge--save {
+    background-color: var(--clr-product-sale-accent);
+    color: var(--clr-button-primary-text);
+}

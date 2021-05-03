@@ -3,45 +3,65 @@
 
 <!-- Gallery & Product Form -->
 <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope>
-    <div class="product">
-        <div class="product__grid">
-            <div> 
-                <div class="product__breadcrumbs">
-                    {% include 'breadcrumbs' %}
-                </div>
-                <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
-                    {% for media in product.media %}
-                    <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
-                        <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="product__nav-carousel nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
-                    {% for media in product.media %}
-                    <div class="product__nav-cell carousel-cell">
-                        <img class="product__nav-image lazy" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div> 
-                {% include 'product-form' %}
-                {% if section.settings.product_tabs_type == 'product' %}
-                <div class="product__tabs-form">
-                    {% include 'product-tabs' %}
-                </div>
-                {% endif %}
-            </div>
+  <div class="max-width mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mt-4">
+      <div>
+        <div class="flex mb-4">
+          {% include 'breadcrumbs' %}
         </div>
-        <div class="product__tabs-section">
-            {% if section.settings.product_tabs_type == 'section' %}
-            {% include 'product-tabs' %}
-            {% endif %}
+        <div></div>
+          <div class="main-carousel carousel mb-5" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+              {% for media in product.media %}
+                <div class="carousel-cell aspect-w-1 aspect-h-1 w-full" >
+                  <img class="object-cover lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
+                </div>
+              {% endfor %}
+          </div>
+          <div class="nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
+              {% for media in product.media %}
+                <div class="carousel-cell carousel-width w-20 h-20 sm:w-24 sm:h-24">
+                    <img class="object-cover h-full w-full" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
+                </div>
+              {% endfor %}
+          </div>
+
+      </div>
+      <div> 
+        {% include 'product-form' %}
+        {% if section.settings.product_tabs_type == 'product' %}
+        <div class="mt-8">
+          {% include 'product-tabs' %}
         </div>
+        {% endif %}
+      </div>
     </div>
+    <div class="mt-8 sm:mt-16">
+      {% if section.settings.product_tabs_type == 'section' %}
+        {% include 'product-tabs' %}
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 {% include 'sticky-add-to-cart' %}
+<style>
+  #shopify-section-{{ section.id }} .carousel-width {
+    margin: 3px 12px 3px 3px;
+    transition: all 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .nav-carousel .is-selected {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-page-dots {
+    position: absolute;
+  }
+</style>
 
 <script>
   var optionRadio1 = document.querySelectorAll('input[name="{{ product.options[0] | downcase }}"]');
@@ -189,9 +209,10 @@
   
 </script>
 
+
 {% schema %}
 {
-  "name": "Product tabs",
+  "name": "Product tabs old",
   "max_blocks": 4,
   "settings": [
     {

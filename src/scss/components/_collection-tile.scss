@@ -14,23 +14,17 @@
     }
 
     &__sold-out {
-        font-size: var(--font-size-body-tiny);
-        background-color: #000000;
-        color: #ffffff;
-        text-align: center;
-        padding: 0.125rem 0.5rem;
+        @extend .badge;
+        @extend .badge--sold-out;
         position: absolute;
         z-index: 50;
     }
 
     &__save {
-        font-size: var(--font-size-body-tiny);
-        background-color: var(--clr-button-primary-background);
-        color: #ffffff;
-        text-align: center;
-        padding: 0.125rem 0.5rem;
+        @extend .badge;
+        @extend .badge--save;
         position: absolute;
-        z-index: 51;
+        z-index: 50;
     }
 
     &__wrapper {
