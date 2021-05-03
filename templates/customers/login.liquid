@@ -1,9 +1,11 @@
 <!-- /templates/customers/login.liquid -->
 
-<div class="px-4 md:px-0 max-w-md mx-auto py-32 space-y-12" id="loginForm">
-    <h1 class="text-center heading-md clr-general-headings">{{ 'customer.login.title' | t }}</h1>
-<div> 
-    {%- form 'customer_login' -%}
+<div class="login" id="loginForm">
+    <div class="login__header">
+        <h1 class="login__heading">{{ 'customer.login.title' | t }}</h1>
+    </div>
+<div class="login__content"> 
+    {%- form 'customer_login' -%} 
         {% if form.errors %}
             <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
                 <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
@@ -11,20 +13,20 @@
             </div>
         {% endif %}
 
-        <div class="space-y-2 mb-4"> 
-            <div>
+        <div class="login__form"> 
+            <div class="login__form__input--first">
                 <label class="hidden" for="customerEmail">Email Address</label>
-                <input class="input appearance-none w-full" placeholder="{{ 'customer.login.email' | t }}" type="email" name="customer[email]" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
+                <input class="login__input" placeholder="{{ 'customer.login.email' | t }}" type="email" name="customer[email]" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
             </div>
-            <div>
+            <div class="login__form__input--second">
                 <label class="hidden" for="customerPassword">Password</label>
-                <input class="input appearance-none w-full" type="password" placeholder="{{ 'customer.login.password' | t }}" name="customer[password]" id="customerPassword">
+                <input class="login__input" type="password" placeholder="{{ 'customer.login.password' | t }}" name="customer[password]" id="customerPassword">
             </div>
         </div>
 
-        <input class="cursor-pointer appearance-none btn-lg btn-primary w-full mb-4" type="submit" value="Sign In" />
-
-        <p class="body-md clr-general-text">{{ 'customer.login.new_customer' | t }}<span class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</span></p>
+        <button class="login__btn" type="submit" value="Sign In">{{ 'customer.login.sign_in' | t }}</button>
+        
+        <span class="body-md clr-general-text">{{ 'customer.login.new_customer' | t }}<a class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</a></span>
         <p class="body-md clr-general-links cursor-pointer" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</p>
 
     {%- endform -%}
