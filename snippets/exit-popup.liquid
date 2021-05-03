@@ -7,9 +7,11 @@
 
 <div class="flex justify-center items-center p-0 w-full hidden modal z-50" {%- if settings.exit_popup_enable == true -%} id="ex2" {%- endif -%}>
     <div class="max-w-lg bg-white rounded-md shadow-md text-center relative">
-      
-      <img src="{{settings.exit_popup_image | | img_url: 'master' }}" alt="{{ settings.exit_popup_title }}">
-      
+      {% if settings.exit_popup_image == blank %}
+        {{ 'collection-1' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
+      {% else %}
+        <img src="{{settings.exit_popup_image | | img_url: 'master' }}" alt="{{ settings.exit_popup_title }}">
+      {% endif %}  
       <div class="p-8">
         <a href="" rel="modal:close">
           <svg class="h-6 w-6 absolute right-0 top-0 mt-3 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

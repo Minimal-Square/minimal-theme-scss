@@ -2,9 +2,12 @@
 flex
 {% elsif settings.popup_enable == false %}
 hidden
-{%- endif -%}"">
-      
+{%- endif -%}">
+{% if settings.popup_image == blank %}
+{{ 'collection-1' | placeholder_svg_tag: 'svg-placeholder-opacity' }}
+{% else %}
     <img src="{{settings.popup_image | | img_url: 'master' }}" alt="Popup_image">
+{% endif %}
     
     <div class="p-8">
       <a href="">
