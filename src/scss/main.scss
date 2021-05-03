@@ -11,7 +11,8 @@
 @import 'components/product-form';
 @import 'components/badge';
 
-@import 'pages/product';
+@import 'templates/product';
+@import 'templates/login.scss';
 
 @import 'sections/header';
 @import 'sections/announcement';
@@ -27,4 +28,3 @@
 @import 'sections/custom-html';
 @import 'sections/blog';
 @import 'sections/newsletter';
-@import 'templates/login.scss';

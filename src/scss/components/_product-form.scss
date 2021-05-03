@@ -11,9 +11,9 @@
     }
     &__title {
         font-family: var(--font-primary);
-        font-size: var(--font-size-heading-3);
+        font-size: var(--font-size-heading-2);
         font-weight: var(--font-weight);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
         line-height: 1.2;
         @include mq($from: tablet) {
             font-size: var(--font-size-heading-1);
@@ -24,7 +24,7 @@
 .product-form__price-elements {
     display: flex;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
     .product-form__price {
         font-size: var(--font-size-heading-4);
         color: var(--clr-general-text);
@@ -53,6 +53,10 @@
             @extend .badge--sold-out;
         }
     }
+}
+
+.spr-badge {
+    margin-bottom: 0.5rem;
 }
 
 .spr-badge-starrating {

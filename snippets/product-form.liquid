@@ -1,164 +1,156 @@
 <div class="product-form">
-  <h5 class="product-form__vendor">By <a href="{{ routes.collections_url }}/vendors?q={{ product.vendor }}">{{ product.vendor }}</a></h5>
-  <h2 class="product-form__title">{{ product.title }}</h2>
-  <div class="tile__reviews items-center block sm:flex">
-    <div class="flex">
-        {% if settings.shopify_star == true %}
+    <div class="tile__reviews items-center block sm:flex">
+        <div class="flex">
+            {% if settings.shopify_star == true %}
             <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}"></span>
-        {% endif %}
+            {% endif %}
+            <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
+                {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+                {%- assign time_now = 'now' | date: '%s' %}
+                {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+                {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
+                {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
+                {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
 
-        <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
-            {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
-            {%- assign time_now = 'now' | date: '%s' %}
-            {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
-            {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
-            {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
-            {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
-
-            {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
-                {%- assign yotpo_bottomline_obsolete = false %}
-            {%- else %}
-                {%- assign yotpo_bottomline_obsolete = true %}
-            {%- endif %}
-            {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
-                {{ product.metafields.yotpo.catalog_bottomline }}
-            {%- endif %}
+                {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
+                    {%- assign yotpo_bottomline_obsolete = false %}
+                {%- else %}
+                    {%- assign yotpo_bottomline_obsolete = true %}
+                {%- endif %}
+                {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
+                    {{ product.metafields.yotpo.catalog_bottomline }}
+                {%- endif %}
+            </div>
         </div>
     </div>
-    </div>
+    <h2 class="product-form__title">{{ product.title }}</h2>
+    <h5 class="product-form__vendor">By <a href="{{ routes.collections_url }}/vendors?q={{ product.vendor }}">{{ product.vendor }}</a></h5>
     <div class="product-form__price-elements">
+        <div class="product-form__badges">
+            {% if product.available == true %}
+                {% if product.compare_at_price_max > product.price %}
+                    <span class="product-form__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
+                {% endif %}
+            {% elsif product.available == false %}
+                <div class="product-form__sold-out">{{ 'products.product.sold_out' | t }}</div>
+            {% endif %}
+        </div>
         <h4 class="product-form__compare-price" id="price">{{ product.compare_at_price_min | money }}</h4>
         <h4 class="product-form__price" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
-        <div class="product-form__badges">
-        {% if product.available == true %}
-            {% if product.compare_at_price_max > product.price %}
-                <span class="product-form__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
-            {% endif %}
-        {% elsif product.available == false %}
-            <div class="product-form__sold-out">{{ 'products.product.sold_out' | t }}</div>
-        {% endif %}
-        </div>
     </div>
-  </div>
 
-  <!-- data-cart-submit -->
-  {% form 'product', product, id: 'product_form' %}
+    <!-- data-cart-submit -->
+    {% form 'product', product, id: 'product_form' %}
     <!-- Variants -->
     {% if product.variants.size > 1 %}
-      {% for option in product.options %}
-      {% assign option_index = forloop.index0 %}
-      {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
-      <div class="product_variant_container">
-        <div class="mb-4">
-          <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
-          <div class="flex space-x-2">
-            {% assign used = '' %}
-            {% for variant in product.variants %}
-            {% unless used contains variant.options[option_index] %}
-            <div class="flex items-center justify-center">
-              {% assign variantName = variant.options[option_index] | downcase %}
-              {% assign variantColor = variantName | split: ' ' %}
-              {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
+        {% for option in product.options %}
+        {% assign option_index = forloop.index0 %}
+            {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
+                <div class="product_variant_container">
+                    <div class="mb-4">
+                        <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
+                        <div class="flex space-x-2">
+                            {% assign used = '' %}
+                            {% for variant in product.variants %}
+                                {% unless used contains variant.options[option_index] %}
+                                    <div class="flex items-center justify-center">
+                                        {% assign variantName = variant.options[option_index] | downcase %}
+                                        {% assign variantColor = variantName | split: ' ' %}
+                                        {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
+                                        <label for="{{ option | downcase }}-{{ variant.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" value="{{ variant.options[option_index] }}" style="z-index: 5;">
+                                            <input class="absolute z-0 appearance-none options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+                                            <div onclick="changeRadioValue()" class="option w-full h-full transition-colors ease-in-out rounded-md label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+                                        </label>
+                                        {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
+                                    </div>
+                                {% endunless %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>  
+            {% else %}
+                <div class="product_variant_container">
+                    <div class="mb-4">
+                        <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
+                        <div class="flex space-x-2">
+                            {% assign used = '' %}
+                            {% for variant in product.variants %}
+                                {% unless used contains variant.options[option_index] %}
+                                    <div class="flex justify-center align-middle items-center text-center relative">
+                                        <input class="absolute z-0 options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+                                        <label for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="z-index: 5;">{{ variant.options[option_index] }}</label>
+                                        {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
+                                    </div>
+                                {% endunless %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
 
-              <label for="{{ option | downcase }}-{{ variant.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" value="{{ variant.options[option_index] }}" style="z-index: 5;">
-                <input class="absolute z-0 appearance-none options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
-                <div onclick="changeRadioValue()" class="option w-full h-full transition-colors ease-in-out rounded-md label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
-              </label>
-              {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
-            </div>
-            {% endunless %}
-          {% endfor %}
-          </div>
-        </div>
-      </div>
-      
-      
-      {% else %}
-      <div class="product_variant_container">
-        <div class="mb-4">
-          <legend><h5 class="body-sm uppercase mb-2 clr-general-text variant-title">{{ option }}: <span></span></h5></legend>
-          <div class="flex space-x-2">
-            {% assign used = '' %}
-            {% for variant in product.variants %}
-            {% unless used contains variant.options[option_index] %}
-            <div class="flex justify-center align-middle items-center text-center relative">
-              <input class="absolute z-0 options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
-              <label for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" class="option w-full h-12 flex items-center justify-center bg-white rounded-md cursor-pointer label" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="z-index: 5;">{{ variant.options[option_index] }}</label>
-              {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
-            </div>
-            {% endunless %}
-            {% endfor %}
-        </div>
-        </div>
-      </div>
-      {% endif %}
+            {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
+                <style>
+                    input[name='color']+label {
+                    border: 1px solid var(--clr-button-secondary-border);
+                    color: var(--clr-);
+                    }
+                    
+                    input[name='color']:checked+label {
+                        border: 1px solid var(--clr-general-links);
+                        color: var(--clr-general-links);
+                    }
 
-      {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
-      <style>
-        input[name='color']+label {
-          border: 1px solid var(--clr-button-secondary-border);
-          color: var(--clr-);
-      }
-        
-      input[name='color']:checked+label {
-          border: 1px solid var(--clr-general-links);
-          color: var(--clr-general-links);
-      }
+                    input[name='color']:focus+label {
+                        border: 1px solid var(--clr-general-links);
+                        color: var(--clr-general-links);
+                        transition: all 150ms ease-out;
+                        box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
+                    }
+                </style>
+            {% else %}
+                <style>
+                    input[name='{{- option | downcase -}}']+label {
+                        border: 1px solid var(--clr-button-secondary-border);
+                        color: var(--clr-general-text);
+                        transition: all 150ms ease-out;
+                        font-size: var(--body-sm);
+                    }
+                    
+                    input[name='{{- option | downcase -}}']:checked+label {
+                        border: 1px solid var(--clr-general-links);
+                        color: var(--clr-general-links);
+                    }
+                    
+                    input[name='{{- option | downcase -}}']:focus+label {
+                        border: 1px solid var(--clr-general-links);
+                        color: var(--clr-general-links);
+                        transition: all 150ms ease-out;
+                        box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
+                    }
+                </style>
+            {% endif %}
 
-      input[name='color']:focus+label {
-          border: 1px solid var(--clr-general-links);
-          color: var(--clr-general-links);
-          transition: all 150ms ease-out;
-          box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
-      }
-      </style>
-      {% else %}
-      <style>
-        
-        input[name='{{- option | downcase -}}']+label {
-            border: 1px solid var(--clr-button-secondary-border);
-            color: var(--clr-general-text);
-            transition: all 150ms ease-out;
-            font-size: var(--body-sm);
-        }
-          
-        input[name='{{- option | downcase -}}']:checked+label {
-            border: 1px solid var(--clr-general-links);
-            color: var(--clr-general-links);
-            
-        }
-          
-        input[name='{{- option | downcase -}}']:focus+label {
-            border: 1px solid var(--clr-general-links);
-            color: var(--clr-general-links);
-            transition: all 150ms ease-out;
-            box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
-            
-        }
+            <style>
+            input[name='{{- option | downcase -}}']:hover+label {
+                filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.08));
+            }
+            </style>
 
-      </style>
-      {% endif %}
-      <style>
-        input[name='{{- option | downcase -}}']:hover+label {
-            filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.08));
-        }
-      </style>
-      {% endfor %}
-      
+        {% endfor %}
     {% endif %}
 
     <!-- Quantity -->
     <div class="product_variant_container mb-8">
-      <label for="quantity"><h3 class="body-sm uppercase mb-2 clr-general-text">{{ 'products.product.quantity' | t }}</h3></label>
-      <div class="quantity_input_container">
-        <button class="bg-white h-12 w-12 rounded-md" onclick="decrement(event);addCartUpdate(event);">
-          <span aria-hidden="true" class="icon icon-minus heading-sm"></span>
-        </button>
-        <input class="h-10 w-8 text-center appearance-none outline" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate(event)" value="1" />
-        <button class="bg-white h-12 w-12 rounded-md" onclick="increment(event);addCartUpdate(event);">
-          <span aria-hidden="true" class="icon icon-plus heading-sm"></span>
-        </button>
-      </div>
+        <label for="quantity"><h3 class="body-sm uppercase mb-2 clr-general-text">{{ 'products.product.quantity' | t }}</h3></label>
+        <div class="quantity_input_container">
+            <button class="bg-white h-12 w-12 rounded-md" onclick="decrement(event);addCartUpdate(event);">
+                <span aria-hidden="true" class="icon icon-minus heading-sm"></span>
+            </button>
+            <input class="h-10 w-8 text-center appearance-none outline" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate(event)" value="1" />
+            <button class="bg-white h-12 w-12 rounded-md" onclick="increment(event);addCartUpdate(event);">
+                <span aria-hidden="true" class="icon icon-plus heading-sm"></span>
+            </button>
+        </div>
     </div> 
 
     <!-- Price -->
@@ -169,7 +161,8 @@
     <!-- Ajax Message -->
     <p class="ajax_message"></p>
     {% endform %}
-  <div class="mt-8">
-    <p class="body-md clr-general-text">{{ product.description }}</p>
-</div>
 
+    <div class="mt-8">
+        <p class="body-md clr-general-text">{{ product.description }}</p>
+    </div>
+</div>
