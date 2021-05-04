@@ -286,8 +286,6 @@ $(function() {
 	FastClick.attach(document.body);
 });
 
-
-
 //Currency selector ---------------------------
 function currencyFormSubmit(event) {
   event.target.form.submit();
@@ -303,7 +301,43 @@ function getCheckedValue(event, value) {
 } 
 
 //Mini carousel images ---------------------------
+$('.label').hover(function(){
+  var value = $('input', this).val();
+  var images = $(this).closest(".tile__content").find("img");
+  console.log(value)
+  $(images[0]).removeClass('invisible');
+  for (var image of images){
+    if ($(image).data('variantTitle') == value) {
+      $(image).toggleClass('invisible')
+    }
+  }
+});
+
+
 function hoverSetImage(event, value) {
-  var lol = $(event.target).parent(".productitem--image").getElementsByClassName("tile__image");  
-  console.log(lol, value)  
+  var images = $(event.target).closest(".tile__content").find("img");
+
+  $(images[0]).removeClass('invisible')
+  for (var image of images){
+    if ($(image).data('variantTitle') == value) {
+      $(image).toggleClass('invisible')
+    }
+  }
 }
+
+
+//Click to Expand button ---------------------------
+
+$(function(){
+  $('.product__main-carousel__btn').click(function(e){
+    e.preventDefault();
+    $('.carousel-expanded').toggle();
+    $('body').css('overflowY', 'hidden');
+  });
+
+  $('.exit').click(function(e){
+    e.preventDefault();
+    $('.carousel-expanded').toggle();
+    $('body').css('overflowY', 'auto');
+  });
+});

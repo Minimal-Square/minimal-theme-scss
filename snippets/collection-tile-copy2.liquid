@@ -14,14 +14,7 @@
                     {% if product.has_only_default_variant == false %}
                     {% for image in product.images %}
                     {% for variant in image.variants %}
-                        <img class="tile__image obj invisible absolute {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}" data-variant-title="
-                        {%- for option in product.options -%}
-                        {%- assign option_index = forloop.index0 -%}
-                        {%- if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' -%}
-                        {{-variant.options[option_index]-}}
-                        {%- endif -%}
-                        {%- endfor -%}
-                        ">
+                        <img class="tile__image obj invisible absolute {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}" data_variant_title="{{variant.title}}">
                     {% endfor %}
                     {% endfor %}
                     {% elsif product.has_only_default_variant == true %}
@@ -31,39 +24,24 @@
             </form>
             
         </a>
-
-        {% form 'product', product, id: 'product_form' %}
-        <div class="productitem--swatches flex flex-wrap" data-swatches="">
-            {% for option in product.options %}
-            {% assign option_index = forloop.index0 %}
-            {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
-            <div class="product_variant_container">
-                <div class="flex space-x-2">
-                    {% assign used = '' %}
-                    {% for variant in product.variants %}
-                    {% unless used contains variant.options[option_index] %}
-                    <div class="flex items-center justify-center">
-                    {% assign variantName = variant.options[option_index] | downcase %}
-                    {% assign variantColor = variantName | split: ' ' %}
-                    {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
-
-                    <label for="{{ option | downcase }}-{{ product.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" value="{{ variant.options[option_index] }}" style="z-index: 5;">
-                        <input class="z-0 appearance-none options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="hoverSetImage(event, this.value)">
-                        <div class="option w-full h-full transition-colors ease-in-out rounded-md" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
-                    </label>
-                    {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
-                    </div>
-                    {% endunless %}
+        
+        <div class="productitem--swatches" data-swatches="">
+            <form class="productitem--swatches-container-{{- forloop.index }} flex flex-wrap">
+                {% for image in product.images %} 
+                    {% for variant in image.variants %} 
+                        <label for="{{variant.title}}" class="mini-carousel-cell relative cursor-pointer" onclick="hoverSetImage(event, this.for)">
+                            <input type="radio" name="swatch" value="{{variant.title}}" class="carousel-focus opacity-0 absolute" tabindex="0">
+                            <div class="tile__ w-12 h-12">
+                                <div class="bg-cover h-full obj" style="background: url('{{ image.src | img_url: '512x512' }}');"></div>
+                            </div>
+                        </label>
+                    {% endfor %}
                 {% endfor %}
-                </div>
-            </div>
+            </form>
             <button class="productitem--swatches-count-wrapper" tabindex="0" data-swatch-count-wrapper="" aria-label="Toggle swatches" style="left: 114px; display: none;">
                 <div class="productitem--swatches-count" data-swatch-count="">+</div>
             </button>
-            {% endif %}
-            {% endfor %}
         </div>
-        {% endform %}
         
         <div class="tile__info">
             {% if section.settings.product_vendor == true %}<h3 class="tile__vendor">{{ product.vendor }}</h3>{% endif %}
