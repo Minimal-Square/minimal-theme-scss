@@ -717,7 +717,7 @@ summary {
 
 .product-form__price-elements .product-form__compare-price {
   font-size: var(--font-size-heading-4);
-  color: var(--clr-general-text);
+  color: var(--clr-general-light-text);
   line-height: 1.15;
   margin-right: 0.5rem;
   text-decoration: line-through;
@@ -901,6 +901,10 @@ summary {
   color: var(--clr-general-light-text);
   font-weight: normal;
   text-decoration: none;
+}
+
+.z-999 {
+  z-index: 999;
 }
 
 .product__grid {
