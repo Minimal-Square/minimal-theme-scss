@@ -905,6 +905,73 @@ summary {
 
 .z-999 {
   z-index: 999;
+  height: 3000px;
+}
+
+.z-940 {
+  z-index: 940;
+}
+
+.sticky-custom .carousel-cell {
+  background: #8C8;
+  counter-increment: carousel-cell;
+  color: white;
+  /* cell number */
+}
+
+.sticky-custom .carousel-cell:before {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  text-align: center;
+  content: counter(carousel-cell);
+}
+
+.sticky-custom .carousel-main .carousel-cell {
+  width: 100%;
+  height: 360px;
+  font-size: 5rem;
+}
+
+.sticky-custom .carousel-nav {
+  width: 300px;
+  transform: rotate(90deg) translate(30px, -100%);
+  transform-origin: left top;
+}
+
+@media screen and (max-width: 1200px) {
+  .sticky-custom .carousel-nav {
+    transform: rotate(90deg) translate(30px, -50%);
+  }
+}
+
+.sticky-custom .carousel-nav .carousel-cell {
+  transform: rotate(-90deg);
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  /* selected cell */
+}
+
+.sticky-custom .carousel-nav .carousel-cell.is-nav-selected {
+  background: #ED2;
+}
+
+.sticky-custom .carousel-nav .flickity-prev-next-button {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+}
+
+.sticky-custom .carousel-nav .flickity-prev-next-button.previous {
+  left: -40px;
+}
+
+.sticky-custom .carousel-nav .flickity-prev-next-button.next {
+  right: -40px;
 }
 
 .product__grid {

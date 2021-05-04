@@ -1,3 +1,20 @@
-<div class="carousel-expanded w-screen h-screen bg-black hidden z-50">
-
+<div class="carousel-expanded fixed inset-0 bg-red-100 hidden z-999">
+    <div class="sticky-custom">
+        <p class="exit">Close</p>
+        <div class="carousel carousel-nav" data-flickity='{ "asNavFor": ".carousel-main", "draggable": true, "percentPosition": false, "groupCells": "100%", "pageDots": false }'>
+            {% for media in product.media %}
+                <div class="product__nav-cell carousel-cell">
+                    <img class="product__nav-image lazy" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="carousel carousel-main" data-flickity='{ "contain": true, "pageDots": true }'>
+            {% for media in product.media %}
+                <div class="product__main-cell carousel-cell" >
+                    <img class="product__main-image lazy" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
