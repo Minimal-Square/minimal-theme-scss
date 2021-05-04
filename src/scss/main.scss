@@ -10,13 +10,15 @@
 @import 'components/blog-card';
 @import 'components/product-form';
 @import 'components/badge';
+@import 'components/breadcrumbs';
+@import 'components/carousel-expanded';
 
 @import 'templates/product';
-@import 'templates/login.scss';
+@import 'templates/login';
 
 @import 'sections/header';
 @import 'sections/announcement';
-@import 'sections/slideshow';
+@import 'sections/slideshow'; 
 @import 'sections/rich-text';
 @import 'sections/highlights';
 @import 'sections/featured-collection';

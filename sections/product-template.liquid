@@ -4,17 +4,18 @@
 <!-- Gallery & Product Form -->
 <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope>
     <div class="product">
+        <div class="product__breadcrumbs">
+            {% include 'breadcrumbs' %}
+        </div>
         <div class="product__grid">
             <div> 
-                <div class="product__breadcrumbs">
-                    {% include 'breadcrumbs' %}
-                </div>
-                <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+                <div class="product__main-carousel main-carousel carousel relative" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
                     {% for media in product.media %}
                     <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
                         <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
                     </div>
                     {% endfor %}
+                    <a href="" class="product__main-carousel__btn absolute z-80">Click to expand</a>
                 </div>
                 <div class="product__nav-carousel nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
                     {% for media in product.media %}

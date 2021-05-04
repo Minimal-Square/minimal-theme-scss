@@ -299,7 +299,7 @@ document.querySelectorAll('.shopify-currency-form select').forEach(function(elem
 
 //Radio input name ---------------------------
 function getCheckedValue(event, value) {
-  $(event.target).closest(".product_variant_container").find("legend span").html(value);
+  $(event.target).closest(".product-option").find("legend span").html(value);
 } 
 
 //Mini carousel images ---------------------------
