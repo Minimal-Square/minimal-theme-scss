@@ -62,6 +62,7 @@
   var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
 
   var addToCartButton = document.getElementById("add_to_cart");
+  var checkoutButton = document.getElementById("checkout");
  
   function decrement(event) {
     event.preventDefault();
@@ -133,17 +134,21 @@
     function changeRadioValue() {
           if (!(optionRadio1.checked) || !(optionRadio2.checked) {% if product.options[2] %} || !(optionRadio3.checked){% endif %}) {
             addToCartButton.disabled = true;
+            checkoutButton.disabled = true;
         } else {
             addToCartButton.disabled = false;
+            checkoutButton.disabled = false;
         }
     };
 
     function changeButton() {
       if (!(optionRadio1.checked) && !(optionRadio2.checked){% if product.options[2] %} && !(optionRadio3.checked){% endif %}) {
         addToCartButton.disabled = true;
+        checkoutButton.disabled = true;
       }
       else {
         addToCartButton.disabled = false;
+        checkoutButton.disabled = false;
       }
     };
     changeButton();
@@ -182,13 +187,16 @@
       addToCartButton.setAttribute('data-cart-add', id);
       document.getElementById('price').innerHTML = price;
       addToCartButton.disabled = true;
+      checkoutButton.disabled = true;
 
       if(available == false){
         addToCartButton.setAttribute('value', 'Sold Out');
         addToCartButton.disabled = true;
+        checkoutButton.disabled = true;
       } else if (available == true) {
         addToCartButton.setAttribute('value', 'Add to Cart');
         addToCartButton.disabled = false;
+        checkoutButton.disabled = false;
       }
       
     } else {
@@ -196,9 +204,10 @@
       addToCartButton.setAttribute('value', 'Choose Options');
       document.getElementById('price').innerHTML = 'Unavailable';
       addToCartButton.disabled = true;
+      checkoutButton.disabled = true;
     }
   }
-  updateProductInformation()
+  updateProductInformation();
   
 </script>
 
