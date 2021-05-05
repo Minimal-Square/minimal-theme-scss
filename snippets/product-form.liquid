@@ -139,6 +139,9 @@
         {% endfor %}
     {% endif %}
 
+    <!-- Stock -->
+    <p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>
+
     <!-- Quantity -->
     <div class="product-option">
         <label for="quantity">

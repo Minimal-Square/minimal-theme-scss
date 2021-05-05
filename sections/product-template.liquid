@@ -29,6 +29,17 @@
             </div>
             <div> 
                 {% include 'product-form' %}
+
+                <!-- Timer -->
+                {% assign timer_title = 'Special Offer End In' %}
+                {% for tags_string in product.tags %}
+                    {% assign timer_end_date = tags_string | join: ', ' %}
+                    {% if timer_end_date contains 'timer_' %}
+                        {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
+                        {% include 'product-timer', title: timer_title, end_date: timer_end_date %}
+                    {% endif %}
+                {% endfor %}
+
                 {% if section.settings.product_tabs_type == 'product' %}
                 <div class="product__tabs-form">
                     {% include 'product-tabs' %}

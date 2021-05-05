@@ -1,73 +1,131 @@
-.z-999 {
+.carousel-expanded {
+    background: #ffffff;
+    position: fixed;
+    @include inset(0);
     z-index: 999;
-    height: 3000px;
+    .exit {
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 1;
+        @extend .icon-md;
+        margin: 1.5rem;
+        z-index: 1000;
+    }
+    &__wrapper {
+        height: 100%;
+        .carousel-main {
+            position: absolute;
+            @include inset(0);
+            margin: 0 auto;
+            .carousel-cell {
+                width: 100%;
+                font-size: 5rem;
+            }
+        }
+        .carousel-nav{
+            position: absolute;
+            width: 100%;
+            height: auto;
+            @include mq($until: tablet) {
+                bottom: 0;
+                left: 0;
+            }
+            @include mq($from: tablet) {
+                top: 0;
+                left: 0;
+            }
+            margin: 1.5rem;
+            .flickity-slider {
+                transform: none !important;
+            }
+            .is-selected {
+                outline: none;
+                box-shadow: 0 0 0 1.5px var(--clr-general-links);
+                border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                overflow: visible;
+            }
+            .product__nav-cell {
+                margin: 3px;
+                transition: all 0.2s ease;
+                width: 3.75rem;
+                height: 3.75rem;
+                padding: 2px;
+                @include mq($from: mobile) {
+                    width: 4.75rem;
+                    height: 4.75rem;
+                }
+            }
+            .product__nav-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            z-index: 1020;
+            @include mq($from: tablet) {
+                transform: rotate(90deg) translate(0px, -100%);
+                transform-origin: left top;
+            }
+            // @media screen and (max-width: 1200px) {
+            //     transform: rotate(90deg) translate(0px, -50%);
+            // }
+            .carousel-cell {
+                @include mq($from: tablet) {
+                    transform: rotate(-90deg);
+                }
+                width: 3.25rem;
+                height: 3.25rem;
+                cursor: pointer;
+                margin-right: 0.5rem;
+            }
+        }
+    }
 }
+
+
+
+
+.product__main-image {
+    margin: 0 auto;
+    height: 100vh;
+    object-fit: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .z-940 {
     z-index: 940;
 }
 
-.sticky-custom {
-    // position: sticky;
-    // top: 0;
-    .carousel-cell {
-        background: #8C8;
-        counter-increment: carousel-cell;
-        color: white;
-        
-        /* cell number */
-        &:before {
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
-          display: block;
-          text-align: center;
-          content: counter(carousel-cell);
-        }
-      }
-      
-      .carousel-main{
-        .carousel-cell{
-          width: 100%;
-          height: 360px;
-          font-size: 5rem;
-        }
-      }
-      
-      .carousel-nav{
-        width: 300px;
-        transform: rotate(90deg) translate(30px, -100%);
-        transform-origin: left top;
-        
-        @media screen and (max-width: 1200px) {
-          transform: rotate(90deg) translate(30px, -50%);
-        }
-      
-        .carousel-cell {
-          transform: rotate(-90deg);
-          width: 80px;
-          height: 80px;
-          cursor: pointer;
-          margin-right: 1rem;
-          font-size: 1.4rem;
-         
-          /* selected cell */
-          &.is-nav-selected {
-            background: #ED2;
-          }
-        }
-        
-        .flickity-prev-next-button {
-          width: 40px;
-          height: 40px;
-          background: transparent;
-      
-          &.previous{
-            left: -40px;
-          }
-          &.next{
-            right: -40px;
-          }
-        }
-      }
+.product__main-carousel__btn {
+    @include btn-small;
+    @extend .btn-secondary;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
+
+
