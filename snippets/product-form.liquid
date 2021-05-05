@@ -139,29 +139,44 @@
         {% endfor %}
     {% endif %}
 
-    <!-- Stock -->
-    <p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>
+        <!-- Stock -->
+        <!-- <p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p> -->
 
-    <!-- Quantity -->
-    <div class="product-option">
-        <label for="quantity">
-            <h3 class="product-option__title">{{ 'products.product.quantity' | t }}</h3>
-        </label>
-        <div class="product-option__container">
-            <button class="product-option__quantity-btn" onclick="decrement(event);addCartUpdate(event);">
-                <span aria-hidden="true" class="icon icon-minus"></span>
-            </button>
-            <input class="product-option__quantity-input" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate(event)" value="1" />
-            <button class="product-option__quantity-btn" onclick="increment(event);addCartUpdate(event);">
-                <span aria-hidden="true" class="icon icon-plus"></span>
-            </button>
-        </div>
-    </div> 
+        <!-- Delivery info -->
+        <!-- <div class="product-form__delivery flex">
+            <span class="icon icon-truck"></span>
+            <p>Lorem ipsum dolor asimet</p>
+        </div> -->
+
+        <!-- Quantity -->
+        <div class="product-option">
+            <label for="quantity">
+                <h3 class="product-option__title">{{ 'products.product.quantity' | t }}</h3>
+            </label>
+            <div class="product-option__container">
+                <button class="product-option__quantity-btn" onclick="decrement(event);addCartUpdate(event);">
+                    <span aria-hidden="true" class="icon icon-minus"></span>
+                </button>
+                <input class="product-option__quantity-input" min="1" type="number" id="quantity" name="quantity" onchange="addCartUpdate(event)" value="1" />
+                <button class="product-option__quantity-btn" onclick="increment(event);addCartUpdate(event);">
+                    <span aria-hidden="true" class="icon icon-plus"></span>
+                </button>
+            </div>
+        </div> 
+    
 
     <!-- Add To Cart -->
     <input class="product-form__btn addtocart" type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" value="{{ 'products.product.add_to_cart' | t }}">
     <input class="product-form__btn addtocart" id="checkout" value="Checkout">
-
     {% endform %}
+    <!-- Proof badges -->
+    <!-- <div class="proof-badges">
+        {% for block in section.blocks %}
+            <div class="proof-badges__block">
+                <span class="proof-badges__icon icon icon-truck"></span>
+                <p class="proof-badges__text">Lorem ipsum dolor asimet</p>
+            </div>            
+        {% endfor %}
+    </div> -->
     <p class="product-form__description">{{ product.description }}</p>
 </div>
