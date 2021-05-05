@@ -10,7 +10,7 @@
         <div class="product__grid">
             <div>
                 <div class="relative">  
-                    <a class="product__main-carousel__btn absolute bottom-0 right-0 z-940">Click to expand</a>
+                    <a href="" class="product__main-carousel__btn absolute bottom-0 right-0 z-940">Click to expand</a>
                     <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
                         {% for media in product.media %}
                         <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
@@ -43,7 +43,6 @@
         </div>
     </div>
 </div>
-
 {% include 'sticky-add-to-cart' %}
 
 <script>
@@ -177,7 +176,7 @@
         addToCartButton.setAttribute('value', 'Sold Out');
         addToCartButton.disabled = true;
       } else if (available == true) {
-        addToCartButton.setAttribute('value', 'Add To Cart');
+        addToCartButton.setAttribute('value', 'Add to Cart');
         addToCartButton.disabled = false;
       }
       

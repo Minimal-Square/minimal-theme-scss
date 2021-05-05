@@ -155,13 +155,10 @@
         </div>
     </div> 
 
-    <!-- Price -->
-    <!-- <h2 class="text_blue font_medium product_price" id="product_price">{{ product.selected_or_first_available_variant.price | money }}</h2> -->
     <!-- Add To Cart -->
     <input class="product-form__btn addtocart" type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" value="{{ 'products.product.add_to_cart' | t }}">
-    {{ form | payment_button }}
-    <!-- Ajax Message -->
-    <p class="ajax_message"></p>
+    <input class="product-form__btn addtocart" id="checkout" value="Checkout">
+
     {% endform %}
     <p class="product-form__description">{{ product.description }}</p>
 </div>

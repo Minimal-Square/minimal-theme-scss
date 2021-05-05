@@ -14,7 +14,7 @@
                     {% if product.has_only_default_variant == false %}
                     {% for image in product.images %}
                     {% for variant in image.variants %}
-                        <img class="tile__image obj invisible absolute {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}" data-variant-title="
+                        <img class="tile__image obj invisible absolute" src="{{ variant | img_url: '512x512' }}" alt="{{ product.title }}" data-variant-title="
                         {%- for option in product.options -%}
                         {%- assign option_index = forloop.index0 -%}
                         {%- if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' -%}
@@ -25,7 +25,7 @@
                     {% endfor %}
                     {% endfor %}
                     {% elsif product.has_only_default_variant == true %}
-                        <img class="tile__image obj {% if section.settings.hover_animation == true %} tile__image--animation {% endif %}" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
+                        <img class="tile__image obj" src="{{ product.featured_image | img_url: '512x512' }}" alt="{{ product.title }}">
                     {% endif %}
                 </div>
             </form>
@@ -45,11 +45,12 @@
                     <div class="flex items-center justify-center">
                     {% assign variantName = variant.options[option_index] | downcase %}
                     {% assign variantColor = variantName | split: ' ' %}
-                    {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
+                    {% assign prependId = product.id | append: '-' %}
+                    {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' | prepend: prependId %}
 
                     <label for="{{ option | downcase }}-{{ product.id }}" class="w-full h-12 flex items-center justify-center cursor-pointer transition-colors ease-in-out rounded-md label" value="{{ variant.options[option_index] }}" style="z-index: 5;">
                         <input class="z-0 appearance-none options opacity-0" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="hoverSetImage(event, this.value)">
-                        <div class="option w-full h-full transition-colors ease-in-out rounded-md" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+                        <div class="option w-full h-full transition-colors ease-in-out rounded-md" data_variant_option_chosen_value="{{ variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
                     </label>
                     {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
                     </div>

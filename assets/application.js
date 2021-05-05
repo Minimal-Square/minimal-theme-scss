@@ -332,6 +332,8 @@ $(function(){
   $('.product__main-carousel__btn').click(function(e){
     e.preventDefault();
     $('.carousel-expanded').toggle();
+    $('.carousel-expanded').flickity('resize');
+    $('.carousel-main').flickity('resize');
     $('body').css('overflowY', 'hidden');
   });
 
@@ -341,3 +343,13 @@ $(function(){
     $('body').css('overflowY', 'auto');
   });
 });
+
+//Buy now button ---------------------------
+
+$(function(){
+  $('#checkout').click(function() {
+    var item = $( '#add_to_cart' ).attr( 'data-cart-add' );
+    $.when(CartJS.addItem(item, 2)).then(window.location = '/checkout');
+    
+  })
+}); 
