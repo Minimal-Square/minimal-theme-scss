@@ -1,25 +1,34 @@
 <div class="timer">
-  {% if title != blank %}
-  	<h4 class="timer__title">{{ title }}</h4>
-  {% endif %}
-  <div class="timer-display">
-    <div class="timer-block">
-      <span class="timer-block__num js-timer-days">00</span>
-      <span class="timer-block__unit">Days</span>
+    <h4 class="timer__title">{{ section.settings.timer_title }}</h4>
+    <div class="timer-display">
+        <div class="timer-block">
+            <span class="timer-block__num js-timer-days">00</span>
+            {% if section.settings.timer_unit == true %}
+            <span class="timer-block__unit">Days</span>
+            {% endif %}
+        </div>
+        <span class="double-dot">:</span>
+        <div class="timer-block">
+            <span class="timer-block__num js-timer-hours">00</span>
+            {% if section.settings.timer_unit == true %}
+            <span class="timer-block__unit">Hours</span>
+            {% endif %}
+        </div>
+        <span class="double-dot">:</span>
+        <div class="timer-block">
+            <span class="timer-block__num js-timer-minutes">00</span>
+            {% if section.settings.timer_unit == true %}
+            <span class="timer-block__unit">Minutes</span>
+            {% endif %}
+        </div>
+        <span class="double-dot">:</span>
+        <div class="timer-block">
+            <span class="timer-block__num js-timer-seconds">00</span>
+            {% if section.settings.timer_unit == true %}
+            <span class="timer-block__unit">Seconds</span>
+            {% endif %}
+        </div>
     </div>
-    <div class="timer-block">
-      <span class="timer-block__num js-timer-hours">00</span>
-      <span class="timer-block__unit">Hours</span>
-    </div>
-    <div class="timer-block">
-      <span class="timer-block__num js-timer-minutes">00</span>
-      <span class="timer-block__unit">Minutes</span>
-    </div>
-    <div class="timer-block">
-      <span class="timer-block__num js-timer-seconds">00</span>
-      <span class="timer-block__unit">Seconds</span>
-    </div>
-  </div>
 </div>
 
 <script type="text/javascript">

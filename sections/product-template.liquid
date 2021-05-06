@@ -54,6 +54,7 @@
         </div>
     </div>
 </div>
+
 {% include 'sticky-add-to-cart' %}
 
 <script>
@@ -213,52 +214,68 @@
 
 {% schema %}
 {
-  "name": "Product tabs",
-  "max_blocks": 4,
-  "settings": [
-    {
-      "type": "select",
-      "id": "product_tabs_type",
-      "label": "Type",
-      "default": "product",
-      "options": [
+    "name": "Product options",
+    "max_blocks": 4,
+    "settings": [
         {
-          "value": "product",
-          "label": "Product"
+            "type": "select",
+            "id": "product_tabs_type",
+            "label": "Type",
+            "default": "product",
+            "options": [
+                {
+                    "value": "product",
+                    "label": "Product"
+                },
+                {
+                    "value": "section",
+                    "label": "Section"
+                }
+            ]
         },
         {
-          "value": "section",
-          "label": "Section"
+            "type": "header",
+            "content": "Timer settings"
+        },
+        {
+            "type": "text",
+            "id": "timer_title",
+            "label": "Title",
+            "default": "Special offer end in"
+        },
+        {
+            "type": "checkbox",
+            "id": "timer_unit",
+            "label": "Activate unit",
+            "default": true
         }
-      ]
-    }
-  ],
-  "blocks": [
-    {
-      "name": "Product tab",
-      "type": "product_tab",
-      "settings": [
+    ],
+    "blocks": [
         {
-          "type": "text",
-          "id": "product_tab_heading",
-          "label": "Heading",
-          "default": "Free Shipping"
-        },
-        {
-          "type": "textarea",
-          "id": "product_tab_excerpt", 
-          "label": "Excerpt",
-          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        },
-        {
-          "type": "textarea",
-          "id": "product_tab_text",
-          "label": "Text",
-          "default": "Lorem ipsum dolor asimet..."
+            "name": "Product tab",
+            "type": "product_tab",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "product_tab_heading",
+                    "label": "Heading",
+                    "default": "Free Shipping"
+                },
+                {
+                    "type": "textarea",
+                    "id": "product_tab_excerpt", 
+                    "label": "Excerpt",
+                    "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                },
+                {
+                    "type": "textarea",
+                    "id": "product_tab_text",
+                    "label": "Text",
+                    "default": "Lorem ipsum dolor asimet..."
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 {% endschema %}
 

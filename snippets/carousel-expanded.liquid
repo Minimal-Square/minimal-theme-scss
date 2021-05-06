@@ -1,14 +1,14 @@
 <div class="carousel-expanded hidden">
     <div class="carousel-expanded__wrapper">
         <a href="" class="exit"><span aria-hidden="true" class="icon icon-x"></span></a>
-        <div class="carousel carousel-nav" data-flickity='{ "asNavFor": ".carousel-main", "draggable": false, "percentPosition": false, "pageDots": false, "prevNextButtons": false }'>
+        <div class="carousel-expanded__nav carousel carousel-nav" data-flickity='{ "asNavFor": ".carousel-main", "draggable": false, "percentPosition": false, "pageDots": false, "prevNextButtons": false }'>
             {% for media in product.media %}
                 <div class="product__nav-cell carousel-cell">
                     <img class="product__nav-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
                 </div>
             {% endfor %}
         </div>
-        <div class="carousel carousel-main" data-flickity='{ "contain": true, "pageDots": false, "prevNextButtons": false }'>
+        <div class="carousel-expanded__main carousel carousel-main" data-flickity='{ "contain": true, "pageDots": false, "prevNextButtons": false }'>
             {% for media in product.media %}
                 <div class="product__main-cell carousel-cell">
                     <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">

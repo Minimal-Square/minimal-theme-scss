@@ -169,6 +169,17 @@
     <input class="product-form__btn addtocart" type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" value="{{ 'products.product.add_to_cart' | t }}">
     <input class="product-form__btn addtocart" id="checkout" value="Checkout">
     {% endform %}
+
+    <!-- Timer -->
+    <!-- {% assign timer_title = 'Special Offer End In' %} -->
+    {% for tags_string in product.tags %}
+        {% assign timer_end_date = tags_string | join: ', ' %}
+        {% if timer_end_date contains 'timer_' %}
+            {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
+            {% render 'product-timer', end_date: timer_end_date %}
+        {% endif %}
+    {% endfor %}
+
     <!-- Proof badges -->
     <!-- <div class="proof-badges">
         {% for block in section.blocks %}

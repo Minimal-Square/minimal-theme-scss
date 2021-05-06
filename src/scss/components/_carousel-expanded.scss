@@ -22,6 +22,7 @@
                 width: 100%;
                 font-size: 5rem;
             }
+
         }
         .carousel-nav{
             position: absolute;
@@ -69,9 +70,7 @@
                 transform: rotate(90deg) translate(0px, -100%);
                 transform-origin: left top;
             }
-            // @media screen and (max-width: 1200px) {
-            //     transform: rotate(90deg) translate(0px, -50%);
-            // }
+
             .carousel-cell {
                 @include mq($from: tablet) {
                     transform: rotate(-90deg);

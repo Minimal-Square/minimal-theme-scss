@@ -1,46 +1,78 @@
+.timer {
+    display: flex; 
+    @include mq($until: mobile) {
+        display: block;
+    }
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #FFF8F8;
+    border: 1px solid var(--clr-error);
+    @extend .shadow;
+    @include border-radius(4px);
+    margin-top: 2rem;
+} 
 
-  .timer {
-    background: #f6fafd;
-    padding: 10px;
-    margin: 10px 0;
-  }
-
-  .timer--expired {
+.timer--expired {
     display: none;
-  }
+}
 
-  .timer__title {
-    // @extend .paragraph;
-    text-align: center;
-  }
+.timer__title {
+    text-transform: uppercase;
+    color: var(--clr-error);
+    letter-spacing: 1px;
+    max-width: 40%;
+    @include mq($until: mobile) {
+        margin-bottom: 0.75rem;
+        min-width: 100%;
+        text-align: center;
+    }
+}
 
-  .timer-display {
-    display: -webkit-box;
-    display: -ms-flexbox;
+.timer-display {
     display: flex;
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    margin-top: 5px;
-  }
-
-  .timer-block {
-    position: relative;
-    width: 25%;
-    padding: 0 10px;
-
-    &:not(:last-child):after {
-      content: ':';
-      position: absolute;
-      right: 0;
-      top: 3px;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    @include mq($until: mobile) {
+        width: 280px;
+        margin: 0 auto;
     }
-  }
+}
 
-  .timer-block__num,
-  .timer-block__unit {
+.timer-block {
+    position: relative;
+    // width: 25%;
+    // padding: 0 10px;
+
+    // &:not(:last-child):after {
+    //     content: ':';
+    //     position: absolute;
+    //     right: 0;
+    //     top: 0;
+    //     color: var(--clr-error);
+    // }
+}
+
+.double-dot {
+    color: var(--clr-error);
+    padding: 0 8px;
+}
+
+.timer-block__num {
+    display: block;
+    text-align: center; 
+    color: var(--clr-error);
+}
+
+.timer-block__unit {
+    text-transform: uppercase;
     display: block;
     text-align: center;
-  }
+    white-space: nowrap;
+    color: var(--clr-error);
+    font-size: var(--font-size-body-tiny);
+    letter-spacing: 1px;
+}
