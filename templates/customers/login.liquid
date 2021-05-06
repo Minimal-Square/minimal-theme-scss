@@ -6,13 +6,12 @@
     </div>
 <div class="login__content"> 
     {%- form 'customer_login' -%} 
-        {% if form.errors %}
-            <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
-                <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+    {% if form.errors %}
+    <div class="login__error">
+        <span aria-hidden="true" class="icon icon-alert-circle"></span>
         {{ form.errors | default_errors }}
-            </div>
-        {% endif %}
-
+    </div>
+    {% endif %}
         <div class="login__form"> 
             <div class="login__form__input--first">
                 <label class="hidden" for="customerEmail">Email Address</label>
@@ -26,8 +25,8 @@
 
         <button class="login__btn" type="submit" value="Sign In">{{ 'customer.login.sign_in' | t }}</button>
         <div class="login__form-action-row--helper">
-            <span class="body-md clr-general-text form-action-row--helper-item">{{ 'customer.login.new_customer' | t }}<a class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</a></span>
-            <span class="body-md clr-general-links cursor-pointer form-action-row--helper-item" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</span>
+            <span class="login__form-action-row--helper-item">{{ 'customer.login.new_customer' | t }}{{ 'Create Account' | customer_register_link }}</span>
+            <span class="login__form-action-row--helper-item-link" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</span>
         </div>
     {%- endform -%}
 </div>
@@ -42,38 +41,76 @@
 
 
 <!-- Use JavaScript to show/hide this form -->
-<div id="resetPass" class="px-4 md:px-0 max-w-md mx-auto py-32 space-y-12 hidden">
-  
-    <form id="resetPassForm" method="POST" action="/account/recover" accept-charset="UTF-8">
-        <div class="text-green-600 rounded-md text-sm w-full py-2 px-4 bg-green-100 items-center flex space-x-2 mb-2 invisible" style="opacity: 0;" id="status">
-            <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-check-circle"></span>
-            <p>{{ 'customer.recover_password.subtext' | t }}</p>
-        </div>
-       
-
-        <div id="recover">
-         
-            <h2 class="heading-sm clr-general-headings mb-1">{{ 'customer.recover_password.title' | t }}</h2>
-            <p class="mb-4 body-sm clr-general-text">{{ 'customer.recover_password.success' | t }}</p>
+<div id="resetPass" class="resetpass hidden">
+    <div class="login__header">
+        <h1 class="login__heading">{{ 'customer.login.title' | t }}</h1>
+    </div>
+    <div class="resetpass__content">
+        {%- form 'recover_customer_password', id: 'resetPassForm' -%}
     
+        <div class="resetpass__recover" id="recover">
+            <h2 class="resetpass__recover-title">{{ 'customer.recover_password.title' | t }}</h2>
+            <p class="resetpass__recover-subtext">{{ 'customer.recover_password.subtext' | t }}</p>
 
-            {% if form.errors %}
-            <div class="text-red-600 rounded-md text-sm w-full py-2 px-4 bg-red-100 flex items-center space-x-2 mb-2">
-                <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-alert-circle"></span>
+            {% if form.posted_successfully? %}
+            <div class="resetpass__success" id="status">
+                <span aria-hidden="true" class="text-lg flex-shrink-0 icon icon-check-circle"></span>
+                <p class="resetpass__text--success">{{ 'customer.recover_password.success' | t }}</p>
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="resetpass__error">
+                <span aria-hidden="true" class="icon icon-alert-circle"></span>
                 {{ form.errors | default_errors }}
             </div>
         {% endif %}
-        <div class="mb-4">
+
+        <div class="resetpass__form">
             <label class="hidden" for="customerEmail">Email Address</label>
-            <input placeholder="{{ 'customer.recover_password.email' | t }}" class="input appearance-none" type="email" name="email" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
+            <input placeholder="{{ 'customer.recover_password.email' | t }}" class="resetpass__input" type="email" name="email" id="customerEmail" autocorrect="off" autocapitalize="off" autocomplete="email">
         </div>
-            <div class="flex space-x-4">
-                <input class="cursor-pointer appearance-none btn-lg btn-primary w-full" id="submit" type="submit" value="Submit">
-                <input class="cursor-pointer appearance-none btn-lg btn-secondary w-full" id="cancel" type="button" value="Cancel">
+            <div class="resetpass__action">
+                <input class="resetpass__btn" id="submit" type="submit" value="{{ 'customer.recover_password.submit' | t }}"></input>
+                <input class="resetpass__btn-cancel" id="cancel" type="button" value="{{ 'customer.recover_password.cancel' | t }}"></input>
             </div>
         </div>
 
-    </form>
-
+    {% endform %}
+</div>
         
 </div>
+
+
+
+<script>
+
+$( "#resetPassForm" ).on( "submit", function(e) {
+ 
+ var dataString = $(this).serialize();
+  
+ // alert(dataString); return false;
+
+ $.ajax({
+   type: "POST",
+   url: "bin/process.php",
+   data: dataString,
+   success: function () {
+     $("#contact_form").html("<div id='message'></div>");
+     $("#message")
+       .html("<h2>Contact Form Submitted!</h2>")
+       .append("<p>We will be in touch soon.</p>")
+       .hide()
+       .fadeIn(1500, function () {
+         $("#message").append(
+           "<img id='checkmark' src='images/check.png' />"
+         );
+       });
+   }
+ });
+
+ e.preventDefault();
+});
+});
+
+</script>

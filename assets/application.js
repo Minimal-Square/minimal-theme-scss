@@ -237,22 +237,22 @@ $(function(){
   //   });
   // });
 
- $('#resetPassForm')
-  .ajaxForm({
-      url : '/account/recover',
-      dataType : 'json',
-      success : function (response) {
-        return
-      },
-      error : function (response) {
-        $('#status').removeClass("invisible").animate({opacity: "1"}, 300).delay(2000).animate({opacity: "0"}, 300, function() {
-          $('#status').addClass("invisible")
-        });
-        console.log("The server says: " + response.status);
-        return
-      }
-  })
-;
+//  $('#resetPassForm')
+//   .ajaxForm({
+//       url : '/account/recover',
+//       dataType : 'json',
+//       success : function (response) {
+//         return
+//       },
+//       error : function (response) {
+//         $('#status').removeClass("invisible").animate({opacity: "1"}, 300).delay(2000).animate({opacity: "0"}, 300, function() {
+//           $('#status').addClass("invisible")
+//         });
+//         console.log("The server says: " + response.status);
+//         return
+//       }
+//   })
+// ;
 
   $('#resetPass #cancel').click(function(){
     $('#resetPass').hide();

@@ -6,7 +6,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.container, .product, .login, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+.container, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
   max-width: var(--max-width);
   margin: 0 auto;
   padding-left: 24px;
@@ -14,25 +14,25 @@ body {
 }
 
 @media (min-width: 40em) and (max-width: 63.99em) {
-  .container, .product, .login, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+  .container, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
     padding-left: 16px;
     padding-right: 16px;
   }
 }
 
 @media (max-width: 39.99em) {
-  .container, .product, .login, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+  .container, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
     padding-left: 12px;
     padding-right: 12px;
   }
 }
 
-.space-content, .login__content, .featured-collection__content, .collection-list, .logo-list__content, .video__content, .custom-html, .blog__content, .newsletter__content {
+.space-content, .login__content, .resetpass__content, .featured-collection__content, .collection-list, .logo-list__content, .video__content, .custom-html, .blog__content, .newsletter__content {
   margin-top: 1.25rem;
 }
 
 @media (min-width: 48em) {
-  .space-content, .login__content, .featured-collection__content, .collection-list, .logo-list__content, .video__content, .custom-html, .blog__content, .newsletter__content {
+  .space-content, .login__content, .resetpass__content, .featured-collection__content, .collection-list, .logo-list__content, .video__content, .custom-html, .blog__content, .newsletter__content {
     margin-top: 1.75rem;
   }
 }
@@ -54,7 +54,7 @@ body {
   }
 }
 
-.icon-sm, .blog__link span, .newsletter__error span, .newsletter__success span {
+.icon-sm, .blog__link span, .login__error span, .resetpass__error span, .resetpass__success span, .newsletter__error span, .newsletter__success span {
   font-size: 18px;
 }
 
@@ -71,15 +71,15 @@ body {
   box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
 }
 
-.shadow-input, .input, .login__input, .newsletter__input {
+.shadow-input, .input, .login__input, .resetpass__input, .newsletter__input {
   box-shadow: 0 2px 3px rgba(128, 128, 128, 0.11);
 }
 
-.shadow-input-hover, .input:hover, .login__input:hover, .newsletter__input:hover {
+.shadow-input-hover, .input:hover, .login__input:hover, .resetpass__input:hover, .newsletter__input:hover {
   box-shadow: 0 3px 7px rgba(128, 128, 128, 0.16);
 }
 
-.input, .login__input, .newsletter__input {
+.input, .login__input, .resetpass__input, .newsletter__input {
   width: 100%;
   margin: 0;
   line-height: 1.2;
@@ -91,19 +91,19 @@ body {
   transition: all .1s ease-in;
 }
 
-.input::placeholder, .login__input::placeholder, .newsletter__input::placeholder {
+.input::placeholder, .login__input::placeholder, .resetpass__input::placeholder, .newsletter__input::placeholder {
   color: #757575;
 }
 
-.input:hover, .login__input:hover, .newsletter__input:hover {
+.input:hover, .login__input:hover, .resetpass__input:hover, .newsletter__input:hover {
   border-color: var(--clr-form-border-hover);
 }
 
-.input:focus, .login__input:focus, .newsletter__input:focus {
+.input:focus, .login__input:focus, .resetpass__input:focus, .newsletter__input:focus {
   outline: none;
 }
 
-.input:active, .login__input:active, .newsletter__input:active {
+.input:active, .login__input:active, .resetpass__input:active, .newsletter__input:active {
   color: #0A0A0A;
 }
 
@@ -229,7 +229,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -436,42 +436,42 @@ summary {
   outline: none;
 }
 
-.btn-primary, .product-form__btn, .login__btn, .iwt__btn--primary, .newsletter__btn {
+.btn-primary, .product-form__btn, .login__btn, .resetpass__btn, .iwt__btn--primary, .newsletter__btn {
   background-color: var(--clr-button-primary-background);
   color: var(--clr-button-primary-text);
   border: 1px solid var(--clr-button-primary-background);
 }
 
-.btn-primary:hover, .product-form__btn:hover, .login__btn:hover, .iwt__btn--primary:hover, .newsletter__btn:hover {
+.btn-primary:hover, .product-form__btn:hover, .login__btn:hover, .resetpass__btn:hover, .iwt__btn--primary:hover, .newsletter__btn:hover {
   background-color: var(--clr-button-primary-background-hover);
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.btn-primary:active, .product-form__btn:active, .login__btn:active, .iwt__btn--primary:active, .newsletter__btn:active {
+.btn-primary:active, .product-form__btn:active, .login__btn:active, .resetpass__btn:active, .iwt__btn--primary:active, .newsletter__btn:active {
   background-color: var(--clr-button-primary-background-active);
 }
 
-.btn-primary:disabled, .product-form__btn:disabled, .login__btn:disabled, .iwt__btn--primary:disabled, .newsletter__btn:disabled {
+.btn-primary:disabled, .product-form__btn:disabled, .login__btn:disabled, .resetpass__btn:disabled, .iwt__btn--primary:disabled, .newsletter__btn:disabled {
   background: #EDEDED;
   color: #9E9E9E;
 }
 
-.btn-secondary, .product__main-carousel__btn, .iwt__btn--secondary, .blog__btn {
+.btn-secondary, .product__main-carousel__btn, .resetpass__btn-cancel, .iwt__btn--secondary, .blog__btn {
   background-color: var(--clr-button-secondary-background);
   color: var(--clr-button-secondary-text);
   border: 1px solid var(--clr-button-secondary-border);
 }
 
-.btn-secondary:hover, .product__main-carousel__btn:hover, .iwt__btn--secondary:hover, .blog__btn:hover {
+.btn-secondary:hover, .product__main-carousel__btn:hover, .resetpass__btn-cancel:hover, .iwt__btn--secondary:hover, .blog__btn:hover {
   background-color: var(--clr-button-secondary-background-hover);
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.btn-secondary:active, .product__main-carousel__btn:active, .iwt__btn--secondary:active, .blog__btn:active {
+.btn-secondary:active, .product__main-carousel__btn:active, .resetpass__btn-cancel:active, .iwt__btn--secondary:active, .blog__btn:active {
   background-color: var(--clr-button-secondary-background-active);
 }
 
-.btn-secondary:disabled, .product__main-carousel__btn:disabled, .iwt__btn--secondary:disabled, .blog__btn:disabled {
+.btn-secondary:disabled, .product__main-carousel__btn:disabled, .resetpass__btn-cancel:disabled, .iwt__btn--secondary:disabled, .blog__btn:disabled {
   background: #EDEDED;
   color: #9E9E9E;
 }
@@ -1202,6 +1202,21 @@ summary {
   }
 }
 
+.login__error {
+  border-radius: 4px;
+  background-color: var(--clr-error-light);
+  color: var(--clr-error);
+  padding: 0.25rem 1rem;
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.login__error span {
+  margin-right: 0.5rem;
+}
+
 .login__content {
   max-width: 30em;
   margin-left: auto;
@@ -1232,6 +1247,132 @@ summary {
 }
 
 .login__btn:focus {
+  outline: none;
+}
+
+.login__form-action-row--helper {
+  display: grid;
+}
+
+.login__form-action-row--helper-item {
+  font-size: var(--font-size-body-small);
+  color: var(--clr-general-text);
+}
+
+.login__form-action-row--helper-item-link {
+  color: var(--clr-general-links);
+  font-size: var(--font-size-body-small);
+  cursor: pointer;
+}
+
+#customer_register_link {
+  color: var(--clr-general-links);
+  margin-left: 0.5em;
+}
+
+.resetpass {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.resetpass__content {
+  max-width: 30em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resetpass__recover-title {
+  font-size: var(--font-size-heading-3);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight);
+  line-height: 1.3;
+  color: var(--clr-general-headings);
+  margin-bottom: 0.25em;
+}
+
+.resetpass__recover-subtext {
+  color: var(--clr-general-text);
+  margin-bottom: 1em;
+  font-size: var(--font-size-body);
+}
+
+.resetpass__error {
+  border-radius: 4px;
+  background-color: var(--clr-error-light);
+  color: var(--clr-error);
+  padding: 0.25rem 1rem;
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.resetpass__error span {
+  margin-right: 0.5rem;
+}
+
+.resetpass__success {
+  border-radius: 4px;
+  background-color: var(--clr-success-light);
+  color: var(--clr-success);
+  padding: 0.25rem 1rem;
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.resetpass__success span {
+  margin-right: 0.5rem;
+}
+
+.resetpass__text-success {
+  text-align: center;
+  color: var(--clr-success);
+}
+
+.resetpass__form {
+  margin-bottom: 1em;
+}
+
+.resetpass__action {
+  display: flex;
+}
+
+.resetpass__btn {
+  font-size: var(--font-size-button-medium);
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.75rem 1.125rem;
+  border-radius: 4px;
+  transition: all .1s ease-in;
+  display: inline-block;
+  -webkit-appearance: none;
+          appearance: none;
+  width: 100%;
+}
+
+.resetpass__btn:focus {
+  outline: none;
+}
+
+.resetpass__btn-cancel {
+  font-size: var(--font-size-button-medium);
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.75rem 1.125rem;
+  border-radius: 4px;
+  transition: all .1s ease-in;
+  display: inline-block;
+  -webkit-appearance: none;
+          appearance: none;
+  width: 100%;
+  margin-left: 1em;
+}
+
+.resetpass__btn-cancel:focus {
   outline: none;
 }
 
