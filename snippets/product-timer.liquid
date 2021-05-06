@@ -1,7 +1,7 @@
 {% if section.settings.timer_activate == true %}
 <div class="timer">
     <span class="timer__icon icon icon-percent"></span>
-    <h4 class="timer__title {% if section.settings.timer_unit == false %} timer__title--unit-off {% elsif section.settings.timer_unit == true %} timer__title--unit-on {% endif %}">{{ section.settings.timer_title }}</h4>
+    <h4 class="timer__title">{{ section.settings.timer_title }}</h4>
     <div class="timer-display">
         <div class="timer-block">
             <span class="timer-block__num js-timer-days">00</span>

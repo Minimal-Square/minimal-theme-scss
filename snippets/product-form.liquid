@@ -60,6 +60,10 @@
         {% endif %}
     {% endif %}
 
+    {% if section.settings.product_description == 'above_addtocart' %}
+        <p class="product-form__description product-form__description--above">{{ product.description }}</p>
+    {% endif %}
+
     <!-- data-cart-submit -->
     {% form 'product', product, id: 'product_form' %}
     <!-- Variants -->
@@ -201,5 +205,7 @@
             </div>            
         {% endfor %}
     </div> -->
-    <p class="product-form__description">{{ product.description }}</p>
+    {% if section.settings.product_description == 'below_addtocart' %}
+        <p class="product-form__description product-form__description--below">{{ product.description }}</p>
+    {% endif %}
 </div>

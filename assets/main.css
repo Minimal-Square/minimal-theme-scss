@@ -678,6 +678,14 @@ summary {
 .product-form__description {
   font-size: var(--font-size-body);
   color: var(--clr-general-text);
+}
+
+.product-form__description--above {
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.product-form__description--below {
   margin-top: 2rem;
 }
 

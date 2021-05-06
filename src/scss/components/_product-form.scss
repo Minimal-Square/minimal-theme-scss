@@ -19,7 +19,15 @@
     &__description {
         font-size: var(--font-size-body);
         color: var(--clr-general-text);
-        margin-top: 2rem;
+        
+        &--above {
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        &--below {
+            margin-top: 2rem;
+        }
     }
     &__btn-addtocart {
         @include btn-large;

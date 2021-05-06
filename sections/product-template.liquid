@@ -243,12 +243,6 @@
             "default": false
         },
         {
-            "type": "checkbox",
-            "id": "timer_unit",
-            "label": "Activate unit",
-            "default": true
-        },
-        {
             "type": "header",
             "content": "Dynamic checkout button"
         },
@@ -293,6 +287,25 @@
             "id": "proof_payments_text",
             "label": "Title",
             "default": "Guaranteed safe & secure checkout"
+        },
+        {
+            "type": "header",
+            "content": "Description"
+        },
+        {
+            "type": "select",
+            "id": "product_description",
+            "label": "Description position",
+            "options": [
+                {
+                    "value": "above_addtocart",
+                    "label": "Above add to cart"
+                },
+                {
+                    "value": "below_addtocart",
+                    "label": "Below add to cart"
+                }
+            ]
         }
     ],
     "blocks": [
