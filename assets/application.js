@@ -346,33 +346,12 @@ $(function(){
 
 //Buy now button ---------------------------
 
-// async function firstFunction(){
-//   var item = $( '#add_to_cart' ).attr( 'data-cart-add' );
-//   CartJS.addItem(item, 2); 
-// };
-
-// async function secondFunction(){
-//   await firstFunction();
-//   // now wait for firstFunction to finish...
-//   // do something else
-//   window.location = '/checkout';
-// };
-
-// $(function(){
-//   $('#checkout').click(function() {
-//     secondFunction();
-//   })
-// }); 
-
-
 $('#checkout').click(function() {
     var item = $( '#add_to_cart' ).attr( 'data-cart-add' );
     var quantity = $( '#add_to_cart' ).attr( 'data-cart-quantity' );
     function url(){
       window.location = '/checkout'
     }
-    // Call the addItem() method.
-    // Note the empty object as the third argument, representing no line item properties.  
     CartJS.addItem(item, quantity, {}, url());
 });
 

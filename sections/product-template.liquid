@@ -89,9 +89,11 @@
   }
 
   {% if product.options.size == 1 %}
-  (function () {
-    checked = false;
+    var legend = document.getElementById('legendSpan');
+    legend.innerHTML = optionRadio1[0].value;
 
+  (function() {
+    checked = false;
     for (var i = 0; i < optionRadio1.length; i++) {
         if (optionRadio1[i].checked) {
             checked = true;
@@ -102,8 +104,8 @@
     if (!checked) {
       optionRadio1[0].checked = true;
       eventFire(optionRadio1[0], 'click');
-      updateProductInformation();
     }
+    updateProductInformation();
   }());
   {% endif %}
 

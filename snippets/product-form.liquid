@@ -73,7 +73,7 @@
             {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
                 <div class="product-option">
                     <!-- <div class="mb-4"> -->
-                        <legend><h5 class="product-option__title">{{ option }}: <span></span></h5></legend>
+                        <legend><h5 class="product-option__title">{{ option }}: <span id="legendSpan"></span></h5></legend>
                         <div class="product-option__container">
                             {% assign used = '' %}
                             {% for variant in product.variants %}
@@ -96,7 +96,7 @@
             {% else %}
                 <div class="product-option">
                     <!-- <div class="mb-4"> -->
-                        <legend><h5 class="product-option__title">{{ option }}: <span></span></h5></legend>
+                        <legend><h5 class="product-option__title">{{ option }}: <span id="legendSpan"></span></h5></legend>
                         <div class="product-option__container">
                             {% assign used = '' %}
                             {% for variant in product.variants %}
@@ -115,17 +115,17 @@
 
             {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
                 <style>
-                    input[name='color']+label {
+                    input[name='color']+div {
                     border: 1px solid var(--clr-button-secondary-border);
                     color: var(--clr-);
                     }
                     
-                    input[name='color']:checked+label {
+                    input[name='color']:checked+div {
                         border: 1px solid var(--clr-general-links);
                         color: var(--clr-general-links);
                     }
 
-                    input[name='color']:focus+label {
+                    input[name='color']:focus+div {
                         border: 1px solid var(--clr-general-links);
                         color: var(--clr-general-links);
                         transition: all 150ms ease-out;
