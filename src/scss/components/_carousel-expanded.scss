@@ -42,7 +42,7 @@
             }
             .is-selected {
                 outline: none;
-                box-shadow: 0 0 0 1.5px var(--clr-general-links);
+                box-shadow: 0 0 0 1.5px var(--clr-internal-gray);
                 border-radius: 4px;
                 -moz-border-radius: 4px;
                 -webkit-border-radius: 4px;
@@ -84,9 +84,6 @@
     }
 }
 
-
-
-
 .product__main-image {
     margin: 0 auto;
     height: 100vh;
@@ -121,10 +118,17 @@
 }
 
 .product__main-carousel__btn {
-    @include btn-small;
+    @include btn-extra-small;
     @extend .btn-secondary;
+    color: var(--clr-internal-grey); 
     margin-right: 1rem;
     margin-bottom: 1rem;
+    display: flex;
+    span {
+        @extend .icon-xs;
+        line-height: 1.15;
+        margin-right: 0.5rem;
+    }
 }
 
 

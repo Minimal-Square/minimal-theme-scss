@@ -128,9 +128,15 @@
             },
             {
                 "type": "color",
+                "id": "clr_product_sale_accent_text",
+                "label": "Sale accent text",
+                "default": "#ffffff"
+            },
+            {
+                "type": "color",
                 "id": "clr_product_review_star",
                 "label": "Review star",
-                "default": "#F6C346"
+                "default": "#FFAB41"
             },
             {
                 "type": "header",

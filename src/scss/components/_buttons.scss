@@ -52,12 +52,27 @@
     }
 }
 
+@mixin btn-extra-small {
+    font-size: var(--font-size-button-small);
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    transition: all .1s ease-in;
+    display: inline-block;
+    appearance: none;
+    &:focus {
+        outline: none;
+    }
+}
+
 @mixin btn-small {
     font-size: var(--font-size-button-small);
     font-family: var(--font-secondary);
     font-weight: 500;
     line-height: 1.2;
-    padding: 0.625rem 1rem;
+    padding: 0.625rem 0.75rem;
     border-radius: 4px;
     transition: all .1s ease-in;
     display: inline-block;

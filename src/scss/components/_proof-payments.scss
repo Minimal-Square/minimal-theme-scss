@@ -1,0 +1,24 @@
+.proof-payments {
+    padding: 1rem;
+    width: 100%;
+    background: var(--clr-internal-light-gray);
+    margin-top: 1rem;
+    @include border-radius(4px);
+
+    &__title {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__icons {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__icons {
+        svg:not(:last-child) {
+            margin-right: 0.25rem;
+        }
+    }
+}

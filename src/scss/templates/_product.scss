@@ -30,6 +30,9 @@
     }
     .flickity-page-dots {
         position: absolute;
+        @include mq($until: mobile) {
+            display: none;
+        }
     }
 }
 
@@ -49,10 +52,11 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        @include border-radius(4px);
     }
     .is-selected {
         outline: none;
-        box-shadow: 0 0 0 1.5px var(--clr-general-links);
+        box-shadow: 0 0 0 1.5px var(--clr-internal-gray);
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;

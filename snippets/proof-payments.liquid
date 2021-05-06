@@ -1,0 +1,10 @@
+{% if section.settings.proof_payments_activate == true %}
+<div class="proof-payments">
+    <span class="proof-payments__title">{{ section.settings.proof_payments_text }}</span>
+    <div class="proof-payments__icons">
+        {%- for type in shop.enabled_payment_types -%}
+        {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+        {%- endfor -%}
+    </div>
+</div>
+{% endif %}

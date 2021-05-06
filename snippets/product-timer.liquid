@@ -1,35 +1,27 @@
+{% if section.settings.timer_activate == true %}
 <div class="timer">
-    <h4 class="timer__title">{{ section.settings.timer_title }}</h4>
+    <span class="timer__icon icon icon-percent"></span>
+    <h4 class="timer__title {% if section.settings.timer_unit == false %} timer__title--unit-off {% elsif section.settings.timer_unit == true %} timer__title--unit-on {% endif %}">{{ section.settings.timer_title }}</h4>
     <div class="timer-display">
         <div class="timer-block">
             <span class="timer-block__num js-timer-days">00</span>
-            {% if section.settings.timer_unit == true %}
-            <span class="timer-block__unit">Days</span>
-            {% endif %}
+            <span class="timer-block__unit">d</span>
         </div>
-        <span class="double-dot">:</span>
         <div class="timer-block">
             <span class="timer-block__num js-timer-hours">00</span>
-            {% if section.settings.timer_unit == true %}
-            <span class="timer-block__unit">Hours</span>
-            {% endif %}
+            <span class="timer-block__unit">h</span>
         </div>
-        <span class="double-dot">:</span>
         <div class="timer-block">
             <span class="timer-block__num js-timer-minutes">00</span>
-            {% if section.settings.timer_unit == true %}
-            <span class="timer-block__unit">Minutes</span>
-            {% endif %}
+            <span class="timer-block__unit">m</span>
         </div>
-        <span class="double-dot">:</span>
         <div class="timer-block">
             <span class="timer-block__num js-timer-seconds">00</span>
-            {% if section.settings.timer_unit == true %}
-            <span class="timer-block__unit">Seconds</span>
-            {% endif %}
+            <span class="timer-block__unit">s</span>
         </div>
     </div>
 </div>
+{% endif %}
 
 <script type="text/javascript">
   var second = 1000,

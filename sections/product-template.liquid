@@ -10,7 +10,7 @@
         <div class="product__grid">
             <div>
                 <div class="relative">  
-                    <a href="" class="product__main-carousel__btn absolute bottom-0 right-0 z-940">Click to expand</a>
+                    <a href="" class="product__main-carousel__btn absolute bottom-0 right-0 z-940"><span class="icon icon-maximize-2"></span>Click to expand</a>
                     <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
                         {% for media in product.media %}
                         <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
@@ -29,17 +29,6 @@
             </div>
             <div> 
                 {% include 'product-form' %}
-
-                <!-- Timer -->
-                {% assign timer_title = 'Special Offer End In' %}
-                {% for tags_string in product.tags %}
-                    {% assign timer_end_date = tags_string | join: ', ' %}
-                    {% if timer_end_date contains 'timer_' %}
-                        {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
-                        {% include 'product-timer', title: timer_title, end_date: timer_end_date %}
-                    {% endif %}
-                {% endfor %}
-
                 {% if section.settings.product_tabs_type == 'product' %}
                 <div class="product__tabs-form">
                     {% include 'product-tabs' %}
@@ -218,6 +207,10 @@
     "max_blocks": 4,
     "settings": [
         {
+            "type": "header",
+            "content": "Tabs"
+        },
+        {
             "type": "select",
             "id": "product_tabs_type",
             "label": "Type",
@@ -235,7 +228,7 @@
         },
         {
             "type": "header",
-            "content": "Timer settings"
+            "content": "Timer"
         },
         {
             "type": "text",
@@ -245,9 +238,61 @@
         },
         {
             "type": "checkbox",
+            "id": "timer_activate",
+            "label": "Activate timer",
+            "default": false
+        },
+        {
+            "type": "checkbox",
             "id": "timer_unit",
             "label": "Activate unit",
             "default": true
+        },
+        {
+            "type": "header",
+            "content": "Dynamic checkout button"
+        },
+        {
+            "type": "checkbox",
+            "id": "dynamic_button",
+            "label": "Activate dynamic checkout",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Vendor"
+        },
+        {
+            "type": "checkbox",
+            "id": "vendor_activate",
+            "label": "Activate vendor",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Stock"
+        },
+        {
+            "type": "checkbox",
+            "id": "stock_activate",
+            "label": "Activate stock",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Proof payments"
+        },
+        {
+            "type": "checkbox",
+            "id": "proof_payments_activate",
+            "label": "Activate proof payments",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "proof_payments_text",
+            "label": "Title",
+            "default": "Guaranteed safe & secure checkout"
         }
     ],
     "blocks": [

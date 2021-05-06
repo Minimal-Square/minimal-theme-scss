@@ -24,7 +24,7 @@
         </div>
     </div>
     <h2 class="product-form__title">{{ product.title }}</h2>
-    <h5 class="product-form__vendor">By <a href="{{ routes.collections_url }}/vendors?q={{ product.vendor }}">{{ product.vendor }}</a></h5>
+    {% if section.settings.vendor_activate == true %}<h5 class="product-form__vendor">By <a href="{{ routes.collections_url }}/vendors?q={{ product.vendor }}">{{ product.vendor }}</a></h5>{% endif %}
     <div class="product-form__price-elements">
         <div class="product-form__badges">
             {% if product.available == true %}
@@ -38,6 +38,15 @@
         <h4 class="product-form__compare-price" id="price">{{ product.compare_at_price_min | money }}</h4>
         <h4 class="product-form__price" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
     </div>
+
+    <!-- Timer -->
+    {% for tags_string in product.tags %}
+        {% assign timer_end_date = tags_string | join: ', ' %}
+        {% if timer_end_date contains 'timer_' %}
+            {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
+            {% render 'product-timer', end_date: timer_end_date %}
+        {% endif %}
+    {% endfor %}
 
     <!-- data-cart-submit -->
     {% form 'product', product, id: 'product_form' %}
@@ -140,7 +149,7 @@
     {% endif %}
 
         <!-- Stock -->
-        <!-- <p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p> -->
+        {% if section.settings.stock_activate == true %}<p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>{% endif %}
 
         <!-- Delivery info -->
         <!-- <div class="product-form__delivery flex">
@@ -166,19 +175,13 @@
     
 
     <!-- Add To Cart -->
-    <input class="product-form__btn addtocart" type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" value="{{ 'products.product.add_to_cart' | t }}">
-    <input class="product-form__btn addtocart" id="checkout" value="Checkout">
+    <input class="product-form__btn-addtocart addtocart {% if section.settings.dynamic_button == false %} btn-primary {% elsif section.settings.dynamic_button == true %} btn-secondary {% endif %}" type="submit" name="add" id="add_to_cart" data-cart-add="{{ product.variants.first.id }}" data-cart-quantity="" value="{{ 'products.product.add_to_cart' | t }}">
+    {% if section.settings.dynamic_button == true %}<input class="product-form__btn-checkout addtocart" id="checkout" value="Buy it now" type="button">{% endif %}
     {% endform %}
 
-    <!-- Timer -->
-    <!-- {% assign timer_title = 'Special Offer End In' %} -->
-    {% for tags_string in product.tags %}
-        {% assign timer_end_date = tags_string | join: ', ' %}
-        {% if timer_end_date contains 'timer_' %}
-            {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
-            {% render 'product-timer', end_date: timer_end_date %}
-        {% endif %}
-    {% endfor %}
+    <!-- Proof payments -->
+    {% render 'proof-payments' %}
+
 
     <!-- Proof badges -->
     <!-- <div class="proof-badges">

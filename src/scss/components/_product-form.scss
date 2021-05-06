@@ -20,13 +20,19 @@
         color: var(--clr-general-text);
         margin-top: 2rem;
     }
-    &__btn {
+    &__btn-addtocart {
         @include btn-large;
-        @extend .btn-primary;
         width: 100%;
         cursor: pointer;
         margin-top: 1.5rem;
-        margin-bottom: 1rem;
+    }
+    &__btn-checkout {
+        @include btn-large;
+        @extend .btn-primary;
+        margin-top: 0.75rem;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
     }
 }
 
