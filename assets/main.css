@@ -1084,7 +1084,7 @@ summary {
   background: #FFF8F8;
   border: 1px solid var(--clr-error);
   border-radius: 4px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   max-width: -webkit-max-content;
   max-width: max-content;
 }
@@ -1164,6 +1164,10 @@ summary {
 
 .proof-payments__icons svg:not(:last-child) {
   margin-right: 0.25rem;
+}
+
+.product-form__stock {
+  margin-bottom: 0.5rem;
 }
 
 .product__grid {

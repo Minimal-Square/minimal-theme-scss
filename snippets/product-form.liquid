@@ -48,6 +48,9 @@
         {% endif %}
     {% endfor %}
 
+    <!-- Stock -->
+    {% if section.settings.stock_activate == true %}<p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>{% endif %}
+
     <!-- data-cart-submit -->
     {% form 'product', product, id: 'product_form' %}
     <!-- Variants -->
@@ -147,9 +150,6 @@
 
         {% endfor %}
     {% endif %}
-
-        <!-- Stock -->
-        {% if section.settings.stock_activate == true %}<p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>{% endif %}
 
         <!-- Delivery info -->
         <!-- <div class="product-form__delivery flex">
