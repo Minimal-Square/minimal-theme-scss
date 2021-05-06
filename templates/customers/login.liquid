@@ -25,10 +25,10 @@
         </div>
 
         <button class="login__btn" type="submit" value="Sign In">{{ 'customer.login.sign_in' | t }}</button>
-        
-        <span class="body-md clr-general-text">{{ 'customer.login.new_customer' | t }}<a class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</a></span>
-        <p class="body-md clr-general-links cursor-pointer" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</p>
-
+        <div class="login__form-action-row--helper">
+            <span class="body-md clr-general-text form-action-row--helper-item">{{ 'customer.login.new_customer' | t }}<a class="body-md clr-general-links ml-2">{{ 'Create Account' | customer_register_link }}</a></span>
+            <span class="body-md clr-general-links cursor-pointer form-action-row--helper-item" id="clickResetPass">{{ 'customer.login.forgot_password' | t }}</span>
+        </div>
     {%- endform -%}
 </div>
 

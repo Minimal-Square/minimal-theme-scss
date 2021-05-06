@@ -40,7 +40,7 @@
     &__input {
         @extend .input;
     }
-
+ 
     &__btn {
         @extend .btn-primary;
         @include btn-medium;
@@ -48,4 +48,9 @@
         margin-bottom: 0.5em;
     }
 
+    &__form-action-row--helper {
+        display: flex;
+    }
+
+ 
 }
