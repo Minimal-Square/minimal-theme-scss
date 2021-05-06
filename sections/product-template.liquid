@@ -1,20 +1,23 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
-
+{% include 'carousel-expanded' %}
 <!-- Gallery & Product Form -->
 <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope>
     <div class="product">
+        <div class="product__breadcrumbs">
+            {% include 'breadcrumbs' %}
+        </div>
         <div class="product__grid">
-            <div> 
-                <div class="product__breadcrumbs">
-                    {% include 'breadcrumbs' %}
-                </div>
-                <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
-                    {% for media in product.media %}
-                    <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
-                        <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
+            <div>
+                <div class="relative">  
+                    <a href="" class="product__main-carousel__btn absolute bottom-0 right-0 z-940">Click to expand</a>
+                    <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+                        {% for media in product.media %}
+                        <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
+                            <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 <div class="product__nav-carousel nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
                     {% for media in product.media %}
@@ -26,6 +29,17 @@
             </div>
             <div> 
                 {% include 'product-form' %}
+
+                <!-- Timer -->
+                {% assign timer_title = 'Special Offer End In' %}
+                {% for tags_string in product.tags %}
+                    {% assign timer_end_date = tags_string | join: ', ' %}
+                    {% if timer_end_date contains 'timer_' %}
+                        {% assign timer_end_date = timer_end_date | remove: 'timer_' | replace: '-', ', ' | replace: '_', ' ' %}
+                        {% include 'product-timer', title: timer_title, end_date: timer_end_date %}
+                    {% endif %}
+                {% endfor %}
+
                 {% if section.settings.product_tabs_type == 'product' %}
                 <div class="product__tabs-form">
                     {% include 'product-tabs' %}
@@ -40,7 +54,6 @@
         </div>
     </div>
 </div>
-
 {% include 'sticky-add-to-cart' %}
 
 <script>
@@ -49,6 +62,7 @@
   var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
 
   var addToCartButton = document.getElementById("add_to_cart");
+  var checkoutButton = document.getElementById("checkout");
  
   function decrement(event) {
     event.preventDefault();
@@ -120,17 +134,21 @@
     function changeRadioValue() {
           if (!(optionRadio1.checked) || !(optionRadio2.checked) {% if product.options[2] %} || !(optionRadio3.checked){% endif %}) {
             addToCartButton.disabled = true;
+            checkoutButton.disabled = true;
         } else {
             addToCartButton.disabled = false;
+            checkoutButton.disabled = false;
         }
     };
 
     function changeButton() {
       if (!(optionRadio1.checked) && !(optionRadio2.checked){% if product.options[2] %} && !(optionRadio3.checked){% endif %}) {
         addToCartButton.disabled = true;
+        checkoutButton.disabled = true;
       }
       else {
         addToCartButton.disabled = false;
+        checkoutButton.disabled = false;
       }
     };
     changeButton();
@@ -169,13 +187,16 @@
       addToCartButton.setAttribute('data-cart-add', id);
       document.getElementById('price').innerHTML = price;
       addToCartButton.disabled = true;
+      checkoutButton.disabled = true;
 
       if(available == false){
         addToCartButton.setAttribute('value', 'Sold Out');
         addToCartButton.disabled = true;
+        checkoutButton.disabled = true;
       } else if (available == true) {
-        addToCartButton.setAttribute('value', 'Add To Cart');
+        addToCartButton.setAttribute('value', 'Add to Cart');
         addToCartButton.disabled = false;
+        checkoutButton.disabled = false;
       }
       
     } else {
@@ -183,9 +204,10 @@
       addToCartButton.setAttribute('value', 'Choose Options');
       document.getElementById('price').innerHTML = 'Unavailable';
       addToCartButton.disabled = true;
+      checkoutButton.disabled = true;
     }
   }
-  updateProductInformation()
+  updateProductInformation();
   
 </script>
 

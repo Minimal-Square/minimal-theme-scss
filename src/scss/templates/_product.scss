@@ -3,8 +3,7 @@
     &__grid {
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 2rem;
-        margin-top: 1rem;
+        gap: 1.75rem;
         @include mq($from: desktop) {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -14,14 +13,17 @@
     }
     &__breadcrumbs {
         display: flex;
-        margin-bottom: 1rem;
+        margin: 1.75rem 0;
+        @include mq($until: tablet) {
+            margin: 1.25rem 0;
+        }
     }
 }
 
 .product__main-carousel {
     margin-bottom: 1rem;
     .product__main-cell {
-        width: 100%;
+        width: 100%; 
     }
     .product__main-image {
         object-fit: cover;

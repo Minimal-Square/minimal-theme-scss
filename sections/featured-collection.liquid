@@ -26,17 +26,6 @@
         {% endif %}"{% if section.settings.collection_layout == 'carousel' %} data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": false, "watchCSS": false, "prevNextButtons": true }' {% endif %}>
             {% for product in collections[section.settings.collection].products limit: section.settings.collection_number_of_products %}
                 {% include 'collection-tile' %}
-                <script>
-                    var bigImages = document.querySelectorAll('.productitem--image img');
-                    var elements = document.querySelector('.productitem--swatches-container-{{- forloop.index -}}');
-                    
-                    var checkboxes = document.querySelectorAll('input[name="swatch"]:checked');
-                    var label = elements.getElementsByTagName( 'label' );
-
-                    bigImages[0].style.visibility = 'visible';
-
-                    
-                </script>
             {% endfor %}
         </div>
         {% if section.settings.collection_button_text != blank %}
