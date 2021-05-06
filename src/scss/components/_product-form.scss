@@ -9,6 +9,7 @@
         font-family: var(--font-primary);
         font-size: var(--font-size-heading-2);
         font-weight: var(--font-weight);
+        color: var(--clr-general-headings);
         margin-bottom: 0.25rem;
         line-height: 1.2;
         @include mq($from: tablet) {

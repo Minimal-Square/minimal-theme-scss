@@ -49,7 +49,16 @@
     {% endfor %}
 
     <!-- Stock -->
-    {% if section.settings.stock_activate == true %}<p class="product-form__stock">We currently have {{ product.variants.first.inventory_quantity }} in stock.</p>{% endif %}
+    {% if section.settings.stock_activate == true %}
+        {% if product.variants.first.available == true %}
+            <div class="product-stock">
+                <span class="product-stock__icon icon icon-check-circle"></span>
+                <p class="product-stock__text">
+                    {{ product.variants.first.inventory_quantity }} in stock, ready to be shipped.
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
 
     <!-- data-cart-submit -->
     {% form 'product', product, id: 'product_form' %}

@@ -1,7 +1,7 @@
 .timer {
     display: flex; 
     align-items: center;
-    padding: 6px 12px;
+    padding: 0.375rem 0.75rem;
     background: #FFF8F8;
     border: 1px solid var(--clr-error);
     @extend .shadow;
@@ -15,12 +15,8 @@
     }
 } 
 
-.timer--expired {
-    display: none;
-}
-
 .timer__title {
-    margin-right: 0.75rem;
+    margin-right: 0.5rem;
     color: var(--clr-error);
 }
 
@@ -31,6 +27,7 @@
 .timer-block {
     display: flex;
     align-items: flex-end;
+    font-size: var(--font-size-body);
 }
 
 .timer-block:not(:last-child) {
@@ -39,7 +36,7 @@
 
 .double-dot {
     color: var(--clr-error);
-    padding: 0 8px;
+    padding: 0 0.5rem;
 }
 
 .timer-block__num {
@@ -50,14 +47,9 @@
 }
 
 .timer-block__unit {
-    // text-transform: uppercase;
     display: block;
     text-align: center;
     white-space: nowrap;
     color: var(--clr-error);
-    font-size: var(--font-size-body);
-    @include mq($until: mobile) {
-        line-height: 1.6;
-    }
     font-weight: 600;
 }
