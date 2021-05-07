@@ -1,0 +1,13 @@
+{% if section.settings.product_tags == true %}
+    <div class="product-tags">
+        <div class="product-tags__static">
+            <span class="product-tags__icon icon icon-tag"></span>
+            <p class="product-tags__text">Tags</p>
+        </div>
+        {% for tag in product.tags %}
+            {% unless tag contains 'timer_' %}
+                <a class="product-tags__link" href="{{ routes.all_products_collection_url }}/{{ tag | downcase }}">{{ tag }}</a>
+            {% endunless %}
+        {% endfor %}
+    </div>
+{% endif %}

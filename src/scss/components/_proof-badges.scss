@@ -1,0 +1,38 @@
+.proof-badges {
+    @include border-radius(4px);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    @include mq($until: mobile) {
+        padding: 1rem;
+    }
+    background:  var(--clr-internal-light-gray);
+    margin-top: 1rem;
+
+    &__block {
+        text-align: center;
+        width: 100%;
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+            @include mq($until: mobile) {
+                margin-right: 1rem;
+            }
+        }
+    }
+    
+    &__icon {
+        @extend .icon-md;
+        color: var(--clr-general-dark);
+    }
+
+    &__text {
+        font-size: var(--font-size-body-smaller);
+        @include mq($from: mobile) {
+            font-size: var(--font-size-body);
+        }
+        color: var(--clr-general-text);
+        line-height: 1.4;
+        margin-top: 0.25rem;
+    }
+}

@@ -29,11 +29,15 @@
             </div>
             <div> 
                 {% include 'product-form' %}
+
                 {% if section.settings.product_tabs_type == 'product' %}
                 <div class="product__tabs-form">
                     {% include 'product-tabs' %}
                 </div>
                 {% endif %}
+
+                {% include 'product-tags' %}
+
             </div>
         </div>
         <div class="product__tabs-section">
@@ -219,7 +223,7 @@
 {% schema %}
 {
     "name": "Product options",
-    "max_blocks": 4,
+    "max_blocks": 8,
     "settings": [
         {
             "type": "header",
@@ -321,12 +325,33 @@
                     "label": "Below add to cart"
                 }
             ]
+        },
+        {
+            "type": "header",
+            "content": "Proof badges"
+        },
+        {
+            "type": "checkbox",
+            "id": "proof_badges_activate",
+            "label": "Activate proof badges",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Product tags"
+        },
+        {
+            "type": "checkbox",
+            "id": "product_tags",
+            "label": "Activate product tags",
+            "default": false
         }
     ],
     "blocks": [
         {
             "name": "Product tab",
             "type": "product_tab",
+            "limit": 5,
             "settings": [
                 {
                     "type": "text",
@@ -341,10 +366,29 @@
                     "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 },
                 {
-                    "type": "textarea",
+                    "type": "richtext",
                     "id": "product_tab_text",
                     "label": "Text",
-                    "default": "Lorem ipsum dolor asimet..."
+                    "default": "<p>ipsum dolor asimet...</p>"
+                }
+            ]
+        },
+        {
+            "name": "Proof badge",
+            "type": "proof_badge",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "proof_badge_text",
+                    "label": "Text",
+                    "default": "Secure checkout"
+                },
+                {
+                    "type": "text",
+                    "id": "proof_badge_icon",
+                    "label": "Icon",
+                    "default": "heart"
                 }
             ]
         }

@@ -19,10 +19,11 @@
     &__description {
         font-size: var(--font-size-body);
         color: var(--clr-general-text);
+        line-height: 1.5;
         
         &--above {
-            margin-bottom: 1.5rem;
-            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
         }
 
         &--below {

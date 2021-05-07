@@ -1,8 +1,12 @@
-<div>
-    {% for block in section.blocks %}
-        <div>
-            <span class="icon icon-lock"></span>
-            <p>Lorem ipsum dolor sit amet.</p>
+{% if section.settings.proof_badges_activate == true %}    
+    <div class="proof-badges">
+        {% for block in section.blocks %}
+        {% if block.type == 'proof_badge' %}
+        <div class="proof-badges__block">
+            <span class="proof-badges__icon icon icon-{{ block.settings.proof_badge_icon }}"></span>
+            <p class="proof-badges__text">{{ block.settings.proof_badge_text }}</p>
         </div>
-    {% endfor %}
-</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

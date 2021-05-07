@@ -1,18 +1,20 @@
 {% if section.blocks.size > 0 %}
-<div class="divide-y border-t border-b addtocart2">
+<div class="product-tabs addtocart2">
     {% for block in section.blocks %}
-    <div>
-        <div class="py-6 sm:py-8 cursor-pointer clickDropdown">
-            <div class="flex justify-between">
-                <h4 class="heading-xs font-medium mb-2">{{ block.settings.product_tab_heading }}</h4>
-                <span aria-hidden="true" class="text-2xl flex-shrink-0 icon icon-chevron-down chevronDesc"></span>
-            </div>
-            <p class="clr-general-text mr-12">{{ block.settings.product_tab_excerpt }}</p>
-        </div>
-        <div class="hidden dropdownItem mb-8">
-            <p class="clr-general-text">{{ block.settings.product_tab_text }}</p>
-        </div>
-    </div> 
+        {% if block.type == 'product_tab' %}    
+            <div class="product-tabs__block">
+                <div class="product-tabs__header clickDropdown">
+                    <div class="product-tabs__text-wrapper">
+                        <h4 class="product-tabs__heading heading-xs font-medium">{{ block.settings.product_tab_heading }}</h4>
+                        <p class="product-tabs__excerpt">{{ block.settings.product_tab_excerpt }}</p>
+                    </div>
+                    <span aria-hidden="true" class="product-tabs__icon icon icon-chevron-down flex-shrink-0 chevronDesc"></span>
+                </div>
+                <div class="product-tabs__description hidden dropdownItem">
+                    <p class="product-tabs__description-text">{{ block.settings.product_tab_text }}</p>
+                </div>
+            </div> 
+        {% endif %}
     {% endfor %}
 </div> 
 {% endif %}
