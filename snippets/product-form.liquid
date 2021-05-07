@@ -53,8 +53,8 @@
         {% if product.variants.first.available == true %}
             <div class="product-stock">
                 <span class="product-stock__icon icon icon-check-circle"></span>
-                <p class="product-stock__text">
-                    {{ product.variants.first.inventory_quantity }} in stock, ready to be shipped.
+                <p class="product-stock__text" id="SKU">
+                    <span id="inventory">{{ product.variants.first.inventory_quantity }}</span> in stock, ready to be shipped. 
                 </p>
             </div>
         {% endif %}

@@ -47,13 +47,17 @@
 {% include 'sticky-add-to-cart' %}
 
 <script>
+  var json_product = {{ collections.featured.products.first | json }};
   var optionRadio1 = document.querySelectorAll('input[name="{{ product.options[0] | downcase }}"]');
   var optionRadio2 = document.querySelectorAll('input[name="{{ product.options[1] | downcase }}"]');
   var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
 
   var addToCartButton = document.getElementById("add_to_cart");
   var checkoutButton = document.getElementById("checkout");
- 
+
+  var SKU = document.getElementById('SKU');
+  var inventory = document.getElementById('inventory');
+ console.log(SKU.outerHTML)
   function decrement(event) {
     event.preventDefault();
     $('#quantity').val( function(i, oldval) {
@@ -160,6 +164,7 @@
     {% capture quantity %}quantity{% endcapture %}
     var id = '';
     var available;
+    var inv_qty = {};
     // Loop through all of the variants to check if the option values match any of the variant combinations
     {% for v in product.variants %}
       if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
@@ -170,6 +175,7 @@
         var fullPrice = {{ quantity }} * {{ v.price }};
         var price = Shopify.formatMoney({{v.price}}, "{{ shop.money_format }}");
         var formattedPrice = Shopify.formatMoney(fullPrice, "{{ shop.money_format }}" );
+        inv_qty[id] = {{ v.inventory_quantity | default: 0 }};
       }
     {% endfor %}
     // URL Query String
@@ -178,6 +184,13 @@
     if(id!='') {
       addToCartButton.setAttribute('data-cart-add', id);
       document.getElementById('price').innerHTML = price;
+      if(inv_qty[id] < 10){
+        SKU.innerHTML = 'Only '+inv_qty[id]+' left!'
+      } else {
+        SKU.innerHTML = inv_qty[id]+' in stock, ready to be shipped.'
+
+      }
+      inventory.innerHTML = inv_qty[id];
       addToCartButton.disabled = true;
       checkoutButton.disabled = true;
 
