@@ -218,6 +218,7 @@
 
       //Inventory
       if(document.body.contains(document.getElementById('SKU'))){
+        document.querySelector('.product-stock').style.display = "flex";
         if(inv_qty[id] < 10){
           SKU.innerHTML = 'Only '+inv_qty[id]+' left!'
           document.querySelector('.product-stock span').style.display = 'none';
@@ -252,6 +253,7 @@
     } else {
       comparePrice.style.display = "none";
       savePercent.style.display = "none";
+      document.querySelector('.product-stock').style.display = "none";
       addToCartButton.setAttribute('data-variant-id', id);
       addToCartButton.setAttribute('value', 'Choose Options');
       addToCartButton.disabled = true;
