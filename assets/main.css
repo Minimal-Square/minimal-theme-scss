@@ -6,7 +6,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.container, .sticky-atc__wrapper, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+.container, .sticky-atc__content, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
   max-width: var(--max-width);
   margin: 0 auto;
   padding-left: 24px;
@@ -14,14 +14,14 @@ body {
 }
 
 @media (min-width: 40em) and (max-width: 63.99em) {
-  .container, .sticky-atc__wrapper, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+  .container, .sticky-atc__content, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
     padding-left: 16px;
     padding-right: 16px;
   }
 }
 
 @media (max-width: 39.99em) {
-  .container, .sticky-atc__wrapper, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
+  .container, .sticky-atc__content, .product, .login, .resetpass, .announcement__content, .slideshow__width--content, .highlights__content, .featured-collection, .collection-list, .logo-list, .iwt, .testimonials, .video, .custom-html, .blog, .newsletter {
     padding-left: 12px;
     padding-right: 12px;
   }
@@ -444,22 +444,22 @@ summary {
   outline: none;
 }
 
-.btn-primary, .product-form__btn-checkout, .login__btn, .resetpass__btn, .iwt__btn--primary, .newsletter__btn {
+.btn-primary, .product-form__btn-checkout, .sticky-atc__btn, .login__btn, .resetpass__btn, .iwt__btn--primary, .newsletter__btn {
   background-color: var(--clr-button-primary-background);
   color: var(--clr-button-primary-text);
   border: 1px solid var(--clr-button-primary-background);
 }
 
-.btn-primary:hover, .product-form__btn-checkout:hover, .login__btn:hover, .resetpass__btn:hover, .iwt__btn--primary:hover, .newsletter__btn:hover {
+.btn-primary:hover, .product-form__btn-checkout:hover, .sticky-atc__btn:hover, .login__btn:hover, .resetpass__btn:hover, .iwt__btn--primary:hover, .newsletter__btn:hover {
   background-color: var(--clr-button-primary-background-hover);
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.btn-primary:active, .product-form__btn-checkout:active, .login__btn:active, .resetpass__btn:active, .iwt__btn--primary:active, .newsletter__btn:active {
+.btn-primary:active, .product-form__btn-checkout:active, .sticky-atc__btn:active, .login__btn:active, .resetpass__btn:active, .iwt__btn--primary:active, .newsletter__btn:active {
   background-color: var(--clr-button-primary-background-active);
 }
 
-.btn-primary:disabled, .product-form__btn-checkout:disabled, .login__btn:disabled, .resetpass__btn:disabled, .iwt__btn--primary:disabled, .newsletter__btn:disabled {
+.btn-primary:disabled, .product-form__btn-checkout:disabled, .sticky-atc__btn:disabled, .login__btn:disabled, .resetpass__btn:disabled, .iwt__btn--primary:disabled, .newsletter__btn:disabled {
   background: #EDEDED;
   color: #9E9E9E;
 }
@@ -1439,8 +1439,42 @@ summary {
   bottom: 0;
 }
 
-.sticky-atc__wrapper {
+.sticky-atc__content {
   display: flex;
+  align-items: center;
+}
+
+.sticky-atc__heading {
+  font-size: var(--font-size-headin-5);
+  font-weight: var(--font-weight);
+  color: var(--clr-general-headings);
+  font-family: var(--font-primary);
+  white-space: nowrap;
+}
+
+.sticky-atc__form {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.sticky-atc__btn {
+  font-size: var(--font-size-button-large);
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0.875rem 1.75rem;
+  border-radius: 4px;
+  transition: all .1s ease-in;
+  display: inline-block;
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.sticky-atc__btn:focus {
+  outline: none;
 }
 
 .product__grid {

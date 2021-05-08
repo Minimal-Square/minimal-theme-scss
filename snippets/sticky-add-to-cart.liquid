@@ -1,17 +1,21 @@
 {% if section.settings.sticky_atc_activate == true %}
     <div class="sticky-atc {% if section.settings.sticky_atc_position == 'sticky_atc_top' %} sticky-atc--top {% elsif section.settings.sticky_atc_position == 'sticky_atc_bottom' %} sticky-atc--bottom {% endif %} bottomMenu hidden">
-        <div class="sticky-atc__wrapper">
-            <div class="items-center w-full sm:space-x-6 block sm:flex">
-                <h3 class="font-medium whitespace-nowrap text-sm sm:text-base">{{ product.title }}</h3>
-                <div class="flex space-x-2 text-xs sm:text-sm text-gray-500">
-                    <p>$89.00</p>
-                    <p>/</p>
-                    <p>M</p>
-                    <p>/</p>
-                    <p>Red</p>
-                </div>
+        <div class="sticky-atc__content">
+
+            <h3 class="sticky-atc__heading">{{ product.title }}</h3>
+            <div class="sticky-atc__form">
+                {% form 'product', product, id: 'product_form', class: 'sticky-atc__form' %}
+                    <div class="flex space-x-2 text-xs sm:text-sm text-gray-500"><!-- REMOVE DIV -->
+                        <p>$89.00</p>
+                        <p>/</p>
+                        <p>M</p>
+                        <p>/</p>
+                        <p>Red</p>
+                    </div>
+                    <input class="sticky-atc__btn" type="submit" value="{{ 'products.product.add_to_cart' | t }}"></input>
+                {% endform %}
             </div>
-            <button class="btn-lg btn-primary text-center" value="">{{ 'products.product.add_to_cart' | t }}</button>
+
         </div>
     </div>
 {% endif %}
