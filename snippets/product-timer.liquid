@@ -37,5 +37,8 @@
       	document.querySelector('.js-timer-hours').innerText = Math.floor((distance % (day)) / (hour)),
     	document.querySelector('.js-timer-minutes').innerText = Math.floor((distance % (hour)) / (minute)),
     	document.querySelector('.js-timer-seconds').innerText = Math.floor((distance % (minute)) / second);
+        if(distance <= 0){
+            document.querySelector('.timer').style.display = "none";
+        }
     }, second)
 </script>

@@ -28,15 +28,13 @@
     <div class="product-form__price-elements">
         <div class="product-form__badges">
             {% if product.available == true %}
-                {% if product.compare_at_price_max > product.price %}
-                    <span class="product-form__save">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
-                {% endif %}
+                <span class="product-form__save" id="savePercent">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
             {% elsif product.available == false %}
                 <div class="product-form__sold-out">{{ 'products.product.sold_out' | t }}</div>
             {% endif %}
         </div>
-        <h4 class="product-form__compare-price" id="price">{{ product.compare_at_price_min | money }}</h4>
-        <h4 class="product-form__price" id="price">{{ product.selected_or_first_available_variant.price | money }}</h4>
+        <h4 class="product-form__compare-price" id="compare_price">{{ product.compare_at_price_max | money }}</h4>
+        <h4 class="product-form__price" id="price">{{ product.price | money }}</h4>
     </div>
 
     <!-- Timer -->
@@ -209,3 +207,4 @@
         <p class="product-form__description product-form__description--below">{{ product.description }}</p>
     {% endif %}
 </div>
+

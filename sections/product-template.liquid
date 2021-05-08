@@ -51,7 +51,6 @@
 {% include 'sticky-add-to-cart' %}
 
 <script>
-  var json_product = {{ collections.featured.products.first | json }};
   var optionRadio1 = document.querySelectorAll('input[name="{{ product.options[0] | downcase }}"]');
   var optionRadio2 = document.querySelectorAll('input[name="{{ product.options[1] | downcase }}"]');
   var optionRadio3 = document.querySelectorAll('input[name="{{ product.options[2] | downcase }}"]');
@@ -59,9 +58,18 @@
   var addToCartButton = document.getElementById("add_to_cart");
   var checkoutButton = document.getElementById("checkout");
 
-  var SKU = document.getElementById('SKU');
+  if(document.body.contains(document.getElementById('SKU'))){
+    var SKU = document.getElementById('SKU');
+  }
   var inventory = document.getElementById('inventory');
- console.log(SKU.outerHTML)
+
+  if(document.body.contains(document.getElementById('savePercent'))){
+    var savePercent = document.getElementById('savePercent');
+  }
+
+  var priceElem = document.getElementById('price');
+  var comparePrice = document.getElementById('compare_price');
+
   function decrement(event) {
     event.preventDefault();
     $('#quantity').val( function(i, oldval) {
@@ -97,8 +105,8 @@
   }
 
   {% if product.options.size == 1 %}
-    var legend = document.getElementById('legendSpan');
-    legend.innerHTML = optionRadio1[0].value;
+  var legend = document.getElementById('legendSpan');
+  legend.innerHTML = optionRadio1[0].value;
 
   (function() {
     checked = false;
@@ -112,8 +120,10 @@
     if (!checked) {
       optionRadio1[0].checked = true;
       eventFire(optionRadio1[0], 'click');
+      updateProductInformation();
+    } else {
+      updateProductInformation();
     }
-    updateProductInformation();
   }());
   {% endif %}
 
@@ -169,6 +179,7 @@
     var id = '';
     var available;
     var inv_qty = {};
+    var firstElemIventory = {{ product.variants.first.inventory_quantity }};
     // Loop through all of the variants to check if the option values match any of the variant combinations
     {% for v in product.variants %}
       if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
@@ -176,9 +187,11 @@
         var id = {{ v.id }};
         var available = {{ v.available }};
         // Save the price given the quantity the user has selected. Once multiplied then format the price using the js api.
-        var fullPrice = {{ quantity }} * {{ v.price }};
+        var compare_price = Shopify.formatMoney({{ v.compare_at_price }}, "{{ shop.money_format }}");
         var price = Shopify.formatMoney({{v.price}}, "{{ shop.money_format }}");
-        var formattedPrice = Shopify.formatMoney(fullPrice, "{{ shop.money_format }}" );
+        var compare = (({{ v.compare_at_price }}-{{v.price}})*100)/{{ v.compare_at_price }};
+        var comparedPrice = Math.round(compare);
+        
         inv_qty[id] = {{ v.inventory_quantity | default: 0 }};
       }
     {% endfor %}
@@ -186,15 +199,38 @@
     // console.log(window.location.search);
     // If variant has an id then set the cart to the selected variant and change the price field.
     if(id!='') {
+      //Inject variant id in Buttons
       addToCartButton.setAttribute('data-cart-add', id);
-      document.getElementById('price').innerHTML = price;
-      if(inv_qty[id] < 10){
-        SKU.innerHTML = 'Only '+inv_qty[id]+' left!'
-      } else {
-        SKU.innerHTML = inv_qty[id]+' in stock, ready to be shipped.'
 
+      //Price
+      priceElem.innerHTML = price;
+      if(compare_price == price){
+        comparePrice.style.display = "none";
+        savePercent.style.display = "none";
+      } else if(compare_price > price) {
+        comparePrice.style.display = "block";
+        savePercent.style.display = "block";
+        comparePrice.innerHTML = compare_price;
+        if(document.body.contains(document.getElementById('savePercent'))){
+        savePercent.innerHTML = "{{ 'products.product.save' | t }} "+comparedPrice+"%"
+        }
       }
-      inventory.innerHTML = inv_qty[id];
+
+      //Inventory
+      if(document.body.contains(document.getElementById('SKU'))){
+        if(inv_qty[id] < 10){
+          SKU.innerHTML = 'Only '+inv_qty[id]+' left!'
+          document.querySelector('.product-stock span').style.display = 'none';
+          document.querySelector('.product-stock').style.color = 'var(--clr-warning)';
+        } else {
+          SKU.innerHTML = inv_qty[id]+' in stock, ready to be shipped.'
+          document.querySelector('.product-stock span').style.display = 'block';
+          document.querySelector('.product-stock').style.color = 'var(--clr-success)';
+        }
+        inventory.innerHTML = inv_qty[id];
+      }
+
+      //Buttons
       addToCartButton.disabled = true;
       checkoutButton.disabled = true;
 
@@ -202,6 +238,11 @@
         addToCartButton.setAttribute('value', 'Sold Out');
         addToCartButton.disabled = true;
         checkoutButton.disabled = true;
+        if(document.body.contains(document.getElementById('SKU'))){
+          SKU.innerHTML = 'Currently out of stock'
+          document.querySelector('.product-stock span').style.display = 'none';
+          document.querySelector('.product-stock').style.color = 'var(--clr-error)';
+        }
       } else if (available == true) {
         addToCartButton.setAttribute('value', 'Add to Cart');
         addToCartButton.disabled = false;
@@ -209,9 +250,10 @@
       }
       
     } else {
+      comparePrice.style.display = "none";
+      savePercent.style.display = "none";
       addToCartButton.setAttribute('data-variant-id', id);
       addToCartButton.setAttribute('value', 'Choose Options');
-      document.getElementById('price').innerHTML = 'Unavailable';
       addToCartButton.disabled = true;
       checkoutButton.disabled = true;
     }
