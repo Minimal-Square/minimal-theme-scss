@@ -1,19 +1,17 @@
-<div class="bg-white border-b border-gray-100 py-3 sm:py-4 fixed top-0 w-full shadow-small bottomMenu hidden" style="z-index: 950;">
-    <div class="max-width mx-auto justify-between flex items-center">
-      <div class="items-center sm:space-x-6 block sm:flex">
-        <h3 class="font-medium whitespace-nowrap text-sm sm:text-base">{{ product.title }}</h3>
-        <div class="flex space-x-2 text-xs sm:text-sm text-gray-500">
-          <p>$89.00</p>
-          <p>/</p>
-          <p>M</p>
-          <p>/</p>
-          <p>Red</p>
+{% if section.settings.sticky_atc_activate == true %}
+    <div class="sticky-atc {% if section.settings.sticky_atc_position == 'sticky_atc_top' %} sticky-atc--top {% elsif section.settings.sticky_atc_position == 'sticky_atc_bottom' %} sticky-atc--bottom {% endif %} bottomMenu hidden">
+        <div class="sticky-atc__wrapper">
+            <div class="items-center w-full sm:space-x-6 block sm:flex">
+                <h3 class="font-medium whitespace-nowrap text-sm sm:text-base">{{ product.title }}</h3>
+                <div class="flex space-x-2 text-xs sm:text-sm text-gray-500">
+                    <p>$89.00</p>
+                    <p>/</p>
+                    <p>M</p>
+                    <p>/</p>
+                    <p>Red</p>
+                </div>
+            </div>
+            <button class="btn-lg btn-primary text-center" value="">{{ 'products.product.add_to_cart' | t }}</button>
         </div>
-      </div>
-      <div>
-        <button value="{{ 'products.product.add_to_cart' | t }}" class="btn-lg btn-primary w-full text-center">
-         
-        </button>
-      </div>
     </div>
-</div>
+{% endif %}

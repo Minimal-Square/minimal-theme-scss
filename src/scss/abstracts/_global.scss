@@ -61,6 +61,10 @@ body {
     box-shadow: 0 1px 4px rgba(128, 128, 128, 0.11);
 }
 
+.shadow-top {
+    box-shadow: 0 -1px 4px rgba(128, 128, 128, 0.11);
+}
+
 .shadow-input {
     box-shadow: 0 2px 3px rgba(128, 128, 128, 0.11);
 }

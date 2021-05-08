@@ -1,0 +1,19 @@
+{% if section.settings.social_sharing_activate == true %}
+    <div class="social-sharing">
+        <div class="social-sharing__static">
+            <span class="social-sharing__share icon icon-share-2"></span>
+            <p class="social-sharing__text">Share</p>
+        </div>
+        <div class="social-sharing__list">
+            {% if settings.social_accounts_facebook != blank %}
+                <a class="social-sharing__icon icon icon-facebook" href="//www.facebook.com/sharer.php?u={{ shop.domain }}{{ product.url }}" title="{{ product.title | truncate: 30 | url_escape }}"></a>
+            {% endif %}
+            {% if settings.social_accounts_twitter != blank %}
+                <a class="social-sharing__icon icon icon-twitter" href="https://twitter.com/intent/tweet?text={{ title | replace: '&','%26' }}&url={{ shop.domain }}{{ product.url }}"></a>
+            {% endif %}
+            {% if settings.social_accounts_pinterest != blank %}
+                <a class="social-sharing__icon icon icon-pinterest" href="//pinterest.com/pin/create/button/?url={{ shop.domain }}{{ product.url }}&amp;media={{ product.featured_image | img_url: '1024x1024' }}&amp;description={{ product.title }}"></a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

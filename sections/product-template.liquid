@@ -37,6 +37,7 @@
                 {% endif %}
 
                 {% include 'product-tags' %}
+                {% include 'social-sharing' %}
 
             </div>
         </div>
@@ -387,6 +388,41 @@
             "id": "product_tags",
             "label": "Activate product tags",
             "default": false
+        },
+        {
+            "type": "header",
+            "content": "Social sharing"
+        },
+        {
+            "type": "checkbox",
+            "id": "social_sharing_activate",
+            "label": "Activate Social sharing",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Sticky add to cart"
+        },
+        {
+            "type": "checkbox",
+            "id": "sticky_atc_activate",
+            "label": "Activate sticky add to cart",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "sticky_atc_position",
+            "label": "Position",
+            "options": [
+                {
+                    "value": "sticky_atc_top",
+                    "label": "Top"
+                },
+                {
+                    "value": "sticky_atc_bottom",
+                    "label": "Bottom"
+                }
+            ]
         }
     ],
     "blocks": [

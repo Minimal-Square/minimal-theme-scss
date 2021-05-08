@@ -4,13 +4,13 @@
         {% if block.type == 'product_tab' %}    
             <div class="product-tabs__block">
                 <div class="product-tabs__header clickDropdown">
-                    <div class="product-tabs__text-wrapper">
-                        <h4 class="product-tabs__heading heading-xs font-medium">{{ block.settings.product_tab_heading }}</h4>
+                    <div class="{% if section.settings.product_tabs_type == 'section' %} product-tabs__wrapper--section {% elsif section.settings.product_tabs_type == 'product' %} product-tabs__wrapper--product {% endif %}">
+                        <h4 class="product-tabs__heading {% if section.settings.product_tabs_type == 'section' %} product-tabs__heading--section {% endif %}">{{ block.settings.product_tab_heading }}</h4>
                         <p class="product-tabs__excerpt">{{ block.settings.product_tab_excerpt }}</p>
                     </div>
                     <span aria-hidden="true" class="product-tabs__icon icon icon-chevron-down flex-shrink-0 chevronDesc"></span>
                 </div>
-                <div class="product-tabs__description hidden dropdownItem">
+                <div class="product-tabs__description {% if section.settings.product_tabs_type == 'section' %} product-tabs__description--section {% endif %} hidden dropdownItem">
                     <p class="product-tabs__description-text">{{ block.settings.product_tab_text }}</p>
                 </div>
             </div> 

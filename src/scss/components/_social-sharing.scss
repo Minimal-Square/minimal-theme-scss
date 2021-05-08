@@ -1,5 +1,5 @@
-.product-tags {
-    margin-top: 2rem;
+.social-sharing {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     font-size: var(--font-size-body);
@@ -15,15 +15,20 @@
         color: var(--clr-internal-dark);
     }
 
-    &__icon {
+    &__share {
         color: var(--clr-internal-dark);
         @extend .icon-sm;
         line-height: 1.35 !important;
         margin-right: 0.25rem;
     }
 
-    &__link {
-        font-size: var(--font-size-body-smaller);
+    &__list {
+        display: flex;
+    }
+
+    &__icon {
+        @extend .icon-sm;
+        display: block;
         background: var(--clr-internal-light-gray);
         border: 1px solid #E6E6E6;
         color: var(--clr-general-text);
