@@ -1,5 +1,5 @@
 {% if section.settings.timer_activate == true %}
-<div class="timer">
+<div class="timer hidden">
     <span class="timer__icon icon icon-percent"></span>
     <h4 class="timer__title">{{ section.settings.timer_title }}</h4>
     <div class="timer-display">
@@ -37,8 +37,8 @@
       	document.querySelector('.js-timer-hours').innerText = Math.floor((distance % (day)) / (hour)),
     	document.querySelector('.js-timer-minutes').innerText = Math.floor((distance % (hour)) / (minute)),
     	document.querySelector('.js-timer-seconds').innerText = Math.floor((distance % (minute)) / second);
-        if(distance <= 0){
-            document.querySelector('.timer').style.display = "none";
+        if(distance >= 0){
+            document.querySelector('.timer').style.display = "flex";
         }
     }, second)
 </script>

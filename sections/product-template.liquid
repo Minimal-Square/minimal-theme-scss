@@ -11,7 +11,7 @@
             <div>
                 <div class="relative">  
                     <a href="" class="product__main-carousel__btn absolute bottom-0 right-0 z-940"><span class="icon icon-maximize-2"></span>Click to expand</a>
-                    <div class="product__main-carousel main-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
+                    <div class="product__main-carousel main-carousel carousel" id="mainImage" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": true }'>
                         {% for media in product.media %}
                         <div class="product__main-cell carousel-cell aspect-w-1 aspect-h-1" >
                             <img class="product__main-image lazy" src="{{ media | img_url: '1000x1000'}}" alt="{{ media.alt }}">
@@ -19,7 +19,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="product__nav-carousel nav-carousel carousel" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
+                <div class="product__nav-carousel nav-carousel carousel" id="navImage" data-flickity='{ "cellAlign": "left", "contain": true, "prevNextButtons": false, "pageDots": false, "asNavFor": ".main-carousel" }'>
                     {% for media in product.media %}
                     <div class="product__nav-cell carousel-cell">
                         <img class="product__nav-image lazy" src="{{ media | img_url: '500x500'}}" alt="{{ media.alt }}">
@@ -50,6 +50,27 @@
 </div>
 
 {% include 'sticky-add-to-cart' %}
+<script>
+  document.addEventListener("shopify:section:load", function(event) {
+      var elem = document.querySelector('#mainImage');
+      var flkty = new Flickity( elem, {
+      pageDots: true,
+      cellAlign: 'left',
+      contain: true,
+      prevNextButtons: false
+
+      });
+
+      var elem2 = document.querySelector('#navImage');
+      var flkty2 = new Flickity( elem2, {
+      asNavFor: ".main-carousel",
+      pageDots: false,
+      cellAlign: 'left',
+      contain: true,
+      prevNextButtons: false
+      });
+  });
+</script>
 
 <script>
   var optionRadio1 = document.querySelectorAll('input[name="{{ product.options[0] | downcase }}"]');
@@ -66,6 +87,11 @@
 
   if(document.body.contains(document.getElementById('savePercent'))){
     var savePercent = document.getElementById('savePercent');
+  }
+
+  // <div class="product-form__sold-out" id="soldOut">{{ 'products.product.sold_out' | t }}</div>
+  if(document.body.contains(document.getElementById('soldOut'))){
+    var soldOut = document.getElementById('soldOut');
   }
 
   var priceElem = document.getElementById('price');
@@ -180,6 +206,7 @@
     var id = '';
     var available;
     var inv_qty = {};
+    var out_of_stock = false;
     var firstElemIventory = {{ product.variants.first.inventory_quantity }};
     // Loop through all of the variants to check if the option values match any of the variant combinations
     {% for v in product.variants %}
@@ -194,6 +221,9 @@
         var comparedPrice = Math.round(compare);
         
         inv_qty[id] = {{ v.inventory_quantity | default: 0 }};
+        {% if v.inventory_quantity == 0 %}
+          out_of_stock = true;
+        {% endif %}
       }
     {% endfor %}
     // URL Query String
@@ -210,17 +240,15 @@
         savePercent.style.display = "none";
       } else if(compare_price > price) {
         comparePrice.style.display = "block";
-        savePercent.style.display = "block";
+        savePercent.style.display = "flex";
         comparePrice.innerHTML = compare_price;
-        if(document.body.contains(document.getElementById('savePercent'))){
         savePercent.innerHTML = "{{ 'products.product.save' | t }} "+comparedPrice+"%"
-        }
       }
 
       //Inventory
       if(document.body.contains(document.getElementById('SKU'))){
         document.querySelector('.product-stock').style.display = "flex";
-        if(inv_qty[id] < 10){
+        if(inv_qty[id] < 5){
           SKU.innerHTML = 'Only '+inv_qty[id]+' left!'
           document.querySelector('.product-stock span').style.display = 'none';
           document.querySelector('.product-stock').style.color = 'var(--clr-warning)';

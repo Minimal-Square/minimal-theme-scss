@@ -28,12 +28,12 @@
     <div class="product-form__price-elements">
         <div class="product-form__badges">
             {% if product.available == true %}
-                <span class="product-form__save" id="savePercent">{{ 'products.product.save' | t }} {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
+                <span class="product-form__save flex" id="savePercent">{{ 'products.product.save' | t }} {{ product.variants[0].compare_at_price | minus: product.price | times: 100.0 | divided_by: product.variants[0].compare_at_price | money_without_currency | times: 100 | remove: '.0'}}%</span>
             {% elsif product.available == false %}
-                <div class="product-form__sold-out">{{ 'products.product.sold_out' | t }}</div>
+                <div class="product-form__sold-out" id="soldOut">{{ 'products.product.sold_out' | t }}</div>
             {% endif %}
         </div>
-        <h4 class="product-form__compare-price" id="compare_price">{{ product.compare_at_price_max | money }}</h4>
+        <h4 class="product-form__compare-price" id="compare_price">{{ product.variants[0].compare_at_price | money }}</h4>
         <h4 class="product-form__price" id="price">{{ product.price | money }}</h4>
     </div>
 
