@@ -179,7 +179,7 @@
                 "max": 100,
                 "step": 5,
                 "default": 50,
-                "unit": "%" 
+                "unit": "%"
             }
         ]
     },
@@ -258,10 +258,35 @@
                 ]
             },
             {
+                "type": "header",
+                "content": "Progress bar"
+            },
+            {
                 "type": "checkbox",
                 "id": "cart_notes_enable",
                 "label": "Enable notes",
                 "default": true
+            },
+            {
+                "type":"checkbox",
+                "label":"enable free shipping bar",
+                "id":"is_free_shipping_bar",
+                "default":false
+            },
+            {
+                "type":"text",
+                "id":"promote_free_shipping_txt",
+                "label":"message to promote free shipping"
+            },
+            {
+                "type":"text",
+                "id":"unlocked_free_shipping_txt",
+                "label":"message for unlocked free shipping"
+            },
+            {
+                "type":"text",
+                "id":"free_shipping_treshold",
+                "label": "treshold for free shipping"
             }
         ]
     },
