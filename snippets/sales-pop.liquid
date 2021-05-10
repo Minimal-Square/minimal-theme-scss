@@ -1,0 +1,25 @@
+{% if section.settings.sales_pop == true %}
+    <section class="sales-pop custom-social-proof">
+        <div class="sales-pop__container">
+            <img class="sales-pop__image" src="https://cdn.shopify.com/s/files/1/0534/1744/3492/products/Outline-studio-armchair-fiord-151-Muuto_5478x5478_6358b239-ddff-4ce1-8efd-3930628544d1_1000x1000.jpg">
+            <div class="sales-pop__content-wrapper">
+                <p class="sales-pop__customer">Nemanja M. <span class="sales-pop__customer-city">(Jagodina, Serbia)</span></p>
+                <p class="sales-pop__product">has purchased<a href="">Base round table</a></p>
+                <div class="sales-pop__verified">
+                    <p class="sales-pop__time">2 hours ago</p>
+                    <span class="sales-pop__icon icon icon-check-circle"></span>
+                    <p class="sales-pop__verified-text">Verified purchase</p>
+                </div>
+            </div>
+        </div>
+        <div class="sales-pop__close icon icon-x"></div>
+    </section>
+{% endif %}
+
+<script>
+    setInterval(function(){
+        $(".sales-pop").stop().slideToggle('slow'); }, 3000);
+        $(".sales-pop__close").click(function() {
+        $(".sales-pop").stop().slideToggle('slow');
+    });
+</script>

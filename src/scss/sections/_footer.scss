@@ -1,0 +1,186 @@
+.footer {
+    // py-8 md:py-12 w-full clr-footer-background bottom-0
+
+    background: var(--clr-footer-background);
+    width: 100%;
+    bottom: 0;
+    padding: 2rem 0;
+    @include mq($from: tablet) {
+        padding: 3rem 0;
+    }
+
+    &__wrapper {
+        // max-width mx-auto md:grid gap-5 space-y-12 md:space-y-0
+
+        @extend .container;
+        @include mq($from: tablet) {
+            display: grid;
+            gap: 1.25rem;
+        }
+    }
+
+    &__wrapper--cols-1 {
+        @include mq($from: tablet) {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+    }
+
+    &__wrapper--cols-2 {
+        @include mq($from: tablet) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    &__wrapper--cols-3 {
+        @include mq($from: tablet) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    &__wrapper--cols-4 {
+        @include mq($from: tablet) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    &__wrapper--cols-5 {
+        @include mq($from: tablet) {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+    }
+}
+
+.footer__heading {
+    // mb-4 clr-footer-headings heading-xs
+
+    margin-bottom: 1rem;
+    font-size: var(--font-size-heading-5);
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight);
+    color: var(--clr-footer-headings);
+}
+
+// Block text
+.footer-text {
+    // text-center space-y-6 md:text-left
+
+    text-align: center;
+    @include mq($from: tablet) {
+        text-align: left;
+    }
+
+    .footer-text__image {
+        // object-cover mx-auto md:m-0
+
+        object-fit: cover;
+        margin: 0 auto;
+        @include mq($from: tablet) {
+            margin: 0;
+        }
+    }
+
+    .footer-text__text {
+        // mb-8 clr-footer-text body-md
+
+        margin-bottom: 2rem;
+        color: var(--clr-footer-text);
+        font-size: var(--font-size-body);
+    }
+
+    .footer-text__social {
+        // flex justify-center md:justify-start space-x-2
+
+        display: flex;
+        justify-content: space-between;
+        @include mq($from: tablet) {
+            justify-content: flex-start;
+        }
+
+        &-wrapper {
+            // flex space-x-2
+
+            display: flex;
+            a:not(:last-child) {
+                margin-right: 0.5rem;
+            }
+        }
+
+        &-icon {
+            @extend .icon-md;
+        }
+    }
+}
+
+//Block newsletter
+.footer-newsletter {
+    // flex flex-col text-center w-full md:text-left
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    @include mq($from: tablet) {
+        text-align: left;
+    }
+
+    &__text {
+        // md:text-left pb-4 clr-footer-text body-md
+
+        color: var(--clr-footer-text);
+        font-size: var(--font-size-body);
+        margin-bottom: 1rem;
+        @include mq($from: tablet) {
+            text-align: left;
+        }
+    }
+
+    &__btn {
+        // btn-lg btn-primary w-full xl:w-auto
+
+        @include btn-medium;
+        @extend .btn-primary;
+        width: 100%;
+        @include mq($from: wide) {
+            width: auto;
+        }
+    }
+
+    &__input {
+        // input clr-form-background clr-form-text clr-form-border border-input mb-2 xl:mb-0 xl:mr-2
+        @extend .input;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        @include mq($from: wide) {
+            margin-right: 0.5rem;
+            margin-bottom: 0;
+        }
+    }
+
+    &__error {
+        // text-red-600 rounded-md w-full py-1 px-4
+        //bg-red-100 flex items-center space-x-2 mb-2
+
+        background: var(--clr-error-light);
+        color: var(--clr-error);
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        @include border-radius(4px);
+        width: 100%;
+        padding: 0.25rem 1rem;
+    }
+
+    &__success {
+        // text-center text-green-700
+
+        color: var(--clr-success);
+        text-align: center;
+        @include mq($from: desktop) {
+            text-align: left;
+        }
+    }
+
+    &__icon {
+        @extend .icon-xs;
+    }
+}

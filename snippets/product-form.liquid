@@ -2,7 +2,7 @@
     <div class="tile__reviews items-center block sm:flex">
         <div class="flex">
             {% if settings.shopify_star == true %}
-            <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}"></span>
+            <span class="shopify-product-reviews-badge flex" data-id="{{ product.id }}" style="height: 32px;"></span>
             {% endif %}
             <div class="yotpo bottomLine {%- if settings.yotpo_star != true -%} flex {% elsif settings.yotpo_star == false %} hidden {%- endif -%}" data-product-id="{{ product.id }}">
                 {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}

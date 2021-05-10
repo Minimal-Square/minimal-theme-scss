@@ -1,0 +1,206 @@
+// Container
+.spr-container {
+    @include border-radius(4px);
+    padding: 0 !important;
+}
+
+// Header
+.spr-header {
+    border-bottom: 1px solid var(--clr-internal-border);
+    padding: 1.5rem;
+}
+
+.spr-header-title {
+    font-size: var(--font-size-heading-4) !important;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight);
+    margin-bottom: 0.25rem !important;
+    @include mq($until: tablet) {
+        text-align: left !important;
+    }
+}
+
+.spr-review-header-title {
+    font-size: var(--font-size-heading-4) !important;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight);
+    margin-top: 0.5rem !important;
+}
+
+.spr-summary {
+    display: flex;
+    @include mq($until: tablet) {
+        display: block !important;
+        text-align: left !important;
+    }
+    align-items: center;
+}
+
+.spr-summary-actions {
+    flex-grow: 1;
+    
+}
+
+.spr-summary-actions-togglereviews {
+    color: var(--clr-general-light-text);
+    font-size: var(--font-size-body);
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.spr-summary-starrating {
+    margin-right: 0.75rem !important;
+}
+
+.spr-summary-actions-newreview {
+    @extend .btn-secondary;
+    @include btn-small;
+    display: inline-flex !important;
+    @include mq($until: mobile) {
+        margin-top: 1rem !important;
+        display: block;
+    }
+}
+
+// Content
+.spr-content {
+    padding: 0 1.5rem;
+}
+
+.spr-badge {
+    margin-bottom: 0.5rem;
+}
+
+.spr-badge-starrating {
+    font-size: var(--font-size-body-tiny);
+    @include mq($from: tablet) {
+        font-size: 0.8rem;
+    }
+}
+
+.spr-icon.spr-icon-star-empty {
+    color: var(--clr-general-light-text);
+    opacity: 1;
+}
+
+.spr-icon {
+    font-size: var(--font-size-body-smaller);
+    color: var(--clr-product-review-star);
+}
+
+.spr-icon:not(:last-child) {
+    margin-right: 0.1em;
+}
+
+.spr-starratings {
+    font-size: 0.625rem !important;
+}
+
+.spr-badge-caption {
+    font-size: var(--font-size-body-tiny);
+    color: var(--clr-general-text);
+    margin-left: 0.25rem;
+}
+
+.spr-reviews {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include mq($until: tablet) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+.spr-review {
+    border: none !important;
+    padding: 0 0 1.5rem 0 !important;
+}
+
+.spr-review:nth-child(odd) {
+    margin-right: 2.5rem !important;
+    @include mq($until: tablet) {
+        margin-right: 0 !important;
+    }
+}
+
+.spr-review:first-child {
+    margin-top: 0 !important;
+}
+
+.spr-review-reportreview {
+    color: var(--clr-general-links);
+}
+
+.spr-review-reply {
+    background: var(--clr-internal-light-gray) !important;
+    @include border-radius(4px);
+}
+
+.spr-review-header-byline {
+    font-size: var(--font-size-body-smallest) !important;
+    margin-top: 0.5rem !important;
+    font-weight: 300;
+    color: var(--clr-general-light-text);
+    font-style: normal !important;
+    opacity: 1 !important;
+
+    strong {
+        font-weight: 300;
+    }
+}
+
+.spr-review-content-body {
+    font-size: var(--font-size-body) !important;
+    color: var(--clr-general-text);
+    line-height: 1.625 !important;
+}
+
+.spr-review-reply-body {
+    color: var(--clr-general-text);
+}
+
+.spr-review-reply-shop {
+    color: var(--clr-general-text);
+}
+
+// Form
+
+.spr-form {
+    max-width: 640px;
+    margin: 2.5rem auto !important;
+    padding: 0 !important;
+    border-top: 0 !important;
+}
+
+.spr-form-title {
+    font-size: var(--font-size-heading-4) !important;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.spr-form-label {
+    font-size: var(--font-size-body-small) !important;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    margin-top: 1.25rem;
+    display: block;
+    color: var(--clr-general-text);
+    font-weight: 300;
+}
+
+.spr-form-input-text, .spr-form-input-email {
+    @extend .input;
+}
+
+.spr-form-input-textarea {
+    @extend .textarea;
+}
+
+.spr-button {
+    @include btn-medium;
+}
+
+.spr-form-message-success {
+    color: var(--clr-success);
+}

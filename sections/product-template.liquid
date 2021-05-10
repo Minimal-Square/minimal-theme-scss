@@ -50,6 +50,8 @@
 </div>
 
 {% include 'sticky-add-to-cart' %}
+{% render 'sales-pop' %}
+
 <script>
   document.addEventListener("shopify:section:load", function(event) {
       var elem = document.querySelector('#mainImage');
@@ -451,6 +453,35 @@
                 {
                     "value": "sticky_atc_bottom",
                     "label": "Bottom"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Sales pop"
+        },
+        {
+            "type": "checkbox",
+            "id": "sales_pop",
+            "label": "Activate sales pop",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Swatch settings"
+        },
+        {
+            "type": "select",
+            "id": "swatch_type",
+            "label": "Swatch type",
+            "options": [
+                {
+                    "value": "swatch_type_image",
+                    "label": "Image"
+                },
+                {
+                    "value": "swatch_type_text",
+                    "label": "Text"
                 }
             ]
         }
