@@ -193,7 +193,6 @@
     changeButton();
   {% endunless %}
 
-
   // Function runs every time a variant radio button or select dropdown changes.
   function updateProductInformation() {
     // Save the option select values
@@ -228,6 +227,7 @@
         {% endif %}
       }
     {% endfor %}
+
     // URL Query String
     // console.log(window.location.search);
     // If variant has an id then set the cart to the selected variant and change the price field.
@@ -248,6 +248,11 @@
       }
 
       //Inventory
+
+      // {% if variant.inventory_policy == "continue" %}
+      // {% else %}
+      // {% endif %}
+
       if(document.body.contains(document.getElementById('SKU'))){
         document.querySelector('.product-stock').style.display = "flex";
         if(inv_qty[id] < 5){

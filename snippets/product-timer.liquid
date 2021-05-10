@@ -41,6 +41,8 @@
     	document.querySelector('.js-timer-seconds').innerText = Math.floor((distance % (minute)) / second);
         if(distance >= 0){
             document.querySelector('.timer').style.display = "flex";
+        } else {
+            document.querySelector('.timer__wrapper').style.height = "0";
         }
     }, second)
 </script>

@@ -1,3 +1,5 @@
+
+
 <div class="product-form">
     <div class="tile__reviews items-center block sm:flex">
         <div class="flex">
@@ -68,7 +70,7 @@
     {% if product.variants.size > 1 %}
         {% for option in product.options %}
         {% assign option_index = forloop.index0 %}
-            {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
+            {% if section.settings.swatch_type == true and product.options[option_index] == 'Color' or section.settings.swatch_type == true and product.options[option_index] == 'Colour' %}
                 <div class="product-option">
                     <!-- <div class="mb-4"> -->
                         <legend><h5 class="product-option__title">{{ option }}: <span id="legendSpan"></span></h5></legend>
@@ -76,13 +78,16 @@
                             {% assign used = '' %}
                             {% for variant in product.variants %}
                                 {% unless used contains variant.options[option_index] %}
-                                    <div class="product-option__swatch">
+                                    <div class="product-option__swatch color_swatch" data-tippy-content="{{variant.options[option_index]}}">
                                         {% assign variantName = variant.options[option_index] | downcase %}
                                         {% assign variantColor = variantName | split: ' ' %}
                                         {% assign variantImg = variantName | split: ' ' | join: '-' | append: '.png' %}
                                         <label class="product-option__label" for="{{ option | downcase }}-{{ variant.id }}" value="{{ variant.options[option_index] }}" style="z-index: 5;">
-                                            <input class="product-option__input" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
-                                            <div class="product-option__btn product-option__btn--color" onclick="changeRadioValue()" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+                                            <input class="product-option__input" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" data-variant-color-available="{{variant.available}}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+                                            <div class="product-option__btn product-option__btn--color swatch">
+                                                <div class="product-option__btn product-option__btn--color" onclick="changeRadioValue()" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="background-color: {{ variantColor }}; background-image: url({{ variantImg | asset_img_url: '100x' }}); background-position: center; background-size: cover;"></div>
+                                            </div>
+                                            
                                         </label>
                                         {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
                                     </div>
@@ -100,7 +105,7 @@
                             {% for variant in product.variants %}
                                 {% unless used contains variant.options[option_index] %}
                                     <div class="product-option__swatch">
-                                        <input class="product-option__input" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
+                                        <input class="product-option__input" type="radio" name="{{ option | downcase }}" value="{{ variant.options[option_index] }}" data-id="{{ variant.id }}" id="{{ option | downcase }}-{{ variant.id }}" data-variant-option-available="{{variant.available}}" onclick="updateProductInformation();getCheckedValue(event, this.value)">
                                         <label class="product-option__btn product-option__btn--default" for="{{ option | downcase }}-{{ variant.id }}" onclick="changeRadioValue()" data_variant_option_chosen_value="{{  variant.options[option_index] }}" style="z-index: 5;">{{ variant.options[option_index] }}</label>
                                         {% capture used %}{{ used }} {{ variant.options[option_index] }}{% endcapture %}
                                     </div>
@@ -111,8 +116,24 @@
                 </div>
             {% endif %}
 
-            {% if product.options[option_index] == 'Color' or product.options[option_index] == 'Colour' %}
+            {% if section.settings.swatch_type == true and product.options[option_index] == 'Color' or section.settings.swatch_type == true and product.options[option_index] == 'Colour'  %}
                 <style>
+                    input[data-variant-color-available="false"] + .swatch::before {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        background-image: url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiPjwvbGluZT48L3N2Zz4=");
+                        content: "";
+                        opacity: 0.5;
+                    }
+
+                    input[data-variant-color-available="false"] + .swatch {
+                        position: relative;
+                    }
+                    
                     input[name='color']+div {
                     border: 1px solid var(--clr-button-secondary-border);
                     color: var(--clr-);
@@ -150,6 +171,11 @@
                         transition: all 150ms ease-out;
                         box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
                     }
+                    
+                    input[data-variant-option-available="false"]+label {
+                        text-decoration: line-through;
+                        opacity: 0.5;
+                    }
                 </style>
             {% endif %}
 
@@ -158,6 +184,12 @@
                 filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.08));
             }
             </style>
+
+            <script>
+                tippy('.color_swatch', {
+                    placement: 'bottom'
+                });
+            </script>
 
         {% endfor %}
     {% endif %}

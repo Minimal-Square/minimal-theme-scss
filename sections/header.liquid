@@ -249,6 +249,35 @@ max-height: 60vh;
 {
     "name": "Header",
     "settings": [
+    
+        {
+            "type":"checkbox",
+            "label":"enable free shipping bar",
+            "id":"is_free_shipping_bar",
+            "default":false
+        },
+        {
+            "type":"text",
+            "id":"promote_free_shipping_txt",
+            "label":"message to promote free shipping"
+        },
+        {
+            "type":"text",
+            "id":"unlocked_free_shipping_txt",
+            "label":"message for unlocked free shipping"
+        },
+        {
+            "type":"range",
+            "id":"free_shipping_treshold",
+            "label": "treshold for free shipping",
+            "min":0,
+            "max":200,
+            "step":5,
+            "unit":"€",
+            "default":50
+        },
+
+        //--------------------------------------------
         {
             "type": "image_picker",
             "id": "header_logo",
