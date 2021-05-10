@@ -855,6 +855,10 @@ summary {
   visibility: visible;
 }
 
+.shopify-product-reviews-badge {
+  height: 32px;
+}
+
 .badge, .tile__sold-out, .tile__save, .product-form__price-elements .product-form__badges .product-form__save, .product-form__price-elements .product-form__badges .product-form__sold-out {
   font-size: var(--font-size-body-smallest);
   font-weight: 500;
@@ -1068,6 +1072,11 @@ summary {
 .timer__icon {
   margin-right: 0.5rem;
   color: var(--clr-error);
+}
+
+.timer__wrapper {
+  height: 38px;
+  margin-bottom: 0.5rem;
 }
 
 .timer__title {
