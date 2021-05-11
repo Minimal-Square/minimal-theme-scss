@@ -15,7 +15,7 @@
 
 {%- case template.name -%}
   {%- when 'product' -%}
-    {%- assign og_title = product.title | strip_html -%}
+    {%- assign og_title = product.title | strip_html -%} 
     {%- assign og_type = 'product' -%}
 
     {%- if product.images.size > 0 -%}
