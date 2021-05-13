@@ -57,9 +57,9 @@
     display: block;
 }
 
-/* #shopify-section-{{ section.id }} .grid-autofit {
+#shopify-section-{{ section.id }} .grid-autofit {
     grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-} */
+}
 
 #shopify-section-{{ section.id }} .megamenu-image-width {
     width: 300px;
@@ -77,18 +77,18 @@
 
 {% assign mega = '' | split: ',' %}
 
-<header class="header {% if template == index %} header--absolute {% endif %}">
+<header class="header{% if template == index %} absolute {% endif %} w-full">
     <!-- <div class="w-full bg-black bg-opacity-40 absolute top-0 left-0 right-0 bottom-0 h-screen hidden overlaySearch" style="z-index: 5;"></div> -->
-        <div class="header__grid {% if section.settings.header_width == 'full-width' %} header--full-width {% elsif section.settings.header_width == 'content-width' %} header--content-width {% endif %}">
-            <nav class="header-nav">
-                <ul class="header-nav__links">
+    <!-- <div class="bg-white relative z-10 header shadow-small"> -->
+        <div class="grid grid-cols-3 items-center {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} max-width mx-auto {% endif %}">
+            <nav class="flex h-full items-center justify-start">
+                <ul class="hidden ml-4 lg:flex h-full">
                 {% for link in linklists[section.settings.header_main_menu].links %}
                     <li>
-                    <a class="header-nav__link parent_link animateHeight" href="{{ link.url }}">
-                        <p class="header-nav__title">{{ link.title }}</p>
+                    <a class="flex items-center body-md px-4 space-x-1 h-full truncate parent_link animateHeight" href="{{ link.url }}"><p>{{ link.title }}</p>
                         {% if link.links != blank %}
                             {% if linklists[section.settings.header_main_menu].levels > 1 %}
-                                <span class="header-nav__icon icon icon-chevron-down"></span>
+                                <span class="icon icon-chevron-down"></span>
                             {% endif %}
                         {% endif %}
                     </a>
@@ -103,20 +103,20 @@
                     {% if mega contains link.title %}
                         {% for block in section.blocks %}
                             {% if block.settings.header_megamenu_image_trigger == link.title %}
-                                <div class="header-mega dropdown-menu megamenu-height">
-                                    <div class="header-mega__wrapper header_content child_mega {% if section.settings.header_width == 'full-width' %} header--full-width {% elsif section.settings.header_width == 'content-width' %} header--content-width {% endif %}{% if link.levels == 1 %} header--dropdown {% endif %}">
-                                        <ul class="header-mega__child-links
+                                <div class="bg-white shadow-md absolute invisible z-50 dropdown-menu megamenu-height left-0 w-full">
+                                    <div class="flex py-8 {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} max-width mx-auto  {% endif %}{% if link.levels == 1 %} flex-col px-4 {% endif %} w-full header_content child_mega">
+                                        <ul class="flex-1 grid-autofit grid gap-5
 
-                                        {% if link.links.size == 1 %} header-mega__cols-1 {% elsif link.links.size == 2 %} header-mega__cols-2 {% elsif link.links.size == 3 %} header-mega__cols-3 {% elsif link.links.size >= 4 %} header-mega__cols-4 {% endif %}">
+                                        {% if link.links.size == 1 %} grid-cols-1 {% elsif link.links.size == 2 %} grid-cols-2 {% elsif link.links.size == 3 %} grid-cols-3 {% elsif link.links.size >= 4 %} grid-cols-4 {% endif %}">
                                         
                                             {% for child_link in link.links %}
-                                            <li class="header-mega__child-linklist">
-                                                <a href="{{ child_link.url }}" class="header-mega__child-link">{{ child_link.title }}</a>
+                                            <li class="inline-block ">
+                                                <a href="{{ child_link.url }}" class="font-semibold heading-xs">{{ child_link.title }}</a>
                                                 {% if child_link.links != blank %}
-                                                    <ul class="header-mega__grand-links grandchild">
+                                                    <ul class="grandchild body-md block space-y-2 mt-4">
                                                         {% for grandchild_link in child_link.links %} 
-                                                        <li class="header-mega__grand-linklist">
-                                                            <a class="header-mega__grand-link" href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                                        <li class="block">
+                                                            <a class="block h-full w-full" href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
                                                         </li>
                                                         {% endfor %}
                                                     </ul>
@@ -124,29 +124,29 @@
                                             </li>
                                             {% endfor %}
                                         </ul>
-                                        <div class="header-mega__promo {% if block.settings.header_megamenu_image_position == 'first-column' %} header-mega--first {% elsif block.settings.header_megamenu_image_position == 'last-column' %} header-mega--last {% endif %}">
+                                        <div class="flex space-x-5 {% if block.settings.header_megamenu_image_position == 'first-column' %} order-first mr-5 {% elsif block.settings.header_megamenu_image_position == 'last-column' %} order-last ml-5 {% endif %}">
 
                                             {% unless block.settings.header_megamenu_image_1 == blank %}
-                                                <div class="header-mega__promo-wrapper {% if block.settings.header_megamenu_image_2 != blank %} header-mega__promo--space {% endif %} image megamenu-image-width">
+                                                <div class="image megamenu-image-width">
                                                     <a href="{{ block.settings.header_megamenu_image_url_1 }}">
                                                         <div class="aspect-w-4 aspect-h-5">
-                                                            <img class="header-mega__image" src="{{ block.settings.header_megamenu_image_1 | img_url: 'master' }}" alt="">
+                                                            <img class="object-cover" src="{{ block.settings.header_megamenu_image_1 | img_url: 'master' }}" alt="">
                                                         </div>
                                                     </a>
-                                                    <p class="header-mega__promo-text">
+                                                    <p class="body-md py-4">
                                                         <a href="{{ block.settings.header_megamenu_image_url_1 }}">{{ block.settings.header_megamenu_image_text_1 }}</a>
                                                     </p>
                                                 </div> 
                                             {% endunless %}
 
                                             {% unless block.settings.header_megamenu_image_2 == blank %}
-                                                <div class="header-mega__promo-wrapper image megamenu-image-width">
+                                                <div class="image megamenu-image-width">
                                                     <a href="{{ block.settings.header_megamenu_image_url_2 }}">
                                                         <div class="aspect-w-4 aspect-h-5">
-                                                            <img class="header-mega__image" src="{{ block.settings.header_megamenu_image_2 | img_url: 'master' }}" alt="">
+                                                            <img class="object-cover" src="{{ block.settings.header_megamenu_image_2 | img_url: 'master' }}" alt="">
                                                         </div>
                                                     </a>
-                                                    <p class="header-mega__promo-text">
+                                                    <p class="body-md py-4">
                                                         <a href="{{ block.settings.header_megamenu_image_url_2 }}">{{ block.settings.header_megamenu_image_text_2 }}</a>
                                                     </p>
                                                 </div>
@@ -158,25 +158,26 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        <!-- DEFAULT LINKS -->
-                        <div class="header-dropdown dropdown-menu megamenu-height">
-                            <div class="header-dropdown__wrapper header_content">
-                                <ul class="header-dropdown__child-links child_default">
+
+                    <!-- DEFAULT LINKS -->
+                        <div class="bg-white shadow-md absolute invisible z-50 dropdown-menu w-60 megamenu-height">
+                            <div class="flex {% if section.settings.header_width == 'full-width' %} px-3 sm:px-4 lg:6 {% elsif section.settings.header_width == 'content-width' %} mx-auto {% endif %} flex-col w-full header_content">
+                                <ul class="child_default">
                                 
                                 {% for child_link in link.links %}
                                 {% unless mega contains link.title %}
-                                    <li class="header-dropdown__child-linklist">
-                                        <a class="header-dropdown__child-link" href="{{ child_link.url }}">
-                                            <p class="header-dropdown__child-title">{{ child_link.title }}</p>
+                                    <li class="w-full relative">
+                                        <a href="{{ child_link.url }}" class="body-md flex items-center py-2 px-4 justify-between">
+                                            <p>{{ child_link.title }}</p>
                                             {% if child_link.links != blank %}
-                                                <span aria-hidden="true" class="header-dropdown__icon icon icon-chevron-right navDropdown chevronNav"></span>
+                                                <span aria-hidden="true" class="text-2xl icon icon-chevron-right cursor-pointer navDropdown chevronNav"></span>
                                             {% endif %}
                                         </a>
                                         {% if child_link.links != blank %}
-                                        <ul class="header-dropdown__grand-links grandchild_default">
+                                        <ul class="grandchild_default body-md px-4 whitespace-nowrap">
                                             {% for grandchild_link in child_link.links %} 
-                                            <li class="header-dropdown__grand-linklist">
-                                                <a class="header-dropdown__grand-link" href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                            <li class="block py-2">
+                                                <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
                                             </li>
                                             {% endfor %}
                                         </ul>
@@ -193,53 +194,48 @@
                 {% endfor %}
                 </ul>
                 
-                <div class="header-hamburger">
-                <a href="#" id="toggleSidebar">
-                    <button class="header-hamburger__btn hamburger--squeeze" type="button">
-                        <span class="header-hamburger__box hamburger-box">
-                            <span class="header-hamburger__inner hamburger-inner"></span>
-                        </span>
-                    </button>
-                </a>
+                <div class="w-6 h-6 lg:hidden">
+                <a href="#" id="toggleSidebar"><button class="hamburger hamburger--squeeze" type="button">
+                    <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                    </span>
+                </button></a>
                 </div>
 
             </nav>
-            <div class="header-logo">
-                <a class="header-logo__link" href="{{ routes.root_url }}">
+            <div class="flex text-2xl font-semibold justify-center">
+                <a class="py-4" href="{{ routes.root_url }}">
                 {% if section.settings.header_logo != blank %}
-                    <img class="header-logo__image" style="height: {{ section.settings.header_logo_height }}px;" src="{{ section.settings.header_logo | img_url: '200x200' }}" alt="{{ shop.name }}">
+                    <img class="object-cover" style="height: {{ section.settings.header_logo_height }}px;" src="{{ section.settings.header_logo | img_url: '200x200' }}" alt="{{ shop.name }}">
                 {% elsif section.settings.header_logo == blank %}
                     {{ shop.name }}
                 {% endif %}
                 </a>
             </div>
-            <div class="header-icons">
-                <div class="header-icons__search search {% if section.settings.header_search_activate == true %} header-icons__search--active {% elsif section.settings.header_search_activate == false %} header-icons__search--inactive {% endif %}">
-                    <span class="header-icons__icon icon icon-search" aria-hidden="true"></span>
+            <div class="flex justify-end space-x-4">
+                <div class="search flex {% if section.settings.header_search_activate == true %} flex {% elsif section.settings.header_search_activate == false %} hidden {% endif %}">
+                    <span class="text-2xl icon icon-search" aria-hidden="true"></span>
                 </div>
+                <div class="my-account hidden lg:flex">
                 {% if shop.customer_accounts_enabled %}
-                <div class="header-icons__my-account my-account">
                     {% if customer %}
-                    <a href="{{ routes.account_url }}">
-                        <span class="header-icons__icon icon icon-user" aria-hidden="true"></span>
-                    </a>
+                    <a href="{{ routes.account_url }}"><span class="text-2xl icon icon-user" aria-hidden="true"></span></a>
                     {% else %}
-                    <a href="{{ routes.account_login_url }}">
-                        <span class="header-icons__icon icon icon-user" aria-hidden="true"></span>
-                    </a>
+                    <a href="{{ routes.account_login_url }}"><span class="text-2xl icon icon-user" aria-hidden="true"></span></a>
                     {% endif %}
-                </div>
                 {% endif %}
-                <div class="header-icons__cart cart" data-cart-view>
-                <a class="header-icons__link" href="{% if settings.cart_type == 'cart_type_page' %}/cart{% endif %}">
-                    <span class="header-icons__icon icon icon-shopping-cart relative" aria-hidden="true">
-                        <div class="header-icons__cart-active" rv-show="cart.item_count | gt 0" rv-html="cart.item_count">{{cart.item_count}}</div>
+                </div>
+                <div class="cart" data-cart-view>
+                <a href="{% if settings.cart_type == 'cart_type_page' %}/cart{% endif %}"{% if settings.cart_type == 'cart_type_drawer' %}@click.prevent="cartOpen = true"{% endif %}class="flex space-x-4">
+                    <span class="text-2xl icon icon-shopping-cart relative" aria-hidden="true">
+                        <div class="-mr-1 w-4 h-4 text-center items-center body-xs bg-yellow-400 rounded-full absolute top-0 right-0" rv-show="cart.item_count | gt 0" rv-html="cart.item_count">{{cart.item_count}}</div>
                     </span>
                 </a>
                 </div>
             </div>
         </div>
-    {% render 'mobile-navmenu' %}
+        {% render 'mobile-navmenu' %}
+    <!-- </div> -->
 </header>
 
 {% schema %}

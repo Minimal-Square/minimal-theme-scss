@@ -184,3 +184,100 @@
         @extend .icon-xs;
     }
 }
+
+.footer-links {
+    // flex text-center justify-center md:text-left md:justify-start
+
+    display: block;
+    text-align: center;
+    @include mq($from: tablet) {
+        text-align: left;
+    }
+
+    .footer__link:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
+    a {
+        color: var(--clr-general-links);
+        font-size: var(--font-size-body);
+    }
+}
+
+.footer-mini {
+    // max-width mx-auto block pt-8 md:pt-12 space-y-4
+    // md:space-y-0 md:flex md:justify-between items-center
+
+    @extend .container;
+    display: block;
+    padding-top: 2rem;
+    @include mq($from: tablet) {
+        padding-top: 3rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    align-items: center;
+
+    &__left {
+        // text-center md:text-left
+
+        text-align: center;
+        @include mq($from: tablet) {
+            text-align: left;
+        }
+    }
+
+    &__links {
+        // flex space-x-2 justify-center mb-1
+
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+
+    &__link {
+        // clr-general-links body-sm border-nav pr-2 leading-none
+
+        color: var(--clr-general-links);
+        font-size: var(--font-size-body-smaller);
+        line-height: 0.8 !important;
+    }
+
+    &__link:not(:last-child) {
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        border-right: 1px solid var(--clr-general-light-text);
+    }
+    
+    &__copyright {
+        // clr-general-light-text body-sm
+
+        color: var(--clr-general-light-text);
+        font-size: var(--font-size-body-smaller);
+        display: block;
+    }
+
+    &__powered {
+        // clr-general-links body-sm
+
+        color: var(--clr-general-links);
+        font-size: var(--font-size-body-smaller);
+    }
+
+    &__right {
+        // lg:flex justify-center items-end
+
+        @include mq($from: desktop) {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+    }
+
+    &__payments {
+        // flex justify-center space-x-2
+
+        display: flex;
+        justify-content: center;
+    }
+}
