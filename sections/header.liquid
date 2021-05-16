@@ -78,7 +78,8 @@
 {% assign mega = '' | split: ',' %}
 
 <header class="header {% if template == index %} header--absolute {% endif %}">
-    <!-- <div class="w-full bg-black bg-opacity-40 absolute top-0 left-0 right-0 bottom-0 h-screen hidden overlaySearch" style="z-index: 5;"></div> -->
+    <div class="w-full bg-black bg-opacity-40 absolute top-0 left-0 right-0 bottom-0 h-screen hidden overlaySearch" style="z-index: 5;"></div>
+    <div class="relative z-10 bg-white">
         <div class="header__grid {% if section.settings.header_width == 'full-width' %} header--full-width {% elsif section.settings.header_width == 'content-width' %} header--content-width {% endif %}">
             <nav class="header-nav">
                 <ul class="header-nav__links">
@@ -214,7 +215,7 @@
                 </a>
             </div>
             <div class="header-icons">
-                <div class="header-icons__search search {% if section.settings.header_search_activate == true %} header-icons__search--active {% elsif section.settings.header_search_activate == false %} header-icons__search--inactive {% endif %}">
+                <div class="header-icons__search search cursor-pointer {% if section.settings.header_search_activate == true %} header-icons__search--active {% elsif section.settings.header_search_activate == false %} header-icons__search--inactive {% endif %}">
                     <span class="header-icons__icon icon icon-search" aria-hidden="true"></span>
                 </div>
                 {% if shop.customer_accounts_enabled %}
@@ -239,7 +240,11 @@
                 </div>
             </div>
         </div>
+        {% render 'searchbar' %}
+    </div>
+        
     {% render 'mobile-navmenu' %}
+    
 </header>
 
 {% schema %}

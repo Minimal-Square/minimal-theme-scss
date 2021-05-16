@@ -355,3 +355,85 @@ $('#checkout').click(function() {
     CartJS.addItem(item, quantity, {}, url());
 });
 
+ 
+
+//Free shipping bar ---------------------------
+$(document).on('cart.ready', function(event, cart) {
+  // Event handling here.
+  // Event handling here.
+  var freeShipping = document.querySelector('.free-shipping');
+  var freeShippingInfo = document.querySelector('.shipping-info');
+  var barContainer = document.querySelector('.shipping-container');
+  var bar = document.querySelector('.shipping-bar');
+
+  if(freeShipping){
+    var promote_txt = freeShipping.dataset.promote;
+    var unlocked_txt = freeShipping.dataset.unlocked;
+    var treshold = freeShipping.dataset.treshold;
+    var value_left = treshold - cart.total_price;
+    var value_left_money = Shopify.formatMoney(value_left, "{{ shop.money_format }}");
+
+    var compare = ((treshold-cart.total_price)*100)/treshold;
+    var comparedPrice = Math.round(compare);
+    // console.log(comparedPrice+'%', value_left_money);
+    
+    if(value_left <= 0){
+      freeShippingInfo.innerHTML =  unlocked_txt;
+      bar.style.width = '100%';
+    }
+    else{
+      // freeShippingInfo.innerHTML = promote_txt + ' ' + value_left_money;
+      freeShippingInfo.innerHTML = promote_txt.replace('[value]', value_left_money);
+      bar.style.width = (100 - comparedPrice)+'%';
+
+    }
+  }
+});
+
+ $(document).on('cart.requestComplete', function(event, cart) {
+  // Event handling here.
+  var freeShipping = document.querySelector('.free-shipping');
+  var freeShippingInfo = document.querySelector('.shipping-info');
+  var barContainer = document.querySelector('.shipping-container');
+  var bar = document.querySelector('.shipping-bar');
+
+  if(freeShipping){
+    var promote_txt = freeShipping.dataset.promote;
+    var unlocked_txt = freeShipping.dataset.unlocked;
+    var treshold = freeShipping.dataset.treshold;
+    var value_left = treshold - cart.total_price;
+    var value_left_money = Shopify.formatMoney(value_left, "{{ shop.money_format }}");
+
+    var compare = ((treshold-cart.total_price)*100)/treshold;
+    var comparedPrice = Math.round(compare);
+    // console.log(comparedPrice+'%', value_left_money);
+    
+    if(value_left <= 0){
+      freeShippingInfo.innerHTML =  unlocked_txt;
+      bar.style.width = '100%';
+    }
+    else{
+      // freeShippingInfo.innerHTML = promote_txt + ' ' + value_left_money;
+      freeShippingInfo.innerHTML = promote_txt.replace('[value]', value_left_money);
+      bar.style.width = (100 - comparedPrice)+'%';
+
+    }
+  }
+});
+
+
+//Search bar toggle ---------------------------
+$(function(){
+  $('.search').click(function(e){
+    e.preventDefault();
+    $('.overlaySearch').fadeToggle();
+    $('.searchbar').slideToggle(300);
+    $('.searchbar input').focus();
+  });
+
+  $('.overlaySearch').click(function(){
+    $('.searchbar').slideToggle( 300, function() {
+      $('.overlaySearch').fadeToggle(300);
+   });
+  }); 
+}); 

@@ -1,0 +1,121 @@
+<script>
+    $(function() {
+      // Current Ajax request.
+      var currentAjaxRequest = null;
+      // Grabbing all search forms on the page, and adding a .search-results list to each.
+      var searchForms = $('form[action="/search"]').css('position','relative').each(function() {
+        // Grabbing text input.
+        var input = $(this).find('input[name="q"]');
+        // Adding a list for showing search results.
+        var offSet = input.position().top + input.innerHeight() + 2;
+        $('<ul class="search-results bg-white space-y-2 shadow-sm p-4 rounded-md" id="predictive"></ul>').css( { 'position': 'absolute', 'z-index': '8889',{% if template == 'search'%}'top': offSet,'width': input.outerWidth(), 'left':'0px', 'margin-left':'0px'{% else %}'width': '100%'{% endif %} } ).appendTo($(this)).hide();    
+        // Listening to keyup and change on the text field within these search forms.
+        input.attr('autocomplete', 'off').bind('keyup change', function() {
+          // What's the search term?
+          var term = $(this).val();
+          // What's the search form?
+          var form = $(this).closest('form');
+          // What's the search URL?
+          var searchURL = '/search?type=product&q=' + term;
+          // What's the search results list?
+          var resultsList = form.find('.search-results');
+          // If that's a new term and it contains at least 3 characters.
+          if (term.length > 0 && term != $(this).attr('data-old-term')) {
+            // Saving old query.
+            $(this).attr('data-old-term', term);
+            // Killing any Ajax request that's currently being processed.
+            if (currentAjaxRequest != null) currentAjaxRequest.abort();
+            var ajaxData = {
+            "resources": {
+                "type": 'product,collection',
+                "limit": 10,
+                "options": {
+                    "fields": 'title,product_type,variants.title,tag,vendor'
+                }
+              }
+            };
+            var url2 = '&resources[type]=product,collection'
+            currentAjaxRequest = $.getJSON({
+              'url':  "/search/suggest.json?q=" + term + url2,
+              'type': 'GET',
+              'dataType': 'json', // added data type
+              data: ajaxData,
+              'success': function(data) {
+                       // Reset results.
+             resultsList.empty();
+             // If we have no results.
+             if(data.resources.results.products.length == 0) {
+               // resultsList.html('<li><span class="title">No results.</span></li>');
+               // resultsList.fadeIn(200);
+               resultsList.hide();
+             } else {
+               // If we have results.
+               $.each(data.resources.results.products, function(index, item) {
+                  var link = $('<a class="flex items-center space-x-3"></a>').attr('href', item.url);
+                  var imgurl = item.featured_image.url;
+                  if (imgurl !== null) {
+                    var Fileextension =   imgurl.split('.').pop();
+                    var Imgthumb =  imgurl.replace('.' + Fileextension, '_thumb') + '.' + Fileextension;
+                  }
+                  var priceFormat = Shopify.formatMoney(item.price, "{{ shop.money_format }}" );
+                  link.append('<img class="object-cover w-12 h-12" src="' + Imgthumb + '" />');
+                  link.append('<div><p class="text-sm font-medium">' + item.title + '</p><p class="text-xs">' + priceFormat + '</p></div>');
+                  // link.append('<span class="title">' + item.title + '</span>');
+                  link.wrap('<li class="predictive"></li>');
+                  resultsList.append(link.parent());
+                });
+    
+    
+                var li = $('.predictive');
+                var liSelected;
+                $(window).keydown(function(e){
+                    if(e.which === 40){
+                        if(liSelected){
+                            liSelected.removeClass('selected').removeAttr('id');
+                            next = liSelected.next();
+                            if(next.length > 0){
+                                liSelected = next.focus().addClass('selected').attr('id', 'selected');
+                            }else{
+                                liSelected = li.eq(0).focus().addClass('selected').attr('id', 'selected');
+                            }
+                        }else{
+                            liSelected = li.eq(0).focus().addClass('selected').attr('id', 'selected');
+                        }
+                    }else if(e.which === 38){
+                        if(liSelected){
+                            liSelected.removeClass('selected').removeAttr('id');
+                            next = liSelected.prev();
+                            if(next.length > 0){
+                                liSelected = next.focus().addClass('selected').attr('id', 'selected');
+                            }else{
+                                liSelected = li.last().focus().addClass('selected').attr('id', 'selected');
+                            }
+                        }else{
+                            liSelected = li.last().focus().addClass('selected').attr('id', 'selected');
+                        }
+                    }else if(e.which === 13){
+                      // $('#selected a').trigger('click');
+                      document.querySelector("#selected a").click();
+                    }
+                });
+    
+               // The Ajax request will return at the most 10 results.
+               // If there are more than 10, let's link to the search results page.
+               if(data.results_count > 10) {
+                  resultsList.append('<li><a class="flex items-center justify-center space-x-1" href="' + searchURL + '"><p>View all results</p><svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></a></li>');
+                }
+               resultsList.fadeIn(200);
+             }
+           }
+         });
+            
+          }
+        });
+      });
+      // Clicking outside makes the results disappear.
+      $('body').bind('click', function(){
+        $('.search-results').hide();
+        $(".predictive[active]").removeAttr('active');
+      });
+    });
+    </script>

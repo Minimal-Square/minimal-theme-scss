@@ -1,0 +1,8 @@
+<div class="bg-white py-6 searchbar hidden"><!-- Change to pb-6 -->
+    <form class="max-w-lg mx-auto relative" action="/search" method="get" role="search">
+      <input class="w-full py-3 px-4 border rounded-md shadow-sm text-sm" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search" autocomplete="off">
+      <button class="absolute right-0 top-0 mt-3 mr-4">
+        <span aria-hidden="true" class="text-2xl icon icon-search"></span>
+      </button>
+    </form>
+  </div>

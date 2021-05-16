@@ -55,7 +55,6 @@
   {% section 'footer' %}
   {% render 'exit-popup' %}
   {% render 'cookies' %}
-  
   {{ 'jquery.js' | asset_url | script_tag }}
   {{ 'jquery.modal.min.js' | asset_url | script_tag }}
   {{ 'flickity.js' | asset_url | script_tag }} 
@@ -78,5 +77,6 @@
         });
     });
   </script>
+  {% include 'predictive' %}
 </body>
 </html>
