@@ -1,0 +1,45 @@
+.list-collections {
+    @extend .container;
+    padding-bottom: 3rem;
+    font-size: var(--font-size-heading-large);
+
+    &__header {
+        @include mq($from: 1024px) {
+            padding-top: 3rem/* 48px */;
+            padding-bottom: 3rem/* 48px */;
+        }
+        padding-top: 2rem/* 32px */;
+        padding-bottom: 2rem/* 32px */;
+    }
+
+    &__breadcrumbs {
+        margin-bottom: 2rem/* 32px */;
+    }
+
+    &__heading {
+        font-size: var(--font-size-heading-large);
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight);
+        line-height: 1.3;
+        color: var(--clr-general-headings);
+    }
+    
+    &__content {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem/* 20px */;
+        @include mq($from: 768px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        @include mq($from: 1024px) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+
+
+
+}
+
+
+

@@ -1,15 +1,15 @@
-<div class="max-width mx-auto space-y-12 mb-8">
+<section class="list-collections">
   {% paginate collections by 9 %}
-  <div class="lg:py-12 py-8">
-    <div class="text-xs text-gray-600 mb-8 lg:text-sm">
+  <div class="list-collections__header">
+    <div class="list-collections__breadcrumbs">
       {% include 'breadcrumbs' %}
     </div>
     <div>
-      <h1 class="text-4xl font-serif lg:text-5xl">{{ page_title }}</h1>
+      <h1 class="list-collections__heading">{{ page_title }}</h1>
     </div>
   </div>
 
-  <div class="2xl:container 2xl:mx-auto 2xl:px-0 grid grid-cols-3 gap-5">
+  <div class="list-collections__content">
     {%- for collection in collections -%}
       {%- if collection.image -%}
         {%- assign collection_image = collection.image -%}
@@ -24,4 +24,4 @@
   </div>
   {% include 'pagination' %}
   {% endpaginate %}
-</div>
+</section>

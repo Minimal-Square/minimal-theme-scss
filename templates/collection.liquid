@@ -1,42 +1,41 @@
-<div class="max-width mx-auto lg:py-12 py-8">
-  <div class="text-xs text-gray-600 mb-8 lg:text-sm">
-    {% include 'breadcrumbs' %}
+<section class="collection">
+  <div class="collection__header">
+    <div class="text-xs text-gray-600 mb-8 lg:text-sm">
+      {% include 'breadcrumbs' %}
+    </div>
+    <div>
+      <h1 class="collection__heading">{{ page_title }}</h1>
+    </div>
   </div>
-  <div>
-    <h1 class="text-4xl font-serif lg:text-5xl">{{ page_title }}</h1>
-  </div>
-</div>
 
-<div class="max-width mx-auto mb-8">
+<div class=" mb-8">
 
   <!-- Collection Filter -->
-  <div class="bg-gray-100 mb-8 py-3 px-4 lg:px-6 rounded-md flex justify-between">
-    <div class="flex space-x-4 lg:flex lg:space-x-6 items-center">
-      <label for="SortBy" class="font-semibold">{{ 'collections.sorting.title' | t }}</label>
-        <select class="bg-transparent text-gray-500 text-sm" name="SortBy" id="SortBy">
+  <div class="collection__utils">
+    <div class="collection__utils-first">
+      <label for="SortBy" class="collection__sortby-title">{{ 'collections.sorting.title' | t }}</label>
+        <select class="collection__sortby-select" name="SortBy" id="SortBy">
           {% for option in collection.sort_options %}
               <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
           {% endfor %}
       </select>
     </div>
 
-    <div class="flex space-x-6">
-      <div class="hidden lg:flex space-x-4 items-center">
-        <p class="font-semibold">{{ 'collections.sorting.show' | t }}</p>
-        <div class="space-x-1 text-sm ">
-          <a href="">1</a>
-          <a href="">2</a>
-          <a href="">3</a>
+    <div class="collection__utils-last">
+      <div class="collection__sorting">
+        <p class="collection__sorting-title">{{ 'collections.sorting.show' | t }}</p>
+        <div class="collection__sorting-numbers ">
+          <a class="collection__sorting-item" href="">1</a>
+          <a class="collection__sorting-item" href="">2</a>
+          <a class="collection__sorting-item" href="">3</a>
         </div>
       </div>
-      <div class="flex space-x-4">
-        <p class="hidden lg:flex font-semibold">{{ 'collections.sorting.view_as' | t }}</p>
-        <div class="flex space-x-2">
-          <a href="">
-            <span aria-hidden="true" class="text-2xl icon icon-list"></span>
+      <div class="collection__sorting-grid-list">
+        <p class="collection__sorting-grid-list-title">{{ 'collections.sorting.view_as' | t }}</p>
+        <div class="collection__sorting-grid-list-icons">
+          <a class="icon icon-list" href="">
           </a>  
-          <a href="">
-            <span aria-hidden="true" class="text-2xl icon icon-grid"></span>
+          <a class="icon icon-grid" href="">
           </a>          
         </div>
       </div>
@@ -45,14 +44,14 @@
   </div>
 
  {% paginate collection.products by 12 %}
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-6">
+  <div class="collection__content">
     {%- for product in collection.products -%}
       {% include 'collection-tile' %}
     {%- endfor -%}
   </div>
   {% include 'pagination' %}
   {% endpaginate %}
-
+</section>
 
 <script>
   // Save existing sort parameters
